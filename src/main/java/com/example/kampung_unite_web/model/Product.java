@@ -23,7 +23,7 @@ public class Product {
 	private String imgURL;
 	
 	@OneToMany(mappedBy = "productId")
-	private int groceryItemId;
+	private GroceryItem groceryItem;
 	
 	
 }

@@ -33,6 +33,7 @@ public class GroceryList {
 	private GroupPlan groupPlan;
 	@ManyToOne
 	private User user;
+	
 	private HitchBuyRole role;
 	private GLStatus status;
 	private String cancelReason;

@@ -12,9 +12,9 @@ public class GroceryItem {
 	private double subtotal;
 	
 	@ManyToOne
-	private int productId;
+	private Product product;
 	
 	@ManyToOne
-	private int groceryListId;
+	private GroceryList groceryList;
 	
 }

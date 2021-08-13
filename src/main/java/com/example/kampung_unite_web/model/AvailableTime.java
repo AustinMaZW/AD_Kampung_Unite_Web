@@ -1,12 +1,12 @@
 package com.example.kampung_unite_web.model;
 
-import java.sql.Time;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.example.kampung_unite_web.model.enums.Timeslot;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +21,6 @@ public class AvailableTime {
 	private int id;
 	@ManyToOne
 	private GroupPlan groupPlan;
-	private Time time;
+	private Timeslot time;
+	private localtime
 }
