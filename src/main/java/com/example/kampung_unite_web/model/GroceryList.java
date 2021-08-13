@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web;
+package com.example.kampung_unite_web.model;
 
 import java.util.List;
 
@@ -9,6 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+
+
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 public class GroceryList {
 	@Id

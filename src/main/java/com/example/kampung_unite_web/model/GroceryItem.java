@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web;
+package com.example.kampung_unite_web.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
