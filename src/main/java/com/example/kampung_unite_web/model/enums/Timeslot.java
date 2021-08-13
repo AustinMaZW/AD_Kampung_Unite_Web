@@ -12,7 +12,8 @@ public enum Timeslot {
 	TS9("4pm - 5pm"),
 	TS10("5pm - 6pm"),
 	TS11("6pm - 7pm"),
-	TS12("8pm - 9pm");
+	TS12("7pm - 8pm");
+
 	
 	private final String displayTimeslot;
 	
