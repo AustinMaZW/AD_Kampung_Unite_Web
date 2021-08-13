@@ -22,5 +22,4 @@ public class AvailableTime {
 	@ManyToOne
 	private GroupPlan groupPlan;
 	private Timeslot time;
-	private localtime
 }
