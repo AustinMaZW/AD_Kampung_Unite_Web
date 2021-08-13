@@ -16,8 +16,8 @@ public class CombinedPurchaseList {
 	private int id;
 	@OneToOne
 	private GroupPlan groupPlan;
-	// @ManyToOne as stated in ERD.
 	
+	// @ManyToOne as stated in ERD.
 	@ManyToMany
 	private List<Product> products;
 	

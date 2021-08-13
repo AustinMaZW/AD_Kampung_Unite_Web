@@ -9,14 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.example.kampung_unite_web.model.enums.GLStatus;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-
-
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,11 +30,11 @@ public class GroceryList {
 	private int id;
 	
 	@ManyToOne 
-	private int groupPlanId;
+	private GroupPlan groupPlan;
 	@ManyToOne
 	private User user;
-	private String role;
-	private String status;
+	private HitchBuyRole role;
+	private GLStatus status;
 	private String cancelReason;
 	
 	@OneToMany(mappedBy = "groceryListId")
