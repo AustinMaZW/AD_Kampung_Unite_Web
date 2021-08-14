@@ -1,5 +1,7 @@
 package com.example.kampung_unite_web.model;
 
+import lombok.*;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 public class CombinedPurchaseList {
 	@Id

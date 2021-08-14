@@ -8,8 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.example.kampung_unite_web.model.enums.Timeslot;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -17,6 +16,9 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 public class AvailableTime {
 	@Id
