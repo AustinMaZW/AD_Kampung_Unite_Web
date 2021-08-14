@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,8 +23,8 @@ public class Product {
 	private String Category;
 	private String imgURL;
 	
-	@OneToMany(mappedBy = "productId")
-	private GroceryItem groceryItem;
+	@OneToMany(mappedBy = "product")
+	private List<GroceryItem> groceryItem;
 	
 	
 }

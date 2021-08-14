@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web.model;
+package com.example.kampung_unite_web.model.enums;
 
 public enum GroupPlanStatus {
     AVAILABLE("Available"),

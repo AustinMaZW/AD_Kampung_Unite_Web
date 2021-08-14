@@ -22,5 +22,5 @@ public class HitcherDetail {
     private LocalTime prefPickupTimeFrom;
     private String prefPickupLocation;
     @OneToMany(mappedBy = "hitcherDetail")
-    private List<GroupPlan_Hitchers> groupPlan_hitchers;
+    private List<HitchRequest> hitchRequestList;
 }

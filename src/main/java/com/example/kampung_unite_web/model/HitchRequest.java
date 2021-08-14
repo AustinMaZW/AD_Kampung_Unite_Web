@@ -1,5 +1,6 @@
 package com.example.kampung_unite_web.model;
 
+import com.example.kampung_unite_web.model.enums.RequestStatus;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class GroupPlan_Hitchers {
+public class HitchRequest {
     @Id
     private int Id;
     private LocalDateTime pickupTimeChosen;

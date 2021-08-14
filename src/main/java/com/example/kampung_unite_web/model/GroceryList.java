@@ -28,17 +28,16 @@ public class GroceryList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
-	@ManyToOne 
-	private GroupPlan groupPlan;
-	@ManyToOne
-	private User user;
-	
 	private HitchBuyRole role;
 	private GLStatus status;
 	private String cancelReason;
 	
-	@OneToMany(mappedBy = "groceryListId")
+	@OneToMany(mappedBy = "groceryList")
 	private List<GroceryItem> groceries;
-	
+
+	@ManyToOne
+	private UserDetail userDetail;
+
+	@ManyToOne
+	private GroupPlan groupPlanGL;
 }

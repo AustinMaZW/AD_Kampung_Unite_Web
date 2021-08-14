@@ -14,14 +14,13 @@ public class CombinedPurchaseList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@OneToOne
-	private GroupPlan groupPlan;
-	
-	// @ManyToOne as stated in ERD.
-	@ManyToMany
-	private List<Product> products;
-	
+
+	private int productId;
 	private int quantity;
 	private double productSubtotal;
+	private double productUnitPrice;
+
+	@OneToOne(mappedBy = "combinedPurchaseList")
+	private GroupPlan groupPlan;
 	
 }

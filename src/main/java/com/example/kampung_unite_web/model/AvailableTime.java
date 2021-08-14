@@ -11,6 +11,9 @@ import com.example.kampung_unite_web.model.enums.Timeslot;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -20,6 +23,6 @@ public class AvailableTime {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@ManyToOne
-	private GroupPlan groupPlan;
-	private Timeslot time;
+	private GroupPlan groupPlanAT;
+	private LocalTime pickupSlots;
 }
