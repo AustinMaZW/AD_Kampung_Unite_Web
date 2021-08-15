@@ -16,4 +16,8 @@ public interface UserDetailService {
     void deleteUserById(int id);
 
     UserDetail findUserByUsername(String username);
+
+    void logoutUser(UserDetail userDetail);
+
+    void updateUser(UserDetail userDetail);
 }

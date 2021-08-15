@@ -38,4 +38,16 @@ public class UserDetailImplementation implements UserDetailService {
     public UserDetail findUserByUsername(String username) {
         return udrepo.findByUsername(username);
     }
+
+    @Override
+    public void logoutUser(UserDetail userDetail) {
+        userDetail.setAuthentication(null);
+        udrepo.save(userDetail);
+    }
+
+    @Override
+    public void updateUser(UserDetail userDetail) {
+        udrepo.save(userDetail);
+    }
+
 }

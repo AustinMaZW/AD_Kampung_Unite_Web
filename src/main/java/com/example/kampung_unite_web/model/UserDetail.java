@@ -30,12 +30,16 @@ public class UserDetail extends UserLogin{
         return authentication;
     }
 
-    public void setAuthentication() {
-       String password = super.getPassword();
-       this.authentication = returnAuthentication(password);
+    public void setAuthentication(String authentication) {
+        this.authentication = authentication;
     }
 
-    public String returnAuthentication(String password) {
+    public void generateAuthentication() {
+        String password = super.getPassword();
+        this.authentication = authenticationToken(password);
+    }
+
+    public String authenticationToken(String password) {
         String encodedPassword = PasswordEncoder().encode(password);
         return encodedPassword;
     }
@@ -44,7 +48,7 @@ public class UserDetail extends UserLogin{
         return new BCryptPasswordEncoder();
     }
 
-    public UserDetail(String username, String password, int id, String firstName, String lastName, String role, String phoneNumber, String homeAddress) {
+    public UserDetail(int id, String username, String password,  String firstName, String lastName, String role, String phoneNumber, String homeAddress) {
         super(username,password);
         this.id = id;
         this.firstName = firstName;
@@ -52,7 +56,6 @@ public class UserDetail extends UserLogin{
         this.role = role;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
-        setAuthentication();
     }
 
     public UserDetail(String username, String password, String firstName, String lastName, String role, String phoneNumber, String homeAddress) {
@@ -62,7 +65,6 @@ public class UserDetail extends UserLogin{
         this.role = role;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
-        this.authentication= returnAuthentication(password);
     }
 
     public UserDetail(String username, String password, String firstName, String lastName) {
