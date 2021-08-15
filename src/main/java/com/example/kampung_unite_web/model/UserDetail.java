@@ -1,6 +1,8 @@
 package com.example.kampung_unite_web.model;
 
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +21,28 @@ public class UserDetail extends UserLogin{
     private String role;
     private String phoneNumber;
     private String homeAddress;
+    private String authentication;
 
     @OneToMany(mappedBy = "userDetail")
     private List<GroceryList> grocerylists;
 
+    public String getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication() {
+       String password = super.getPassword();
+       this.authentication = returnAuthentication(password);
+    }
+
+    public String returnAuthentication(String password) {
+        String encodedPassword = PasswordEncoder().encode(password);
+        return encodedPassword;
+    }
+
+    private PasswordEncoder PasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     public UserDetail(String username, String password, int id, String firstName, String lastName, String role, String phoneNumber, String homeAddress) {
         super(username,password);
@@ -32,5 +52,27 @@ public class UserDetail extends UserLogin{
         this.role = role;
         this.phoneNumber = phoneNumber;
         this.homeAddress = homeAddress;
+        setAuthentication();
+    }
+
+    public UserDetail(String username, String password, String firstName, String lastName, String role, String phoneNumber, String homeAddress) {
+        super(username,password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.phoneNumber = phoneNumber;
+        this.homeAddress = homeAddress;
+        this.authentication= returnAuthentication(password);
+    }
+
+    public UserDetail(String username, String password, String firstName, String lastName) {
+        super(username,password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public UserDetail(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }
