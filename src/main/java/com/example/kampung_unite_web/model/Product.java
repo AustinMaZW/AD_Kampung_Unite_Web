@@ -26,6 +26,8 @@ public class Product {
 	
 	@OneToMany(mappedBy = "product")
 	private List<GroceryItem> groceryItem;
-	
+
+	@OneToMany(mappedBy = "product")
+	private List<CombinedPurchaseList> combinedPurchaseLists;
 	
 }
