@@ -2,12 +2,7 @@ package com.example.kampung_unite_web.model;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.model.enums.HitchBuyRole;
@@ -40,4 +35,7 @@ public class GroceryList {
 
 	@ManyToOne
 	private GroupPlan groupPlanGL;
+
+	@OneToOne
+	private HitcherDetail hitcherDetail;
 }
