@@ -16,7 +16,7 @@ import java.util.List;
 public class GroupPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
     private String storeName;
     private LocalDate shoppingDate;
     private String pickupAddress;

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class HitchRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int Id;
+    private int id;
     private LocalDateTime pickupTimeChosen;
     private boolean buyerConfirmTransaction;
     private boolean hitcherConfirmTransaction;
