@@ -1,16 +1,9 @@
 package com.example.kampung_unite_web.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -26,9 +19,11 @@ public class GroceryItem {
 	private double subtotal;
 
 	@ManyToOne
+	@JsonIgnoreProperties("groceryItems")
 	private Product product;
 
 	@ManyToOne
+	@JsonIgnoreProperties("groceryItems")
 	private GroceryList groceryList;
 
 	public GroceryItem(int quantity, double subtotal, Product product, GroceryList groceryList) {
