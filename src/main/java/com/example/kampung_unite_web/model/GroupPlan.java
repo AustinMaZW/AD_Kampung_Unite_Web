@@ -3,10 +3,7 @@ package com.example.kampung_unite_web.model;
 import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,6 +15,7 @@ import java.util.List;
 @Entity
 public class GroupPlan {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
     private String storeName;
     private LocalDate shoppingDate;

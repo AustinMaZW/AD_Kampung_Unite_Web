@@ -3,9 +3,7 @@ package com.example.kampung_unite_web.model;
 import com.example.kampung_unite_web.model.enums.RequestStatus;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class HitchRequest {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int Id;
     private LocalDateTime pickupTimeChosen;
     private boolean buyerConfirmTransaction;

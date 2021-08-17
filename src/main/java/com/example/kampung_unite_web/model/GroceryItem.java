@@ -1,10 +1,9 @@
 package com.example.kampung_unite_web.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -14,14 +13,17 @@ import javax.persistence.ManyToOne;
 @Entity
 public class GroceryItem {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private int quantity;
 	private double subtotal;
-	
+
 	@ManyToOne
+	@JsonIgnoreProperties("groceryItems")
 	private Product product;
 	
 	@ManyToOne
+	@JsonIgnoreProperties("groceryItems")
 	private GroceryList groceryList;
 	
 }

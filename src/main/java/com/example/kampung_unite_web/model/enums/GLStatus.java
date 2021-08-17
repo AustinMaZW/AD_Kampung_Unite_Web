@@ -4,7 +4,8 @@ public enum GLStatus {
 	COMPLETED("Completed"),
 	ACCEPTED("Accepted"),
 	PENDING("Pending"),
-	CANCELLED("Cancelled");
+	CANCELLED("Cancelled"),
+	DELETED("Deleted");
 	
 	private final String displayGLStatus;
 	
