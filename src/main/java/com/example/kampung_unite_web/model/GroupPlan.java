@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 
@@ -35,8 +34,8 @@ public class GroupPlan {
 	private LocalDate pickupDate;
 	private GroupPlanStatus groupPlanStatus;
 
-	@OneToOne
-	private CombinedPurchaseList combinedPurchaseList;
+	@OneToMany(mappedBy = "groupPlan")
+	private List<CombinedPurchaseList> combinedPurchaseList;
 
 	@OneToMany(mappedBy = "groupPlanAT")
 	private List<AvailableTime> availableTimes;

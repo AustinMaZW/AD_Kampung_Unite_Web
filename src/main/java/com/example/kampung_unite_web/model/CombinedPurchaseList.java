@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +26,7 @@ public class CombinedPurchaseList {
 	private double productSubtotal;
 	private double productUnitPrice;
 
-	@OneToOne(mappedBy = "combinedPurchaseList")
+	@ManyToOne
 	private GroupPlan groupPlan;
 
 	@ManyToOne
