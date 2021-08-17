@@ -72,8 +72,8 @@ public class MLDataTest {
 	@Test()
 	@Order(1)
 	public void CreateProduct() {
-		Product[] products = { new Product("apple"), new Product("banana"), new Product("shit"),
-				new Product("cock cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
+		Product[] products = { new Product("apple"), new Product("banana"), new Product("hunmberger"),
+				new Product("coca cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
 				new Product("ice cream"), new Product("mango") };
 		Arrays.stream(products).forEach(x -> prepo.save(x));
 	}
