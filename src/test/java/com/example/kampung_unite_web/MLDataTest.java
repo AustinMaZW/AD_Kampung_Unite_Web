@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.example.kampung_unite_web.model.CombinedPurchaseList;
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.GroupPlan;
@@ -71,9 +72,9 @@ public class MLDataTest {
 	@Test()
 	@Order(1)
 	public void CreateProduct() {
-		Product[] products = { new Product("shit_1"), new Product("shit_2"), new Product("shit_3"),
-				new Product("shit_4"), new Product("shit_5"), new Product("shit_6"), new Product("shit_7"),
-				new Product("shit_8"), new Product("shit_9") };
+		Product[] products = { new Product("apple"), new Product("banana"), new Product("shit"),
+				new Product("cock cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
+				new Product("ice cream"), new Product("mango") };
 		Arrays.stream(products).forEach(x -> prepo.save(x));
 	}
 
@@ -87,7 +88,7 @@ public class MLDataTest {
 				LocalDate.of(2021, 9, 15), LocalDate.of(2021, 9, 8), LocalDate.of(2021, 9, 25) };
 		String[] address = { "220 Prince Edward Road, Singapore, Singapore",
 				"2024 BUKIT BATOK STREET, Singapore, Singapore", "3016 BEDOK NORTH AVENUE, Singapore, Singapore",
-				"6 Cairnhill Rise, Singapore, Singapore", "950 Old Choa Chu Kang Road, Singapore, Singapore",
+				"6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
 				"Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
 		for (int i = 0; i < address.length; i++) {
 			grepo.save(new GroupPlan(String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
@@ -150,5 +151,13 @@ public class MLDataTest {
 	@Test
 	@Order(6)
 	public void CreateCombineList() {
+		List<GroupPlan> plans = grepo.findAll();
+		List<Product> products = prepo.findAll();
+		for (int i = 0; i < plans.size(); i++) {
+			for (int j = 0; j < products.size(); j++) {
+				crepo.save(new CombinedPurchaseList(20, 20, 1, plans.get(i), products.get(j)));
+			}
+		}
+
 	}
 }
