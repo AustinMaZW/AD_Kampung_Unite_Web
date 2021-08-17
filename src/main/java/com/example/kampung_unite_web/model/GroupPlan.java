@@ -25,9 +25,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 public class GroupPlan {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
+	private int id;
 	private String storeName;
 	private LocalDate shoppingDate;
 	private String pickupAddress;
@@ -55,5 +56,6 @@ public class GroupPlan {
 		this.pickupDate = pickupDate;
 		this.groupPlanStatus = groupPlanStatus;
 	}
+
 
 }
