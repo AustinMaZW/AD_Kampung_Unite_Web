@@ -91,7 +91,7 @@ public class MLDataTest {
 				"6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
 				"Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
 		for (int i = 0; i < address.length; i++) {
-			grepo.save(new GroupPlan(String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
+			grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
 					GroupPlanStatus.AVAILABLE));
 		}
 //		GroupPlan[] groupPlans = {

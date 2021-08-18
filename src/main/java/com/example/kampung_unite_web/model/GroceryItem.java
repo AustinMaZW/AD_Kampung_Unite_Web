@@ -1,6 +1,8 @@
 package com.example.kampung_unite_web.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
+//@JsonIgnoreProperties(value = {"product", "groceryList"})
 public class GroceryItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +22,11 @@ public class GroceryItem {
 	private double subtotal;
 
 	@ManyToOne
-	@JsonIgnoreProperties("groceryItems")
+	//@JsonIgnoreProperties("groceryItems")
 	private Product product;
 
 	@ManyToOne
-	@JsonIgnoreProperties("groceryItems")
+	//@JsonIgnoreProperties("groceryItems")
 	private GroceryList groceryList;
 
 	public GroceryItem(int quantity, double subtotal, Product product, GroceryList groceryList) {
