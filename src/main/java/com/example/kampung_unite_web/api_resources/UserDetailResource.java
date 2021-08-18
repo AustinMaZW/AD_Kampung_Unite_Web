@@ -52,32 +52,53 @@ public class UserDetailResource {
 
     @DeleteMapping("delete/{id}")
     public void deleteUserDetail(@PathVariable("id") int id){
-        System.out.println(udService.findUserById(id)); //test out code only
+//        System.out.println(udService.findUserById(id)); //test out code only
         udService.deleteUserById(id);
     }
 
-    @GetMapping("login/{username}&&{password}") // returns an Authentication String
-    public String login(@PathVariable("username") String username, @PathVariable("password") String password){
+//    Uses json in requestbody to pass
+    @PostMapping("login")
+    public UserDetail login (@RequestBody UserDetail userDetail){
         String authentication = null;
-        UserDetail userDetail = udService.findUserByUsername(username); //find user
-
-        System.out.println(userDetail.getPassword().toString()); //test purpose only
-
-        if (password.matches(userDetail.getPassword().toString())){
-            if (userDetail.getAuthentication() != null) {
-                authentication = userDetail.getAuthentication();
-            }
-            else {
-                authentication = PasswordEncoder().encode(password);
+        String udUsername = userDetail.getUsername();
+        UserDetail repoUD= udService.findUserByUsername(udUsername);
+        if (userDetail.getAuthentication()==null || !userDetail.getAuthentication().matches(repoUD.getAuthentication())){
+            if(userDetail.getPassword().matches(repoUD.getPassword())){
+                if (repoUD.getAuthentication() != null){
+                    authentication = repoUD.getAuthentication();
+                }
+                else{
+                    authentication = PasswordEncoder().encode(userDetail.getPassword());
+                    repoUD.setAuthentication(authentication);
+                    udService.updateUser(repoUD);
+                }
                 userDetail.setAuthentication(authentication);
-                udService.updateUser(userDetail);
             }
         }
-
-        System.out.println(authentication);//test purpose only
-
-        return authentication;
+        return userDetail;
     }
+
+//    Use url to login (cons: password cannot contain slashes)
+//    @GetMapping("login/{username}&&{password}") // returns an Authentication String
+//    public String login(@PathVariable("username") String username, @PathVariable("password") String password){
+//        String authentication = null;
+//        UserDetail userDetail = udService.findUserByUsername(username); //find user
+//
+//        System.out.println(userDetail.getPassword().toString()); //test purpose only
+//
+//        if (password.matches(userDetail.getPassword().toString())){
+//            if (userDetail.getAuthentication() != null) {
+//                authentication = userDetail.getAuthentication();
+//            }
+//            else {
+//                authentication = PasswordEncoder().encode(password);
+//                userDetail.setAuthentication(authentication);
+//                udService.updateUser(userDetail);
+//            }
+//        }
+//        System.out.println(authentication);//test purpose only
+//        return authentication;
+//    }
 
     private PasswordEncoder PasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -92,15 +113,24 @@ public class UserDetailResource {
         return "logout success";
     }
 
-    @GetMapping("authenticate")
-    public String authenticateLogin(@RequestBody UserDetail userDetail){
+    @GetMapping("authenticate/{username}")
+    public String authenticateLogin(@PathVariable("username") String username){
+        String auth = null;
+        UserDetail ud = udService.findUserByUsername(username);
+        if (ud.getAuthentication() != null){
+            auth = ud.getAuthentication();
+        }
+        return auth;
+    }
+
+    @PostMapping("authenticate")
+    public UserDetail authenticateLogin(@RequestBody UserDetail userDetail){
         String auth = null;
         UserDetail ud = udService.findUserByUsername(userDetail.getUsername());
-        if (userDetail.getAuthentication().matches(ud.getAuthentication())){
-            auth = userDetail.getAuthentication();
+        if (ud.getAuthentication() != null){
+            auth = ud.getAuthentication();
         }
-        System.out.println(auth);
-        return auth;
+        return userDetail;
     }
 
 }
