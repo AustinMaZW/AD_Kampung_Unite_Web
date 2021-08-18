@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import com.example.kampung_unite_web.repo.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -27,13 +28,6 @@ import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import com.example.kampung_unite_web.model.enums.HitchBuyRole;
-import com.example.kampung_unite_web.repo.CPLRepository;
-import com.example.kampung_unite_web.repo.GroceryItemRepository;
-import com.example.kampung_unite_web.repo.GroceryListRepository;
-import com.example.kampung_unite_web.repo.GroupPlanRepository;
-import com.example.kampung_unite_web.repo.HitcherDetailRepository;
-import com.example.kampung_unite_web.repo.ProductRepository;
-import com.example.kampung_unite_web.repo.UserDetailRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = KampungUniteWebApplication.class)
