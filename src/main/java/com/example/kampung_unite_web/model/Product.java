@@ -1,18 +1,15 @@
 package com.example.kampung_unite_web.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -20,6 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@JsonIgnoreProperties(value = {"groceryItems", "combinedPurchaseLists"})
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,9 +28,11 @@ public class Product {
 	private String imgURL;
 
 	@OneToMany(mappedBy = "product")
-	private List<GroceryItem> groceryItem;
+	@JsonIgnoreProperties("product")
+	private List<GroceryItem> groceryItems;
 
 	@OneToMany(mappedBy = "product")
+	@JsonIgnoreProperties("product")
 	private List<CombinedPurchaseList> combinedPurchaseLists;
 
 	public Product(String name) {

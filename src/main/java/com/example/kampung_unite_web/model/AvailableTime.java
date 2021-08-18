@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.example.kampung_unite_web.model.enums.Timeslot;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import java.time.LocalTime;
@@ -25,6 +26,7 @@ public class AvailableTime {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@ManyToOne
+	@JsonIgnoreProperties("availableTimes")
 	private GroupPlan groupPlanAT;
 	private LocalTime pickupSlots;
 }

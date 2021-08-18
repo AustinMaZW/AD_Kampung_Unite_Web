@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,11 @@ public class CombinedPurchaseList {
 	private double productUnitPrice;
 
 	@ManyToOne
+	@JsonIgnoreProperties("combinedPurchaseList")
 	private GroupPlan groupPlan;
 
 	@ManyToOne
+	@JsonIgnoreProperties("combinedPurchaseLists")
 	private Product product;
 
 	public CombinedPurchaseList(int quantity, double productSubtotal, double productUnitPrice, GroupPlan groupPlan,
