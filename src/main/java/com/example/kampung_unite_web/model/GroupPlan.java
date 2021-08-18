@@ -28,17 +28,17 @@ public class GroupPlan {
 	private LocalDate pickupDate;
 	private GroupPlanStatus groupPlanStatus;
 
-//	@OneToMany(mappedBy = "groupPlan")
-//	private List<CombinedPurchaseList> combinedPurchaseList;
-//
-//	@OneToMany(mappedBy = "groupPlanAT")
-//	private List<AvailableTime> availableTimes;
-//
-//	@OneToMany(mappedBy = "groupPlanGL")
-//	private List<GroceryList> groceryLists;
-//
-//	@OneToMany(mappedBy = "groupPlan")
-//	private List<HitchRequest> hitchRequests;
+	@OneToMany(mappedBy = "groupPlan")
+	private List<CombinedPurchaseList> combinedPurchaseList;
+
+	@OneToMany(mappedBy = "groupPlanAT")
+	private List<AvailableTime> availableTimes;
+
+	@OneToMany(mappedBy = "groupPlanGL")
+	private List<GroceryList> groceryLists;
+
+	@OneToMany(mappedBy = "groupPlan")
+	private List<HitchRequest> hitchRequests;
 
 	public GroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress, LocalDate pickupDate,
 			GroupPlanStatus groupPlanStatus) {

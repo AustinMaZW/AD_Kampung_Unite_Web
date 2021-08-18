@@ -13,7 +13,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Entity
-//@JsonIgnoreProperties(value = {"product", "groceryList"})
 public class GroceryItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +21,11 @@ public class GroceryItem {
 	private double subtotal;
 
 	@ManyToOne
-	//@JsonIgnoreProperties("groceryItems")
+	//@JsonIgnoreProperties("groceryItems")		// don't think we need this, if at the end no prob then delete
 	private Product product;
 
 	@ManyToOne
-	//@JsonIgnoreProperties("groceryItems")
+	//@JsonIgnoreProperties("groceryItems")		// don't think we need this, if at the end no prob then delete
 	private GroceryList groceryList;
 
 	public GroceryItem(int quantity, double subtotal, Product product, GroceryList groceryList) {

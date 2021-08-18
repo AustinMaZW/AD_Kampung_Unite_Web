@@ -20,6 +20,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
+@JsonIgnoreProperties(value={"groceryItems", "hitcherDetail"})
 public class GroceryList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
