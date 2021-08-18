@@ -45,9 +45,10 @@ public class GroceryList {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private HitcherDetail hitcherDetail;
 
-	public GroceryList(GLStatus status, UserDetail userDetail, GroupPlan groupPlanGL, HitcherDetail hitcherDetail,
+	public GroceryList(String name, GLStatus status, UserDetail userDetail, GroupPlan groupPlanGL, HitcherDetail hitcherDetail,
 			HitchBuyRole role) {
 		super();
+		this.name = name;
 		this.status = status;
 		this.userDetail = userDetail;
 		this.groupPlanGL = groupPlanGL;
