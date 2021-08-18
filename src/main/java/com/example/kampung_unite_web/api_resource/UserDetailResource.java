@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web.api_resources;
+package com.example.kampung_unite_web.api_resource;
 
 import com.example.kampung_unite_web.Interfaces.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
