@@ -123,7 +123,7 @@ public class HitchRQDataTest {
         List<HitcherDetail> hitcherDetails = hrepo.findAll();
 
         for (int i = 0; i < hitcherDetails.size(); i++) {
-            glrepo.save(new GroceryList(GLStatus.ACCEPTED, usrs.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
+            glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, usrs.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
         }
     }
 
@@ -137,7 +137,7 @@ public class HitchRQDataTest {
         LocalDateTime prefPickUpTime = LocalDateTime.of(2021, 10, 24, 0, 0, 0);
         String prefPickUpLoc = "220 Prince Edward Road, Singapore, Singapore";
         for (int i = 0; i < hitcherDetails.size(); i++) {
-            glrepo.save(new GroceryList(GLStatus.PENDING, usrs.get(i % 2), null,
+            glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.PENDING, usrs.get(i % 2), null,
                     new HitcherDetail(prefPickUpTime, prefPickUpLoc), HitchBuyRole.HITCHER));
         }
     }

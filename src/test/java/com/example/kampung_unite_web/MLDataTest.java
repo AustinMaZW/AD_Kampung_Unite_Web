@@ -141,8 +141,8 @@ public class MLDataTest {
 		List<HitcherDetail> hitcherDetails = hrepo.findAll();
 
 		for (int i = 0; i < hitcherDetails.size(); i++) {
-			glrepo.save(new GroceryList(GLStatus.ACCEPTED, buyers.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
-			glrepo.save(new GroceryList(GLStatus.ACCEPTED, Hitchers.get(i), plans.get(i), hitcherDetails.get(i),
+			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, buyers.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
+			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, Hitchers.get(i), plans.get(i), hitcherDetails.get(i),
 					HitchBuyRole.HITCHER));
 		}
 	}
