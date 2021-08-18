@@ -2,7 +2,7 @@ package com.example.kampung_unite_web.implementations;
 
 import com.example.kampung_unite_web.Interfaces.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
-import com.example.kampung_unite_web.repositories.UserDetailRepository;
+import com.example.kampung_unite_web.repo.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
