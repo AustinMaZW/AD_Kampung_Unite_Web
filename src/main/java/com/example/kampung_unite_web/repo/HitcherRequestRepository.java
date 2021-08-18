@@ -9,4 +9,6 @@ public interface HitcherRequestRepository extends JpaRepository<HitchRequest, In
     public List<HitchRequest> findHitchRequestsByHitcherDetailId(int id);
 
     public HitchRequest findHitchRequestsById(int id);
+
+    public List<HitchRequest> findHitchRequestsByGroupPlanId(int id);
 }

@@ -26,6 +26,11 @@ public class HitchRequestServiceImpl implements HitchRequestService{
     }
 
     @Override
+    public List<HitchRequest> findHitchRQByGroupPlanId(int id) {
+        return hrqRepo.findHitchRequestsByGroupPlanId(id);
+    }
+
+    @Override
     public HitchRequest findHitchRQById(int hitchRqId){
         return hrqRepo.findHitchRequestsById(hitchRqId);
     }

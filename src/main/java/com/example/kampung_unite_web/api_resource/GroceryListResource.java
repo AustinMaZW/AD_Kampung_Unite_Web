@@ -1,5 +1,6 @@
 package com.example.kampung_unite_web.api_resource;
 
+import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.resposeModel.StatusResponseEntity;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
@@ -19,6 +20,11 @@ public class GroceryListResource {
     @GetMapping
     public List<GroceryList> getGroceryLists() {
         return groceryListRepository.findAll();
+    }
+
+    @GetMapping(value = "/{hitcherId}")
+    public GroceryList getGroceryListByHitcherId(@PathVariable("hitcherId") int hitcherId){
+        return groceryListRepository.getGroceryListByHitcherDetail_Id(hitcherId);
     }
 
     @PutMapping

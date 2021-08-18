@@ -3,11 +3,14 @@ package com.example.kampung_unite_web.api_resource;
 import com.example.kampung_unite_web.model.HitchRequest;
 import com.example.kampung_unite_web.service.HitchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,4 +28,10 @@ public class HitchRequestResource {
     public HitchRequest getHitchRq(@PathVariable("id") int hrqId){
         return hrqService.findHitchRQById(hrqId);
     }
+
+    @GetMapping(value = "/groupplan/{groupplanid}")
+    public List<HitchRequest> getHitchRqsByGroupPlanId(@PathVariable("groupplanid") int id){
+        return hrqService.findHitchRQByGroupPlanId(id);
+    }
+
 }
