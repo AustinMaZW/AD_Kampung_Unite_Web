@@ -60,10 +60,13 @@ public class UserDetailResource {
     @PostMapping("login")
     public UserDetail login (@RequestBody UserDetail userDetail){
         String authentication = null;
+        int userId = 0;
         String udUsername = userDetail.getUsername();
         UserDetail repoUD= udService.findUserByUsername(udUsername);
         if (userDetail.getAuthentication()==null || !userDetail.getAuthentication().matches(repoUD.getAuthentication())){
             if(userDetail.getPassword().matches(repoUD.getPassword())){
+                userId = repoUD.getId();
+                userDetail.setId(userId);
                 if (repoUD.getAuthentication() != null){
                     authentication = repoUD.getAuthentication();
                 }
@@ -107,6 +110,15 @@ public class UserDetailResource {
     @GetMapping("logout/{username}")
     public String logout(@PathVariable("username") String username){
         UserDetail userDetail = udService.findUserByUsername(username);
+        if (userDetail.getAuthentication()!=null){
+            udService.logoutUser(userDetail);
+        }
+        return "logout success";
+    }
+
+    @GetMapping("logout/{id}")
+    public String logout(@PathVariable("id") int id){
+        UserDetail userDetail = udService.findUserById(id);
         if (userDetail.getAuthentication()!=null){
             udService.logoutUser(userDetail);
         }
