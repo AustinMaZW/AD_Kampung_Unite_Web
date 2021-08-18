@@ -17,15 +17,12 @@ public class HitcherDetailResource {
 	private HitcherDetailService hds;
 
 	@RequestMapping(path = "/saveHicherDetail", method = RequestMethod.POST)
-	public boolean saveHitcherDetail(@RequestBody ForHitcherDetail fhd) {
+	public int saveHitcherDetail(@RequestBody ForHitcherDetail fhd) {
 		if (fhd == null) {
-			return false;
+			return -1;
 		} else {
 			HitcherDetail newHd = fhd.getHitcherDetail();
-			if (hds.createHitcherDetail(newHd)) {
-				return true;
-			} else
-				return false;
+			return hds.createHitcherDetail(newHd).getId();
 		}
 	}
 

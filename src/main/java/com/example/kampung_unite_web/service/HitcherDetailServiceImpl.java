@@ -13,12 +13,11 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 	private HitcherDetailRepository hdrepo;
 
 	@Override
-	public boolean createHitcherDetail(HitcherDetail hd) {
+	public HitcherDetail createHitcherDetail(HitcherDetail hd) {
 		if (hd == null) {
-			return false;
+			return null;
 		} else {
-			hdrepo.save(hd);
-			return true;
+			return hdrepo.save(hd);
 		}
 	}
 }
