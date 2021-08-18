@@ -2,6 +2,7 @@ package com.example.kampung_unite_web;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -72,8 +73,8 @@ public class MLDataTest {
 	@Test()
 	@Order(1)
 	public void CreateProduct() {
-		Product[] products = { new Product("apple"), new Product("banana"), new Product("shit"),
-				new Product("cock cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
+		Product[] products = { new Product("apple"), new Product("banana"), new Product("hunmberger"),
+				new Product("coca cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
 				new Product("ice cream"), new Product("mango") };
 		Arrays.stream(products).forEach(x -> prepo.save(x));
 	}
@@ -127,11 +128,22 @@ public class MLDataTest {
 	@Order(4)
 	public void CreateGroceryList() {
 		List<UserDetail> usrs = urepo.findAll();
+		List<UserDetail> buyers = new ArrayList<>();
+		List<UserDetail> Hitchers = new ArrayList<>();
+		usrs.stream().forEach(x -> {
+			if (x.getRole().equals("Hitcher")) {
+				Hitchers.add(x);
+			} else {
+				buyers.add(x);
+			}
+		});
 		List<GroupPlan> plans = grepo.findAll();
 		List<HitcherDetail> hitcherDetails = hrepo.findAll();
 
 		for (int i = 0; i < hitcherDetails.size(); i++) {
-			glrepo.save(new GroceryList(GLStatus.ACCEPTED, usrs.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
+			glrepo.save(new GroceryList(GLStatus.ACCEPTED, buyers.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
+			glrepo.save(new GroceryList(GLStatus.ACCEPTED, Hitchers.get(i), plans.get(i), hitcherDetails.get(i),
+					HitchBuyRole.HITCHER));
 		}
 	}
 
@@ -142,8 +154,13 @@ public class MLDataTest {
 		List<GroceryList> gls = glrepo.findAll();
 		for (int i = 0; i < products.size(); i++) {
 			for (int j = 0; j < gls.size(); j++) {
-				GroceryItem gi = new GroceryItem(i, 20, products.get(i), gls.get(j));
-				girepo.save(gi);
+				if (gls.get(j).getRole() == HitchBuyRole.HITCHER) {
+					GroceryItem gi = new GroceryItem(i, 20, products.get(i), gls.get(j));
+					girepo.save(gi);
+				} else {
+					GroceryItem gi = new GroceryItem(i, 20, products.get(i), gls.get(j));
+					girepo.save(gi);
+				}
 			}
 		}
 	}
