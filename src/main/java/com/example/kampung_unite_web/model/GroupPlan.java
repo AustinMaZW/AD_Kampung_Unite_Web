@@ -51,5 +51,17 @@ public class GroupPlan {
 		this.groupPlanStatus = groupPlanStatus;
 	}
 
+	public GroupPlan(int id, String planName, String storeName, LocalDate shoppingDate, String pickupAddress, LocalDate pickupDate,
+					 GroupPlanStatus groupPlanStatus) {
+		super();
+		this.id = id;
+		this.planName = planName;
+		this.storeName = storeName;
+		this.shoppingDate = shoppingDate;
+		this.pickupAddress = pickupAddress;
+		this.pickupDate = pickupDate;
+		this.groupPlanStatus = groupPlanStatus;
+	}
+
 
 }
