@@ -3,10 +3,7 @@ package com.example.kampung_unite_web.api_resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.kampung_unite_web.model.GroupPlan;
 import com.example.kampung_unite_web.service.GroupPlanService;
@@ -24,5 +21,10 @@ public class GroupPlanResource {
 		System.out.println("shit");
 		return plans;
 
+	}
+
+	@GetMapping(value = "/quit/{groceryListId}")
+	public Boolean quitGroupPlan(@PathVariable("groceryListId") int id){
+		return gls.quitGroceryPlan(id);
 	}
 }
