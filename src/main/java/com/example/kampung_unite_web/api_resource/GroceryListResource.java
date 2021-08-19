@@ -1,8 +1,11 @@
 package com.example.kampung_unite_web.api_resource;
 
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.HitcherDetail;
 import com.example.kampung_unite_web.model.resposeModel.StatusResponseEntity;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
+import com.example.kampung_unite_web.service.HitchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +19,9 @@ public class GroceryListResource {
     @Autowired
     GroceryListRepository groceryListRepository;
 
-    @GetMapping
-    public List<GroceryList> getGroceryLists() {
-        return groceryListRepository.findAll();
+    @GetMapping("/{userDetailId}")
+    public List<GroceryList> findGroceryListsByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
+        return groceryListRepository.findGroceryListsByUserDetailId(userDetailId);
     }
 
     @PutMapping
