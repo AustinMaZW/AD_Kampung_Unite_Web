@@ -56,4 +56,14 @@ public class GroceryList {
 		this.role = role;
 	}
 
+	public GroceryList(int id, String name, GLStatus status, UserDetail userDetail, GroupPlan groupPlanGL, HitcherDetail hitcherDetail,
+					   HitchBuyRole role) {
+		this.id = id;
+		this.name = name;
+		this.role = role;
+		this.status = status;
+		this.userDetail = userDetail;
+		this.groupPlanGL = groupPlanGL;
+		this.hitcherDetail = hitcherDetail;
+	}
 }

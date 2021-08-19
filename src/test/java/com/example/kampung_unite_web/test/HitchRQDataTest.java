@@ -64,8 +64,8 @@ public class HitchRQDataTest {
     @Test()
     @Order(1)
     public void CreateProduct() {
-        Product[] products = { new Product("apple"), new Product("banana"), new Product("shit"),
-                new Product("cock cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
+        Product[] products = { new Product("apple"), new Product("banana"), new Product("Soy sauce"),
+                new Product("coke cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
                 new Product("ice cream"), new Product("mango") };
         Arrays.stream(products).forEach(x -> prepo.save(x));
     }
@@ -83,7 +83,7 @@ public class HitchRQDataTest {
                 "6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
                 "Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
         for (int i = 0; i < address.length; i++) {
-            grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
+            grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Great Store_%s", i), shipping[i], address[i], pickUp[i],
                     GroupPlanStatus.AVAILABLE));
         }
 //		GroupPlan[] groupPlans = {
@@ -179,10 +179,53 @@ public class HitchRQDataTest {
         for (int i = 0; i < plans.size(); i++) {
             for (int j = 0; j < gls.size(); j++) {
                 if(gls.get(j).getRole()!= HitchBuyRole.BUYER){
-                    hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
-                            RequestStatus.PENDING, plans.get(i),gls.get(j).getHitcherDetail()));
+                    if(gls.get(j).getHitcherDetail().getId() == 37 && plans.get(i).getId() == 20){      //add mock data for an accepted request
+                        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                                RequestStatus.ACCEPTED, plans.get(i),gls.get(j).getHitcherDetail()));
+                    }
+                    else{
+                        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                                RequestStatus.PENDING, plans.get(i),gls.get(j).getHitcherDetail()));
+                    }
+
                 }
             }
         }
+    }
+
+    @Test
+    @Order(9)
+    public void CreateCombinedListTestData(){
+
+        //create dummy plan
+        LocalDate pickUp = LocalDate.of(2021, 10, 15);
+        LocalDate shopping = LocalDate.of(2021, 10, 1);
+        LocalDateTime pickTimeChosen = LocalDateTime.of(2021, 10, 15, 0, 0, 0);
+        String address = "220 Prince Edward Road, Singapore, Singapore";
+        grepo.save(new GroupPlan("special plan", String.format("secret store"),shopping, address, pickUp, GroupPlanStatus.AVAILABLE));
+        GroupPlan groupplan = grepo.findGroupPlanById(246); //hard coded the id here
+
+        //create dummy grocery list
+        List<UserDetail> usrs = urepo.findAll();
+        glrepo.save(new GroceryList(String.format("my super grocery"), GLStatus.ACCEPTED, usrs.get(0), groupplan, new HitcherDetail(pickTimeChosen, address), HitchBuyRole.BUYER));
+        glrepo.save(new GroceryList(String.format("buy buy buy"), GLStatus.ACCEPTED, usrs.get(1), groupplan, new HitcherDetail(pickTimeChosen, address), HitchBuyRole.HITCHER));
+
+        //fill dummy grocery list with items
+        List<Product> products = prepo.findAll();
+        for (int i = 0; i < products.size(); i++) {
+            GroceryItem g1 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(247));
+            girepo.save(g1);
+            GroceryItem g2 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(249));
+            girepo.save(g2);
+        }
+
+        //fill dummy combined list data
+        for (int i = 0; i < products.size(); i++) {
+            crepo.save(new CombinedPurchaseList(16, 16, 2, groupplan, products.get(i)));
+        }
+
+        //fill dummy hrq, put hitcherdetail as null here but shouldn't matter
+        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                RequestStatus.ACCEPTED, groupplan, glrepo.findGroceryListById(249).getHitcherDetail()));
     }
 }
