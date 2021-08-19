@@ -7,4 +7,5 @@ import java.util.List;
 public interface HitchRequestService {
     public HitchRequest findHitchRQById(int HitchRqId);
     public List<HitchRequest> findHitchRQByGroceryListId(int id);
+    public Boolean cancelHitchRq(int hitchRqId);
 }

@@ -64,8 +64,8 @@ public class HitchRQDataTest {
     @Test()
     @Order(1)
     public void CreateProduct() {
-        Product[] products = { new Product("apple"), new Product("banana"), new Product("shit"),
-                new Product("cock cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
+        Product[] products = { new Product("apple"), new Product("banana"), new Product("Soy sauce"),
+                new Product("coke cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
                 new Product("ice cream"), new Product("mango") };
         Arrays.stream(products).forEach(x -> prepo.save(x));
     }
@@ -83,7 +83,7 @@ public class HitchRQDataTest {
                 "6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
                 "Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
         for (int i = 0; i < address.length; i++) {
-            grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
+            grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Great Store_%s", i), shipping[i], address[i], pickUp[i],
                     GroupPlanStatus.AVAILABLE));
         }
 //		GroupPlan[] groupPlans = {
@@ -179,8 +179,15 @@ public class HitchRQDataTest {
         for (int i = 0; i < plans.size(); i++) {
             for (int j = 0; j < gls.size(); j++) {
                 if(gls.get(j).getRole()!= HitchBuyRole.BUYER){
-                    hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
-                            RequestStatus.PENDING, plans.get(i),gls.get(j).getHitcherDetail()));
+                    if(gls.get(j).getHitcherDetail().getId() == 37 && plans.get(i).getId() == 20){      //add mock data for an accepted request
+                        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                                RequestStatus.ACCEPTED, plans.get(i),gls.get(j).getHitcherDetail()));
+                    }
+                    else{
+                        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                                RequestStatus.PENDING, plans.get(i),gls.get(j).getHitcherDetail()));
+                    }
+
                 }
             }
         }
