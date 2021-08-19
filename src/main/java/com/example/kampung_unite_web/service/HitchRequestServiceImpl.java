@@ -2,6 +2,7 @@ package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.model.HitchRequest;
 import com.example.kampung_unite_web.model.HitcherDetail;
+import com.example.kampung_unite_web.model.enums.RequestStatus;
 import com.example.kampung_unite_web.repo.HitcherDetailRepository;
 import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,10 @@ public class HitchRequestServiceImpl implements HitchRequestService{
     public HitchRequest findHitchRQById(int hitchRqId){
         return hrqRepo.findHitchRequestsById(hitchRqId);
     }
+
+    @Override
+    public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus) {
+        return hrqRepo.findHitchRequestByHitcherDetailIdAndRequestStatus(id, requestStatus);
+    }
+
 }
