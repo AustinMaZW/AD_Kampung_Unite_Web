@@ -7,6 +7,7 @@ import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -28,5 +29,16 @@ public class HitchRequestServiceImpl implements HitchRequestService{
     @Override
     public HitchRequest findHitchRQById(int hitchRqId){
         return hrqRepo.findHitchRequestsById(hitchRqId);
+    }
+
+    @Override
+    @Transactional
+    public Boolean cancelHitchRq(int hitchRqId){
+        HitchRequest hitchRequest = hrqRepo.findHitchRequestsById(hitchRqId);
+        if (hitchRequest!=null){
+            hrqRepo.delete(hitchRequest);
+            return true;
+        }
+        return false;
     }
 }
