@@ -34,7 +34,6 @@ public class HitchRequestResource {
 
     @GetMapping(value="/accepted/{hitcherDetailId}")
     public HitchRequest getAcceptedHitchRequestByHitcherDetailId(@PathVariable("hitcherDetailId") int id) {
-        HitchRequest result = hrqService.findHitchRQByHitcherDetailIdAndRequestStatus(id, RequestStatus.ACCEPTED);
-        return result;
+        return hrqService.findHitchRQByHitcherDetailIdAndRequestStatus(id, RequestStatus.ACCEPTED);
     }
 }

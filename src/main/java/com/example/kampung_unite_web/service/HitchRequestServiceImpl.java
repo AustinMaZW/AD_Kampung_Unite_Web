@@ -46,9 +46,8 @@ public class HitchRequestServiceImpl implements HitchRequestService{
         return false;
     }
 
-    @GetMapping(value="/accepted/{hitcherDetailId}")
-    public HitchRequest getAcceptedHitchRequestByHitcherDetailId(@PathVariable("hitcherDetailId") int id) {
-        HitchRequest result = hrqService.findHitchRQByHitcherDetailIdAndRequestStatus(id, RequestStatus.ACCEPTED);
-        return result;
+    @Override
+    public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus){
+        return hrqRepo.findHitchRequestByHitcherDetailIdAndRequestStatus(id, requestStatus);
     }
 }
