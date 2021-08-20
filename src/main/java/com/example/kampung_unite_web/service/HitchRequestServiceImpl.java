@@ -1,32 +1,55 @@
 package com.example.kampung_unite_web.service;
 
-import com.example.kampung_unite_web.model.HitchRequest;
-import com.example.kampung_unite_web.model.HitcherDetail;
-import com.example.kampung_unite_web.repo.HitcherDetailRepository;
-import com.example.kampung_unite_web.repo.HitcherRequestRepository;
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.kampung_unite_web.model.GroupPlan;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.HitcherDetail;
+import com.example.kampung_unite_web.model.enums.RequestStatus;
+import com.example.kampung_unite_web.repo.GroupPlanRepository;
+import com.example.kampung_unite_web.repo.HitcherDetailRepository;
+import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 
 @Service
-public class HitchRequestServiceImpl implements HitchRequestService{
-    @Autowired
-    HitcherRequestRepository hrqRepo;
-    @Autowired
-    HitcherDetailRepository hdRepo;
+public class HitchRequestServiceImpl implements HitchRequestService {
+	@Autowired
+	HitcherRequestRepository hrqRepo;
+	@Autowired
+	HitcherDetailRepository hdRepo;
+	@Autowired
+	GroupPlanRepository glrepo;
 
-    @Override
-    public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId){
-        int hitcherDetailId = hdRepo.findHitcherDetailByGroceryListId(groceryListId).getId();
-        List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetailId);
-        rqList.stream().forEach(x->System.out.println(x.getId()));
+	@Override
+	public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId) {
+		int hitcherDetailId = hdRepo.findHitcherDetailByGroceryListId(groceryListId).getId();
+		List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetailId);
+		rqList.stream().forEach(x -> System.out.println(x.getId()));
 
-        return rqList;
-    }
+		return rqList;
+	}
 
-    @Override
-    public HitchRequest findHitchRQById(int hitchRqId){
-        return hrqRepo.findHitchRequestsById(hitchRqId);
-    }
+	@Override
+	public HitchRequest findHitchRQById(int hitchRqId) {
+		return hrqRepo.findHitchRequestsById(hitchRqId);
+	}
+
+	@Override
+	public int saveHitcherRequest(int planId, int hitcherDetailId, LocalDateTime puckUpTime) {
+		GroupPlan plan = glrepo.findById(planId).get();
+		HitcherDetail hd = hdRepo.findById(hitcherDetailId).get();
+		if (plan != null && hd != null) {
+			HitchRequest request = new HitchRequest();
+			request.setGroupPlan(plan);
+			request.setHitcherDetail(hd);
+			request.setPickupTimeChosen(puckUpTime);
+			request.setRequestStatus(RequestStatus.PENDING);
+			hrqRepo.save(request);
+			return hrqRepo.findHitchRequestsByPlanAndDetail(planId, hitcherDetailId).getId();
+		}
+		return -1;
+	}
 }

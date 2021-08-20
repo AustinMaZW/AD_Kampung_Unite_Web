@@ -6,4 +6,6 @@ import com.example.kampung_unite_web.model.GroupPlan;
 
 public interface GroupPlanRepository extends JpaRepository<GroupPlan, Integer> {
 
+
+
 }
