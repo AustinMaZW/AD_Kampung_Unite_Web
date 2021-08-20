@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.api_resource;
 
 import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.enums.RequestStatus;
 import com.example.kampung_unite_web.service.HitchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +30,10 @@ public class HitchRequestResource {
     @GetMapping(value = "cancel/{hitchRequestId}")
     public Boolean cancelHitchRq(@PathVariable("hitchRequestId") int hitchRequestId){
         return hrqService.cancelHitchRq(hitchRequestId);
+    }
+
+    @GetMapping(value="/accepted/{hitcherDetailId}")
+    public HitchRequest getAcceptedHitchRequestByHitcherDetailId(@PathVariable("hitcherDetailId") int id) {
+        return hrqService.findHitchRQByHitcherDetailIdAndRequestStatus(id, RequestStatus.ACCEPTED);
     }
 }
