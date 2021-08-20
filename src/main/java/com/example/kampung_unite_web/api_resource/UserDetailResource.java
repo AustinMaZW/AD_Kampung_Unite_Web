@@ -107,7 +107,7 @@ public class UserDetailResource {
         return new BCryptPasswordEncoder();
     }
 
-    @GetMapping("logout/{username}")
+    @GetMapping("logout/_un={username}")
     public String logout(@PathVariable("username") String username){
         UserDetail userDetail = udService.findUserByUsername(username);
         if (userDetail.getAuthentication()!=null){
@@ -116,7 +116,7 @@ public class UserDetailResource {
         return "logout success";
     }
 
-    @GetMapping("logout/{id}")
+    @GetMapping("logout/_id={id}")
     public String logout(@PathVariable("id") int id){
         UserDetail userDetail = udService.findUserById(id);
         if (userDetail.getAuthentication()!=null){
