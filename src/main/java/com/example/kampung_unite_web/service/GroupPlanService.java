@@ -10,4 +10,6 @@ public interface GroupPlanService {
 	public List<GroupPlan> findGroupPlansByListIds(List<Integer> ids);
 
 	public List<Product> retrieveProducts(int planId);
+
+	public Boolean quitGroceryPlan(int id);
 }

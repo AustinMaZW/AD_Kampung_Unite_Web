@@ -18,6 +18,7 @@ public class GroceryItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private int quantity;
+	@Column(columnDefinition = "double default 0")
 	private double subtotal;
 
 	@ManyToOne

@@ -3,6 +3,9 @@ package com.example.kampung_unite_web.api_resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.enums.RequestStatus;
+import com.example.kampung_unite_web.service.HitchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.kampung_unite_web.model.HitchRequest;
-import com.example.kampung_unite_web.service.HitchRequestService;
 
 @RestController
 @RequestMapping("/hitchrequest")
@@ -37,5 +37,15 @@ public class HitchRequestResource {
 		int requestId = hrqService.saveHitcherRequest(planId, hitcherDetailId, pickUpTime);
 		System.out.println(requestId);
 		return requestId;
+	}
+
+	@GetMapping(value = "cancel/{hitchRequestId}")
+	public Boolean cancelHitchRq(@PathVariable("hitchRequestId") int hitchRequestId) {
+		return hrqService.cancelHitchRq(hitchRequestId);
+	}
+
+	@GetMapping(value = "/accepted/{hitcherDetailId}")
+	public HitchRequest getAcceptedHitchRequestByHitcherDetailId(@PathVariable("hitcherDetailId") int id) {
+		return hrqService.findHitchRQByHitcherDetailIdAndRequestStatus(id, RequestStatus.ACCEPTED);
 	}
 }

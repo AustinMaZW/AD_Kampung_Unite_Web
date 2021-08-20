@@ -3,6 +3,8 @@ package com.example.kampung_unite_web.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,17 +26,32 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 	GroupPlanRepository glrepo;
 
 	@Override
+	public HitchRequest findHitchRQById(int hitchRqId) {
+		return hrqRepo.findHitchRequestsById(hitchRqId);
+	}
+
+	@Override
+	@Transactional
+	public Boolean cancelHitchRq(int hitchRqId) {
+		HitchRequest hitchRequest = hrqRepo.findHitchRequestsById(hitchRqId);
+		if (hitchRequest != null) {
+			hrqRepo.delete(hitchRequest);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus) {
+		return hrqRepo.findHitchRequestByHitcherDetailIdAndRequestStatus(id, requestStatus);
+	}
+
+	@Override
 	public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId) {
 		int hitcherDetailId = hdRepo.findHitcherDetailByGroceryListId(groceryListId).getId();
 		List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetailId);
 		rqList.stream().forEach(x -> System.out.println(x.getId()));
-
 		return rqList;
-	}
-
-	@Override
-	public HitchRequest findHitchRQById(int hitchRqId) {
-		return hrqRepo.findHitchRequestsById(hitchRqId);
 	}
 
 	@Override
