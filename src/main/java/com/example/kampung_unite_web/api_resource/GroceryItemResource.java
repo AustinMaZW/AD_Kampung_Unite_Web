@@ -18,7 +18,7 @@ public class GroceryItemResource {
     GroceryItemService gItemService;
 
     @GetMapping(value = "/{groceryListId}")
-    public List<GroceryItem> getGroceryItems(@PathVariable("groceryListId") int groceryListId){
+    public List<GroceryItem> getGroceryItemsByGroceryListId(@PathVariable("groceryListId") int groceryListId){
         return gItemService.findGroceryItemsByGroceryListId(groceryListId);
     }
 
