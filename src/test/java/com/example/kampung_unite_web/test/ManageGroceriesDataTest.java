@@ -79,7 +79,7 @@ public class ManageGroceriesDataTest {
 
 
         // create grocery list
-        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null,null, null);
+        GroceryList groceryList = new GroceryList("List 1", GLStatus.PENDING, user.get(0), null,null, null);
         groceryListRepository.save(groceryList);
 
         // create grocery items and assign to grocery list
@@ -93,9 +93,14 @@ public class ManageGroceriesDataTest {
         item2.setQuantity(3);
         item2.setGroceryList(groceryList);
 
+        GroceryItem item3 = new GroceryItem();
+        item3.setProduct(product.get(2));
+        item3.setQuantity(1);
+        item3.setGroceryList(groceryList);
+
         groceryItemRepository.save(item1);
         groceryItemRepository.save(item2);
-
+        groceryItemRepository.save(item3);
     }
 }
 
