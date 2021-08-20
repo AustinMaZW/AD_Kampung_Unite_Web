@@ -66,36 +66,36 @@ public class ManageGroceriesDataTest {
     @Test()
     @Order(1)
     public void CreateUser() {
-        UserDetail[] usrs = { new UserDetail("YZ", "123", "YaZhen", "Chua", "Hitcher", "123", "123")};
-        Arrays.stream(usrs).forEach(x -> urepo.save(x));
+        UserDetail userDetail = new UserDetail("YZ", "123", "YaZhen", "Chua", "Hitcher", "123", "123");
+        urepo.save(userDetail);
     }
 
 
-//    @Test
-//    @Order(2)
-//    public void CreateGroceryList() {
-//        List<Product> product = productRepository.findAll();
-//        List<UserDetail> user = urepo.findAll();
-//
-//
-//        // create grocery list
-//        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null,null, null);
-//        groceryListRepository.save(groceryList);
-//
-//        // create grocery items and assign to grocery list
-//        GroceryItem item1 = new GroceryItem();
-//        item1.setProduct(product.get(0));
-//        item1.setQuantity(1);
-//        item1.setGroceryList(groceryList);
-//
-//        GroceryItem item2 = new GroceryItem();
-//        item2.setProduct(product.get(1));
-//        item2.setQuantity(3);
-//        item2.setGroceryList(groceryList);
-//
-//        groceryItemRepository.save(item1);
-//        groceryItemRepository.save(item2);
-//
-//    }
+    @Test
+    @Order(2)
+    public void CreateGroceryList() {
+        List<Product> product = productRepository.findAll();
+        List<UserDetail> user = urepo.findAll();
+
+
+        // create grocery list
+        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null,null, null);
+        groceryListRepository.save(groceryList);
+
+        // create grocery items and assign to grocery list
+        GroceryItem item1 = new GroceryItem();
+        item1.setProduct(product.get(0));
+        item1.setQuantity(1);
+        item1.setGroceryList(groceryList);
+
+        GroceryItem item2 = new GroceryItem();
+        item2.setProduct(product.get(1));
+        item2.setQuantity(3);
+        item2.setGroceryList(groceryList);
+
+        groceryItemRepository.save(item1);
+        groceryItemRepository.save(item2);
+
+    }
 }
 
