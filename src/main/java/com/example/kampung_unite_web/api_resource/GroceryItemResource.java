@@ -20,4 +20,9 @@ public class GroceryItemResource {
     public List<GroceryItem> getGroceryItems(@PathVariable("groceryListId") int groceryListId){
         return gItemService.findGroceryItemsByGroceryListId(groceryListId);
     }
+
+    @GetMapping(value = "hitcher/{hitcherDetailId}")
+    public List<GroceryItem> getGroceryItemsByHitcherDetailId(@PathVariable("hitcherDetailId") int hitcherDetailId){
+        return gItemService.findGroceryItemsByGroceryList_HitcherDetail_Id(hitcherDetailId);
+    }
 }
