@@ -39,6 +39,11 @@ public class HitchRequestResource {
 		return requestId;
 	}
 
+	@GetMapping(value = "approve/{hitchRequestId}")
+	public Boolean acceptHitchRq(@PathVariable("hitchRequestId") int hitchRequestID) {
+		return hrqService.acceptHitchRq(hitchRequestID);
+	}
+
 	@GetMapping(value = "cancel/{hitchRequestId}")
 	public Boolean cancelHitchRq(@PathVariable("hitchRequestId") int hitchRequestId) {
 		return hrqService.cancelHitchRq(hitchRequestId);

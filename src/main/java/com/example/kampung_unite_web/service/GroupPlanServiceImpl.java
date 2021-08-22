@@ -55,7 +55,7 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 		GroceryList groceryList = groceryListRepo.findGroceryListById(id);
 		if (groceryList != null) {
 			List<HitchRequest> hitchRequests = hrqRepo
-					.findHitchRequestsByHitcherDetailId(groceryList.getHitcherDetail().getId());
+					.findHitchRequestsByHitcherDetailId(groceryList.getHitcherDetail().getId());	//because i am sending grocerylist to server, need to find the hitchrq associated with groupplan... alternatively could pass hitchrq
 			if (hitchRequests != null) {
 				hitchRequests.stream().forEach(x -> {
 					if (x.getGroupPlan().getId() == groceryList.getGroupPlanGL().getId()) {
@@ -64,7 +64,7 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 				});
 			}
 			List<CombinedPurchaseList> combinedPurchaseList = cplRepo
-					.findCombinedPurchaseListsByGroupPlanId(groceryList.getGroupPlanGL().getId());
+					.findCombinedPurchaseListsByGroupPlanId(groceryList.getGroupPlanGL().getId());	//get list of cpl so we can remove items from hitcher's list
 			if (combinedPurchaseList != null) {
 				List<GroceryItem> groceryItems = groceryItemRepo.findGroceryItemsByGroceryListId(groceryList.getId());
 				groceryItems.stream().forEach(x -> {
