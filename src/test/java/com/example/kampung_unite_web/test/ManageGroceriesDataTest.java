@@ -19,9 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -45,21 +42,24 @@ public class ManageGroceriesDataTest {
         product.setName("Yeo's Lychee Drink");
         product.setCategory("Beverages");
         product.setDescription("6 x 250 ml");
-        product.setImgURL("https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/BKHtqEHCutD3kkKw53W1ANLXKFbqq8.0.jpg");
+        product.setImgURL(
+                "https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/BKHtqEHCutD3kkKw53W1ANLXKFbqq8.0.jpg");
         productRepository.save(product);
 
         Product product1 = new Product();
         product1.setName("Old Town 3IN1 Sugar Cane White Coffee");
         product1.setCategory("Beverages");
         product1.setDescription("15 x 36 g");
-        product1.setImgURL("https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/WPVi3KzqNyNsW7uGdcTMQqZmyiC2WH.0.jpg");
+        product1.setImgURL(
+                "https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/WPVi3KzqNyNsW7uGdcTMQqZmyiC2WH.0.jpg");
         productRepository.save(product1);
 
         Product product2 = new Product();
         product2.setName("Happy Family 2IN1 Kopi O With Sugar Mixture Bag");
         product2.setCategory("Beverages");
         product2.setDescription("8 x 20 g");
-        product2.setImgURL("https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/yjwEFEKNPFnYIXrfN4s6wnfTAsdz5t.0.jpg");
+        product2.setImgURL(
+                "https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/yjwEFEKNPFnYIXrfN4s6wnfTAsdz5t.0.jpg");
         productRepository.save(product2);
     }
 
@@ -70,16 +70,14 @@ public class ManageGroceriesDataTest {
         urepo.save(userDetail);
     }
 
-
     @Test
     @Order(2)
     public void CreateGroceryList() {
         List<Product> product = productRepository.findAll();
         List<UserDetail> user = urepo.findAll();
 
-
         // create grocery list
-        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null,null, null);
+        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null, null, null);
         groceryListRepository.save(groceryList);
 
         // create grocery items and assign to grocery list
@@ -98,4 +96,3 @@ public class ManageGroceriesDataTest {
 
     }
 }
-

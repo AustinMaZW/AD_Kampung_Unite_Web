@@ -17,6 +17,13 @@ public class CPListResource
     @Autowired
     CPListService cplService;
 
+    @GetMapping
+    public List<CombinedPurchaseList> getAllLists(){
+        List<CombinedPurchaseList> cplList= cplService.findAll();
+        return cplList;
+    }
+
+
     @GetMapping("getlist/_id={id}")
     public List<CombinedPurchaseList> getShoppingList(@PathVariable("id") int id){
         List<CombinedPurchaseList> cplList= cplService.findShoppingListByGroupPlanId(id);

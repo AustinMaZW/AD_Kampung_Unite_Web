@@ -17,20 +17,19 @@ public class UserDetailResource {
     UserDetailService udService;
 
     @GetMapping("find/all")
-    public List<UserDetail> getListUserDetail(){
+    public List<UserDetail> getListUserDetail() {
         List<UserDetail> userDetailList = udService.findAllUsers();
         return userDetailList;
     }
 
     @RequestMapping("find/{id}")
-    public UserDetail findUserById(@PathVariable("id") int id){
+    public UserDetail findUserById(@PathVariable("id") int id) {
         UserDetail ud = udService.findUserById(id);
         System.out.println(ud);
         return ud;
     }
 
-
-    //create put on hold for now
+    // create put on hold for now
     @PostMapping("create")
     public UserDetail createUserDetail(@RequestBody UserDetail userDetail){
         boolean isCreated=false;
@@ -83,10 +82,9 @@ public class UserDetailResource {
         return isComplete;
     }
 
-    //update put on hold for now
     @PutMapping("update")
-    public void updateUserDetail(@RequestBody UserDetail userDetail){
-        if (userDetail!= null) {
+    public void updateUserDetail(@RequestBody UserDetail userDetail) {
+        if (userDetail != null) {
             udService.updateUser(userDetail);
         }
     }
@@ -99,7 +97,7 @@ public class UserDetailResource {
 
 //    Uses json in requestbody to pass
     @PostMapping("login")
-    public UserDetail login (@RequestBody UserDetail userDetail){
+    public UserDetail login(@RequestBody UserDetail userDetail) {
         String authentication = null;
         int userId = 0;
         String udUsername = userDetail.getUsername();
@@ -149,28 +147,28 @@ public class UserDetailResource {
     }
 
     @GetMapping("logout/_un={username}")
-    public String logout(@PathVariable("username") String username){
+    public String logout(@PathVariable("username") String username) {
         UserDetail userDetail = udService.findUserByUsername(username);
-        if (userDetail.getAuthentication()!=null){
+        if (userDetail.getAuthentication() != null) {
             udService.logoutUser(userDetail);
         }
         return "logout success";
     }
 
     @GetMapping("logout/_id={id}")
-    public String logout(@PathVariable("id") int id){
+    public String logout(@PathVariable("id") int id) {
         UserDetail userDetail = udService.findUserById(id);
-        if (userDetail.getAuthentication()!=null){
+        if (userDetail.getAuthentication() != null) {
             udService.logoutUser(userDetail);
         }
         return "logout success";
     }
 
     @GetMapping("authenticate/{username}")
-    public String authenticateLogin(@PathVariable("username") String username){
+    public String authenticateLogin(@PathVariable("username") String username) {
         String auth = null;
         UserDetail ud = udService.findUserByUsername(username);
-        if (ud.getAuthentication() != null){
+        if (ud.getAuthentication() != null) {
             auth = ud.getAuthentication();
         }
         return auth;
@@ -179,10 +177,10 @@ public class UserDetailResource {
 
     //incomplete... might not use it at all
     @PostMapping("authenticate")
-    public UserDetail authenticateLogin(@RequestBody UserDetail userDetail){
+    public UserDetail authenticateLogin(@RequestBody UserDetail userDetail) {
         String auth = null;
         UserDetail ud = udService.findUserByUsername(userDetail.getUsername());
-        if (ud.getAuthentication() != null){
+        if (ud.getAuthentication() != null) {
             auth = ud.getAuthentication();
         }
         return userDetail;
