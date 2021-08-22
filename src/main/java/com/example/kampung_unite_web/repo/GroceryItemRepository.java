@@ -9,4 +9,6 @@ import java.util.List;
 public interface GroceryItemRepository extends JpaRepository<GroceryItem, Integer> {
 
     public List<GroceryItem> findGroceryItemsByGroceryListId(int id);
+
+    List<GroceryItem> findGroceryItemsByGroceryList_HitcherDetail_Id(int id);
 }

@@ -2,6 +2,7 @@ package com.example.kampung_unite_web.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.example.kampung_unite_web.model.*;
 import com.example.kampung_unite_web.repo.*;
@@ -87,6 +88,16 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<GroupPlan> findGroupPlansByUserDetailId(int userDetailId) {
+		List<GroupPlan> groupPlans = gprepo.findAll();
+		List<GroupPlan> mgroupPlans = groupPlans
+				.stream()
+				.filter(x-> x.getGroceryLists().stream().anyMatch(y-> y.getUserDetail().getId()==userDetailId))
+				.collect(Collectors.toList());
+		return mgroupPlans;
 	}
 
 }

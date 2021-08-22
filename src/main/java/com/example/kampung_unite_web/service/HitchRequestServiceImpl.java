@@ -71,6 +71,7 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 		return -1;
 	}
 
+
 	@Transactional
 	@Override
 	public Boolean acceptHitchRq(int hitchRqId){
@@ -109,5 +110,11 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 			return true;
 		}
 		return false;
+
+	@Override
+	@Transactional
+	public void updateHitchRQ(HitchRequest hitchRequest) {
+		hrqRepo.save(hitchRequest);
+
 	}
 }
