@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CPListService
 {
+    List<CombinedPurchaseList> findAll();
     List<CombinedPurchaseList> findShoppingListByGroupPlanId(int groupPlanId);
 }

@@ -17,4 +17,6 @@ public interface HitchRequestService {
     public Boolean cancelHitchRq(int hitchRqId);
 
     public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus);
+
+    public void updateHitchRQ(HitchRequest hitchRequest);
 }
