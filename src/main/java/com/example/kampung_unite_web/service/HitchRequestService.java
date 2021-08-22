@@ -12,8 +12,6 @@ public interface HitchRequestService {
 
     public int saveHitcherRequest(int planId, int hitcherDetailId, LocalDateTime puckUpTime);
 
-    // public HitchRequest findHitchRQById(int HitchRqId);
-    // public List<HitchRequest> findHitchRQByGroceryListId(int id);
     public Boolean cancelHitchRq(int hitchRqId);
 
     public Boolean acceptHitchRq(int hitchRqId);
@@ -21,4 +19,6 @@ public interface HitchRequestService {
     public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus);
 
     public void updateHitchRQ(HitchRequest hitchRequest);
+
+    List<HitchRequest> findHitchRequestsByGroupPlanId(int id);
 }
