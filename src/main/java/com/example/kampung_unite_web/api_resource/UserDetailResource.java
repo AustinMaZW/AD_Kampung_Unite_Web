@@ -1,8 +1,7 @@
 package com.example.kampung_unite_web.api_resource;
 
-import com.example.kampung_unite_web.Interfaces.UserDetailService;
+import com.example.kampung_unite_web.service.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
-import com.example.kampung_unite_web.model.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,12 +33,54 @@ public class UserDetailResource {
     //create put on hold for now
     @PostMapping("create")
     public UserDetail createUserDetail(@RequestBody UserDetail userDetail){
-        if(userDetail != null){
-            udService.createUser(userDetail);
+        boolean isCreated=false;
+        UserDetail ud = new UserDetail();
+        boolean isValidUD = valUserDetailInfo(userDetail);
+        if(isValidUD){
+            isCreated = udService.createUser(userDetail);
         }
         else
             System.out.println("userDetail = null");
-        return userDetail;
+
+        if(isCreated){
+            ud = udService.findUserByUsername(userDetail.getUsername());
+        }
+
+        return ud;
+    }
+
+    private boolean valUserDetailInfo(UserDetail userDetail) {
+        boolean isComplete=true;
+        if(userDetail.getUsername()!=""){}
+        else{
+            isComplete = false;
+            System.out.println("username = null");
+        }
+        if(userDetail.getPassword()!=""){}
+        else{
+            isComplete = false;
+            System.out.println("password = null");
+        }
+        if (userDetail.getFirstName() !=""){}
+        else{
+            isComplete= false;
+            System.out.println("firstname = null");
+        }
+        if(userDetail.getLastName()!=""){}
+        else{
+            isComplete=false;
+            System.out.println("lastname = null");
+        }
+        if(userDetail.getPhoneNumber()!=""){}
+        else{
+            isComplete=false;
+            System.out.println("phonenumber = null");
+        }
+        if(userDetail.getHomeAddress()!=""){}
+        else{
+            System.out.println("address = null");
+        }
+        return isComplete;
     }
 
     //update put on hold for now
@@ -135,6 +176,8 @@ public class UserDetailResource {
         return auth;
     }
 
+
+    //incomplete... might not use it at all
     @PostMapping("authenticate")
     public UserDetail authenticateLogin(@RequestBody UserDetail userDetail){
         String auth = null;
