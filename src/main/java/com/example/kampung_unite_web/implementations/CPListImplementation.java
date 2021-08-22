@@ -15,6 +15,11 @@ public class CPListImplementation implements CPListService
     CPLRepository cplrepo;
 
     @Override
+    public List<CombinedPurchaseList> findAll() {
+        return cplrepo.findAll();
+    }
+
+    @Override
     public List<CombinedPurchaseList> findShoppingListByGroupPlanId(int groupPlanId) {
         List<CombinedPurchaseList> cplList = cplrepo.findCombinedPurchaseListsByGroupPlanId(groupPlanId);
         return cplList;
