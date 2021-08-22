@@ -12,4 +12,6 @@ public interface GroupPlanService {
 	public List<Product> retrieveProducts(int planId);
 
 	public Boolean quitGroceryPlan(int id);
+
+    List<GroupPlan> findGroupPlansByUserDetailId(int userDetailId);
 }

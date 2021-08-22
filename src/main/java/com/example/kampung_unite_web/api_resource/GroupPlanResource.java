@@ -2,6 +2,7 @@ package com.example.kampung_unite_web.api_resource;
 
 import java.util.List;
 
+import com.example.kampung_unite_web.model.GroceryList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,10 @@ public class GroupPlanResource {
 	@Autowired
 	private GroupPlanService gls;
 
+	@GetMapping("/{userDetailId}")
+	public List<GroupPlan> findGroupPlansByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
+		return gls.findGroupPlansByUserDetailId(userDetailId);
+	}
 	@RequestMapping(path = "/listplans", method = RequestMethod.POST)
 	public List<GroupPlan> findPlans(@RequestBody List<Integer> planIds) {
 		List<GroupPlan> plans = gls.findGroupPlansByListIds(planIds);

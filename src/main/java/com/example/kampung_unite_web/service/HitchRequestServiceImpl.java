@@ -11,7 +11,13 @@ import com.example.kampung_unite_web.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.kampung_unite_web.model.GroupPlan;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.HitcherDetail;
 import com.example.kampung_unite_web.model.enums.RequestStatus;
+import com.example.kampung_unite_web.repo.GroupPlanRepository;
+import com.example.kampung_unite_web.repo.HitcherDetailRepository;
+import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 
 @Service
 public class HitchRequestServiceImpl implements HitchRequestService {
@@ -109,5 +115,11 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public void updateHitchRQ(HitchRequest hitchRequest) {
+		hrqRepo.save(hitchRequest);
 	}
 }
