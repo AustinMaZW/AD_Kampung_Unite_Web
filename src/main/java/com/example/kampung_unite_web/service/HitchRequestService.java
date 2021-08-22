@@ -16,6 +16,8 @@ public interface HitchRequestService {
     // public List<HitchRequest> findHitchRQByGroceryListId(int id);
     public Boolean cancelHitchRq(int hitchRqId);
 
+    public Boolean acceptHitchRq(int hitchRqId);
+
     public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus);
 
     public void updateHitchRQ(HitchRequest hitchRequest);
