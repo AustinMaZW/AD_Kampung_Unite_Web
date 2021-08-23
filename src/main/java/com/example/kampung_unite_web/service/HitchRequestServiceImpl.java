@@ -121,5 +121,6 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 	@Transactional
 	public void updateHitchRQ(HitchRequest hitchRequest) {
 		hrqRepo.save(hitchRequest);
+
 	}
 }
