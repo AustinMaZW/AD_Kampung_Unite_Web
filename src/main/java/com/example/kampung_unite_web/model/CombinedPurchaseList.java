@@ -26,6 +26,16 @@ public class CombinedPurchaseList {
 	private int quantity;
 	private double productSubtotal;
 	private double productUnitPrice;
+	private boolean isPurchased;
+
+	public boolean isPurchased() {
+		return isPurchased;
+	}
+
+	public void setPurchased(boolean purchased) {
+		isPurchased = purchased;
+	}
+
 
 	@ManyToOne
 	@JsonIgnoreProperties("combinedPurchaseList")
