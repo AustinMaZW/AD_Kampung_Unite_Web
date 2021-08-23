@@ -1,6 +1,5 @@
 package com.example.kampung_unite_web.api_resource;
 
-import com.example.kampung_unite_web.Interfaces.UserDetailService;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.HitchRequest;
 import com.example.kampung_unite_web.model.HitcherDetail;
@@ -9,6 +8,7 @@ import com.example.kampung_unite_web.model.resposeModel.StatusResponseEntity;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
 import com.example.kampung_unite_web.service.GroceryListService;
 import com.example.kampung_unite_web.service.HitchRequestService;
+import com.example.kampung_unite_web.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
