@@ -5,7 +5,10 @@ import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,6 +30,12 @@ public class GroceryItemResource {
     @GetMapping(value = "hitcher/{hitcherDetailId}")
     public List<GroceryItem> getGroceryItemsByHitcherDetailId(@PathVariable("hitcherDetailId") int hitcherDetailId){
         return gItemService.findGroceryItemsByGroceryList_HitcherDetail_Id(hitcherDetailId);
+    }
+
+    @RequestMapping(path="/save", method = RequestMethod.GET)
+    public int addGroceryItemToGroceryList (@RequestParam("productId") int productId, @RequestParam("quantity") int quantity, @RequestParam("groceryListId")  int groceryListId) {
+        int groceryItemId = gItemService.addGroceryItemToGroceryList(productId, quantity, groceryListId);
+        return groceryItemId;
     }
 
     @GetMapping(value = "group/{groupId}")
