@@ -2,6 +2,7 @@ package com.example.kampung_unite_web.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import com.example.kampung_unite_web.model.*;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.kampung_unite_web.model.GroupPlan;
@@ -116,11 +118,17 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 		}
 		return false;
 	}
-
 	@Override
 	@Transactional
-	public void updateHitchRQ(HitchRequest hitchRequest) {
+	public void updateHitchRQ(HitchRequest hitchRequest){
 		hrqRepo.save(hitchRequest);
-
 	}
+
+	@Override
+	@Query
+	public List<HitchRequest> findHitchRequestsByGroupPlanId(int id) {
+		List<HitchRequest> hitchRequests = hrqRepo.findHitchRequestsByGroupPlanId(id);
+		return hitchRequests;
+	}
+
 }

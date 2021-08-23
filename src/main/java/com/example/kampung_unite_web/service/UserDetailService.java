@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web.Interfaces;
+package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.model.UserDetail;
 import java.util.List;
@@ -9,7 +9,7 @@ public interface UserDetailService {
 
     List<UserDetail> findAllUsers();
 
-    void createUser(UserDetail userDetail);
+    boolean createUser(UserDetail userDetail);
 
     void deleteUserById(int id);
 

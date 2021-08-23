@@ -55,4 +55,9 @@ public class HitchRequestResource {
 	 public void updateHitchRequest(@RequestBody HitchRequest hitchRequest) {
 		hrqService.updateHitchRQ(hitchRequest);
 	 }
+
+	@GetMapping(value = "/groupplan/{groupPlanId}")
+	public List<HitchRequest> getHitchRequestsByGroupPlanId(@PathVariable("groupPlanId") int id) {
+		return hrqService.findHitchRequestsByGroupPlanId(id);
+	}
 }

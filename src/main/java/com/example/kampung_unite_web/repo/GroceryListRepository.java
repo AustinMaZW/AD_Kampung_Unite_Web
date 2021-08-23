@@ -11,4 +11,6 @@ public interface GroceryListRepository extends JpaRepository<GroceryList, Intege
     public List<GroceryList> findGroceryListsByUserDetailId(int id);
     
     public GroceryList findGroceryListById(int id);
+
+    public List<GroceryList> findGroceryListsByGroupPlanGL_Id(int id);
 }
