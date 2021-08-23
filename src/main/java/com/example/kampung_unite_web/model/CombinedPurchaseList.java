@@ -25,6 +25,7 @@ public class CombinedPurchaseList {
 	private int id;
 	private int quantity;
 	private double productSubtotal;
+	private double productDiscount;
 	private double productUnitPrice;
 
 	@ManyToOne
@@ -35,11 +36,12 @@ public class CombinedPurchaseList {
 	@JsonIgnoreProperties("combinedPurchaseLists")
 	private Product product;
 
-	public CombinedPurchaseList(int quantity, double productSubtotal, double productUnitPrice, GroupPlan groupPlan,
+	public CombinedPurchaseList(int quantity, double productSubtotal, double productDiscount, double productUnitPrice, GroupPlan groupPlan,
 			Product product) {
 		super();
 		this.quantity = quantity;
 		this.productSubtotal = productSubtotal;
+		this.productDiscount = productDiscount;
 		this.productUnitPrice = productUnitPrice;
 		this.groupPlan = groupPlan;
 		this.product = product;

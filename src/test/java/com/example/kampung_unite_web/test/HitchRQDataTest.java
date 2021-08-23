@@ -162,7 +162,7 @@ public class HitchRQDataTest {
         List<Product> products = prepo.findAll();
         for (int i = 0; i < plans.size(); i++) {
             for (int j = 0; j < products.size(); j++) {
-                crepo.save(new CombinedPurchaseList(20, 20, 1, plans.get(i), products.get(j)));
+                crepo.save(new CombinedPurchaseList(20, 20, 0, 1, plans.get(i), products.get(j)));
             }
         }
     }
@@ -221,7 +221,7 @@ public class HitchRQDataTest {
 
         //fill dummy combined list data
         for (int i = 0; i < products.size(); i++) {
-            crepo.save(new CombinedPurchaseList(16, 16, 2, groupplan, products.get(i)));
+            crepo.save(new CombinedPurchaseList(16, 16, 0, 2, groupplan, products.get(i)));
         }
 
         //fill dummy hrq, put hitcherdetail as null here but shouldn't matter

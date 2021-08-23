@@ -72,7 +72,7 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 
 	@Override
 	@Transactional
-	public void updateHitchRQ(HitchRequest hitchRequest) {
-		hrqRepo.save(hitchRequest);
+	public HitchRequest updateHitchRQ(HitchRequest hitchRequest) {
+		return hrqRepo.save(hitchRequest);
 	}
 }

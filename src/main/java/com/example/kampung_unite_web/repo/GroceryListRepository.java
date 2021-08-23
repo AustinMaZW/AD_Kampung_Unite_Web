@@ -1,5 +1,6 @@
 package com.example.kampung_unite_web.repo;
 
+import com.example.kampung_unite_web.model.enums.GLStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.kampung_unite_web.model.GroceryList;
@@ -11,4 +12,6 @@ public interface GroceryListRepository extends JpaRepository<GroceryList, Intege
     public List<GroceryList> findGroceryListsByUserDetailId(int id);
     
     public GroceryList findGroceryListById(int id);
+
+    public List<GroceryList> findGroceryListsByGroupPlanGLIdAndStatus(int id, GLStatus status);
 }

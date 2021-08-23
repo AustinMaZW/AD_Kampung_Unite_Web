@@ -11,4 +11,6 @@ public interface GroceryItemRepository extends JpaRepository<GroceryItem, Intege
     public List<GroceryItem> findGroceryItemsByGroceryListId(int id);
 
     List<GroceryItem> findGroceryItemsByGroceryList_HitcherDetail_Id(int id);
+
+    public List<GroceryItem> findByGroceryListIdIn(List<Integer> ids);
 }

@@ -1,12 +1,10 @@
 package com.example.kampung_unite_web.api_resource;
 
 import com.example.kampung_unite_web.model.GroceryItem;
+import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,17 @@ public class GroceryItemResource {
     @GetMapping(value = "hitcher/{hitcherDetailId}")
     public List<GroceryItem> getGroceryItemsByHitcherDetailId(@PathVariable("hitcherDetailId") int hitcherDetailId){
         return gItemService.findGroceryItemsByGroceryList_HitcherDetail_Id(hitcherDetailId);
+    }
+
+    @GetMapping(value = "group/{groupId}")
+    public List<GroceryItem> getAcceptedGroceryItemsByGroupPlanId(@PathVariable("groupId") int groupId){
+        return gItemService.findAcceptedGroceryItemsByGroupPlanId(groupId, GLStatus.ACCEPTED);
+    }
+
+    @PostMapping("save/all")
+    public Boolean saveAll(@RequestBody List<GroceryItem> list) {
+        if (list.size() > 0)
+            return gItemService.saveAll(list);
+        return true;
     }
 }

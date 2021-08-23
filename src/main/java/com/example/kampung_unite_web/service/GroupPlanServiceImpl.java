@@ -100,4 +100,13 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 		return mgroupPlans;
 	}
 
+	@Override
+	public GroupPlan findById(int id) {
+		return gprepo.findById(id).get();
+	}
+
+	@Override
+	public void save(GroupPlan plan) {
+		gprepo.save(plan);
+	}
 }
