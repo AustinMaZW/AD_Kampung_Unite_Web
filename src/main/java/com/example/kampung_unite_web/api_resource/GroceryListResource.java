@@ -1,6 +1,9 @@
 package com.example.kampung_unite_web.api_resource;
 
+import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.service.GroceryItemService;
 import com.example.kampung_unite_web.service.GroceryListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 public class GroceryListResource {
     @Autowired
     GroceryListService groceryListService;
+
 
     @GetMapping("/{userDetailId}")
     public List<GroceryList> findGroceryListsByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
@@ -36,4 +40,5 @@ public class GroceryListResource {
         }
         return groceryList;
     }
+
 }

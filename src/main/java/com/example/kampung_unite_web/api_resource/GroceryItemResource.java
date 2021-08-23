@@ -4,10 +4,7 @@ import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ import java.util.List;
 public class GroceryItemResource {
     @Autowired
     GroceryItemService gItemService;
+
 
     @GetMapping(value = "/{groceryListId}")
     public List<GroceryItem> getGroceryItems(@PathVariable("groceryListId") int groceryListId){
@@ -30,5 +28,12 @@ public class GroceryItemResource {
     @GetMapping(value = "hitcher/{hitcherDetailId}")
     public List<GroceryItem> getGroceryItemsByHitcherDetailId(@PathVariable("hitcherDetailId") int hitcherDetailId){
         return gItemService.findGroceryItemsByGroceryList_HitcherDetail_Id(hitcherDetailId);
+    }
+
+    @RequestMapping(value="groupplan/hitcheritems/{hitchRequestIds}", method= RequestMethod.GET)
+    @ResponseBody
+    public List<List<GroceryItem>> findGroceryItemsByHitchRequests(@PathVariable List<Integer> hitchRequestIds)
+    {
+        return gItemService.findGroceryItemsByHitchRequests(hitchRequestIds);
     }
 }
