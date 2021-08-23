@@ -34,6 +34,11 @@ public class HitchRequestResource {
 		return requestId;
 	}
 
+	@GetMapping(value = "approve/{hitchRequestId}")
+	public Boolean acceptHitchRq(@PathVariable("hitchRequestId") int hitchRequestID) {
+		return hrqService.acceptHitchRq(hitchRequestID);
+	}
+
 	@GetMapping(value = "cancel/{hitchRequestId}")
 	public Boolean cancelHitchRq(@PathVariable("hitchRequestId") int hitchRequestId) {
 		return hrqService.cancelHitchRq(hitchRequestId);
@@ -48,4 +53,9 @@ public class HitchRequestResource {
 	 public HitchRequest updateHitchRequest(@RequestBody HitchRequest hitchRequest) {
 		return hrqService.updateHitchRQ(hitchRequest);
 	 }
+
+	@GetMapping(value = "/groupplan/{groupPlanId}")
+	public List<HitchRequest> getHitchRequestsByGroupPlanId(@PathVariable("groupPlanId") int id) {
+		return hrqService.findHitchRequestsByGroupPlanId(id);
+	}
 }

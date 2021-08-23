@@ -202,13 +202,14 @@ public class HitchRQDataTest {
         LocalDate shopping = LocalDate.of(2021, 10, 1);
         LocalDateTime pickTimeChosen = LocalDateTime.of(2021, 10, 15, 0, 0, 0);
         String address = "220 Prince Edward Road, Singapore, Singapore";
-        grepo.save(new GroupPlan("special plan", String.format("secret store"),shopping, address, pickUp, GroupPlanStatus.AVAILABLE));
+        grepo.save(new GroupPlan("SUPER SPECIAL Plan", String.format("secret store"),shopping, address, pickUp, GroupPlanStatus.AVAILABLE));
         GroupPlan groupplan = grepo.findGroupPlanById(246); //hard coded the id here
 
         //create dummy grocery list
         List<UserDetail> usrs = urepo.findAll();
         glrepo.save(new GroceryList(String.format("my super grocery"), GLStatus.ACCEPTED, usrs.get(0), groupplan, new HitcherDetail(pickTimeChosen, address), HitchBuyRole.BUYER));
         glrepo.save(new GroceryList(String.format("buy buy buy"), GLStatus.ACCEPTED, usrs.get(1), groupplan, new HitcherDetail(pickTimeChosen, address), HitchBuyRole.HITCHER));
+        glrepo.save(new GroceryList(String.format("party time"), GLStatus.PENDING, usrs.get(2), groupplan, new HitcherDetail(pickTimeChosen, address), HitchBuyRole.HITCHER));
 
         //fill dummy grocery list with items
         List<Product> products = prepo.findAll();
@@ -217,6 +218,8 @@ public class HitchRQDataTest {
             girepo.save(g1);
             GroceryItem g2 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(249));
             girepo.save(g2);
+            GroceryItem g3 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(251));
+            girepo.save(g3);
         }
 
         //fill dummy combined list data
@@ -227,5 +230,8 @@ public class HitchRQDataTest {
         //fill dummy hrq, put hitcherdetail as null here but shouldn't matter
         hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
                 RequestStatus.ACCEPTED, groupplan, glrepo.findGroceryListById(249).getHitcherDetail()));
+
+        hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
+                RequestStatus.PENDING, groupplan, glrepo.findGroceryListById(251).getHitcherDetail()));
     }
 }

@@ -1,6 +1,6 @@
 package com.example.kampung_unite_web.api_resource;
 
-import com.example.kampung_unite_web.Interfaces.CPListService;
+import com.example.kampung_unite_web.service.CPListService;
 import com.example.kampung_unite_web.model.CombinedPurchaseList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,8 @@ public class CPListResource
         return cplList;
     }
 
-    @GetMapping("getlist/{id}")
+
+    @GetMapping("getlist/_id={id}")
     public List<CombinedPurchaseList> getShoppingList(@PathVariable("id") int id){
         List<CombinedPurchaseList> cplList= cplService.findShoppingListByGroupPlanId(id);
         return cplList;

@@ -2,6 +2,8 @@ package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
+import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.repo.GroceryItemRepository;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroceryItemServiceImpl implements GroceryItemService{
@@ -30,7 +33,19 @@ public class GroceryItemServiceImpl implements GroceryItemService{
     }
 
     @Override
-        public List<GroceryItem> findAcceptedGroceryItemsByGroupPlanId(int groupId, GLStatus status) {
+    public List<GroceryItem> getBuyerGroceryItemsByGroupId(int groupId) {
+        List<GroceryList> groceryLists = gListRepo.findGroceryListsByGroupPlanGL_Id(groupId);
+        GroceryList buyerGroceryList = groceryLists
+                .stream()
+                .filter(x->x.getRole().equals(HitchBuyRole.BUYER))
+                .findAny().get();
+        List<GroceryItem> groceryItems = gItemRepo.findGroceryItemsByGroceryListId(buyerGroceryList.getId());
+
+        return groceryItems;
+    }
+
+    @Override
+    public List<GroceryItem> findAcceptedGroceryItemsByGroupPlanId(int groupId, GLStatus status) {
         List<GroceryList> groceryLists = gListRepo.findGroceryListsByGroupPlanGLIdAndStatus(groupId, status);
         List<Integer> glistIds = new ArrayList<>();
         groceryLists.stream().forEach(x->glistIds.add(x.getId()));
