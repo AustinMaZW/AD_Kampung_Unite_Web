@@ -2,10 +2,12 @@ package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.model.enums.HitchBuyRole;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.repo.GroceryItemRepository;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
+import com.example.kampung_unite_web.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class GroceryItemServiceImpl implements GroceryItemService{
     GroceryItemRepository gItemRepo;
     @Autowired
     GroceryListRepository gListRepo;
+    @Autowired
+    ProductRepository pRepo;
 
     @Override
     public List<GroceryItem> findGroceryItemsByGroceryListId(int groceryListId){
@@ -60,4 +64,16 @@ public class GroceryItemServiceImpl implements GroceryItemService{
         else
             return false;
     }
+    @Override
+    public int addGroceryItemToGroceryList (int productId, int quantity, int groceryListId) {
+        Product product = pRepo.getById(productId);
+        GroceryList groceryList = gListRepo.findGroceryListById(groceryListId);
+        if(product != null && groceryList != null) {
+            GroceryItem groceryItem = new GroceryItem(quantity, 0, product, groceryList);
+            gItemRepo.save(groceryItem);
+            return groceryItem.getId();
+        }
+        else return -1;
+    }
+
 }
