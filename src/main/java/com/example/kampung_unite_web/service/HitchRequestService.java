@@ -18,7 +18,7 @@ public interface HitchRequestService {
 
     public HitchRequest findHitchRQByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus);
 
-    public void updateHitchRQ(HitchRequest hitchRequest);
+    public HitchRequest updateHitchRQ(HitchRequest hitchRequest);
 
     List<HitchRequest> findHitchRequestsByGroupPlanId(int id);
 }

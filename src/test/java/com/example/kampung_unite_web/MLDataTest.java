@@ -166,7 +166,7 @@ public class MLDataTest {
 		List<Product> products = prepo.findAll();
 		for (int i = 0; i < plans.size(); i++) {
 			for (int j = 0; j < products.size(); j++) {
-				crepo.save(new CombinedPurchaseList(20, 20, 1, plans.get(i), products.get(j)));
+				crepo.save(new CombinedPurchaseList(20, 20, 0, 1, plans.get(i), products.get(j)));
 			}
 		}
 
