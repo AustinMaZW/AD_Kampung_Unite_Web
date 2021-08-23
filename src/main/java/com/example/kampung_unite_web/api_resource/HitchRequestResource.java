@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.example.kampung_unite_web.model.HitchRequest;
 import com.example.kampung_unite_web.model.enums.RequestStatus;
-import com.example.kampung_unite_web.model.resposeModel.StatusResponseEntity;
-import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 import com.example.kampung_unite_web.service.HitchRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,8 +50,8 @@ public class HitchRequestResource {
 	}
 
 	 @PutMapping("/update")
-	 public void updateHitchRequest(@RequestBody HitchRequest hitchRequest) {
-		hrqService.updateHitchRQ(hitchRequest);
+	 public HitchRequest updateHitchRequest(@RequestBody HitchRequest hitchRequest) {
+		return hrqService.updateHitchRQ(hitchRequest);
 	 }
 
 	@GetMapping(value = "/groupplan/{groupPlanId}")

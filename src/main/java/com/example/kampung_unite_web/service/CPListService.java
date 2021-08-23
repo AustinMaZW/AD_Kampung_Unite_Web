@@ -9,4 +9,6 @@ public interface CPListService {
     List<CombinedPurchaseList> findAll();
 
     List<CombinedPurchaseList> findShoppingListByGroupPlanId(int id);
+
+    boolean saveAll(List<CombinedPurchaseList> list);
 }
