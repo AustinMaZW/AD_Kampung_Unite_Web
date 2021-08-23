@@ -81,7 +81,6 @@ public class ManageGroceriesDataTest {
 
         // create grocery list
         GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null, null, null);
-        GroceryList groceryList = new GroceryList("List 1", GLStatus.PENDING, user.get(0), null,null, null);
         groceryListRepository.save(groceryList);
 
         // create grocery items and assign to grocery list
