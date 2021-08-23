@@ -21,7 +21,7 @@ public class CPListResource
     }
 
 
-    @GetMapping("getlist/_id={id}")
+    @GetMapping("getlist/{id}")
     public List<CombinedPurchaseList> getShoppingList(@PathVariable("id") int id){
         List<CombinedPurchaseList> cplList= cplService.findShoppingListByGroupPlanId(id);
         return cplList;

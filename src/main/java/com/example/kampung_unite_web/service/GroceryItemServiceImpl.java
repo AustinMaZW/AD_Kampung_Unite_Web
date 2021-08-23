@@ -3,7 +3,6 @@ package com.example.kampung_unite_web.service;
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.enums.HitchBuyRole;
-import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.repo.GroceryItemRepository;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GroceryItemServiceImpl implements GroceryItemService{

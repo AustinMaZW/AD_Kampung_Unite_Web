@@ -103,7 +103,7 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 				}
 				if (!cplItemAlreadyExist) {
 					int qty = hitcherItem.getQuantity();
-					CombinedPurchaseList newCPLItem = new CombinedPurchaseList(qty, 0, 0, groupPlan,
+					CombinedPurchaseList newCPLItem = new CombinedPurchaseList(qty, 0, 0, 0, groupPlan,
 							hitcherItem.getProduct());
 					cplRepository.save(newCPLItem);        //if no match in cpl, it means this is a new item only from hitcher, save to new row
 				}
