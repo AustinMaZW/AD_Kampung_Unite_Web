@@ -83,7 +83,8 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 	@Override
 	public Boolean acceptHitchRq(int hitchRqId){
 		HitchRequest hitchRequest = hrqRepo.findHitchRequestsById(hitchRqId);
-		if(hitchRequest!=null){
+		//validation against accepted status. If alr accepted, then should not continue to modify anything
+		if(hitchRequest!=null && hitchRequest.getRequestStatus()!=RequestStatus.ACCEPTED){
 			hitchRequest.setRequestStatus(RequestStatus.ACCEPTED);
 			hrqRepo.save(hitchRequest);			//save hrq
 
