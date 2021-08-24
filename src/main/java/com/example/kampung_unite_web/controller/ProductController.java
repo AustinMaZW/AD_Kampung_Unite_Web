@@ -4,6 +4,7 @@ import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.repo.ProductRepository;
 import com.example.kampung_unite_web.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+
 
     @GetMapping()
     public String listProducts (Model model){
@@ -48,9 +51,6 @@ public class ProductController {
         model.addAttribute("currentNumItems", currentNumItems);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("page", true);
-
-        return PRODUCT_CATALOGUE;
-    }
 
     @GetMapping(value="/new")
     public String viewCreateForm(Model model){

@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.model.Product;
+
 import com.example.kampung_unite_web.repo.ProductPagingRepository;
 import com.example.kampung_unite_web.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+
+import com.example.kampung_unite_web.repo.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
 import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
+
     @Autowired
     ProductPagingRepository productPagingRepository;
 
@@ -52,8 +60,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> getAllProductsByPage(int pageNo){
-        Pageable paging = PageRequest.of(pageNo, 10, Sort.by("id").ascending());
+        Pageable paging = PageRequest.of(pageNo, 10, Sort.by("id").ascending());  //set default num of items to 10 here and sort by id
 
         return productPagingRepository.findAll(paging);
+
     }
 }
