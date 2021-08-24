@@ -33,15 +33,15 @@ public class ProductController {
 
     @GetMapping(value = "/{pageNo}")
     public String listProductsByPage (@PathVariable Integer pageNo,
-                                Model model){
+                                Model model) {
 
-        Page<Product> pageResult = productService.getAllProductsByPage(pageNo-1);   //-1 here because it's 0 base index in repo
+        Page<Product> pageResult = productService.getAllProductsByPage(pageNo - 1);   //-1 here because it's 0 base index in repo
         long totalItems = pageResult.getTotalElements();    //get total number of products in database
         int totalPages = pageResult.getTotalPages();        //get total pages
         int currentNumItems = pageResult.getNumberOfElements();
 
         List<Product> plist = new ArrayList<>();
-        if(pageResult.hasContent()){
+        if (pageResult.hasContent()) {
             plist = pageResult.getContent();
         }
 
@@ -51,6 +51,8 @@ public class ProductController {
         model.addAttribute("currentNumItems", currentNumItems);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("page", true);
+        return PRODUCT_CATALOGUE;
+    }
 
     @GetMapping(value="/new")
     public String viewCreateForm(Model model){
@@ -101,6 +103,7 @@ public class ProductController {
     public String searchProduct(@RequestParam("name") String name, Model model){
         List<Product> products = productService.searchProductByName(name);
         model.addAttribute("plist", products);
+
         return PRODUCT_CATALOGUE;
     }
 }
