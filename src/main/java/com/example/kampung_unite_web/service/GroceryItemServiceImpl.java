@@ -59,4 +59,12 @@ public class GroceryItemServiceImpl implements GroceryItemService{
 
     return groceryItemsList;
     }
+
+    @Override
+    public List<GroceryItem> findGroceryItemsByHitchRequest(int hitchRequestIds) {
+        HitchRequest hitchRequest = hitchRequestRepository.findHitchRequestsById(hitchRequestIds);
+        List<GroceryItem> groceryItems = hitchRequest.getHitcherDetail().getGroceryList().getGroceryItems();
+
+        return groceryItems;
+    }
 }

@@ -14,4 +14,6 @@ public interface GroceryItemService {
     List<GroceryItem> getBuyerGroceryItemsByGroupId(int groupId);
 
     public List<List<GroceryItem>> findGroceryItemsByHitchRequests(List<Integer> hitchRequestIds);
+
+    List<GroceryItem> findGroceryItemsByHitchRequest(int hitchRequestIds);
 }
