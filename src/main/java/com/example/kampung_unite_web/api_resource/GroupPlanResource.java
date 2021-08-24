@@ -48,4 +48,9 @@ public class GroupPlanResource {
 		plan.setGroupPlanStatus(status);
 		gls.save(plan);
 	}
+
+	@GetMapping("/plan/{id}")
+	public GroupPlan getGroupPlanById(@PathVariable("id") int id) {
+		return gls.findById(id);
+	}
 }
