@@ -3,6 +3,8 @@ package com.example.kampung_unite_web.service;
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.model.UserLogin;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface UserDetailService {
@@ -24,4 +26,6 @@ public interface UserDetailService {
     public UserDetail findUserByUsernameAndPassword(String username, String password);
 
     public boolean authenticateUser(UserLogin ud);
+
+    public Page<UserDetail> getAllUserByPage(int pageNo);
 }
