@@ -42,7 +42,7 @@
       <div class="table-title">
         <div class="row">
           <div class="col-sm-6">
-            <h2>Mange Product</b></h2>
+            <h2>Manage Product</b></h2>
           </div>
           <div class="col-sm-6">
             <a th:href="@{/productlist/new}" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
@@ -89,16 +89,24 @@
         </tr>
         </tbody>
       </table>
-      <div class="clearfix">
-        <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+      <div th:if="${page==true}" class="clearfix">
+        <div class="hint-text">Showing <b th:text="${currentNumItems}">10</b> out of <b th:text="${totalItems}">25</b> entries</div>
         <ul class="pagination">
-          <li class="page-item disabled"><a href="#">Previous</a></li>
-          <li class="page-item"><a href="#" class="page-link">1</a></li>
-          <li class="page-item"><a href="#" class="page-link">2</a></li>
-          <li class="page-item active"><a href="#" class="page-link">3</a></li>
-          <li class="page-item"><a href="#" class="page-link">4</a></li>
-          <li class="page-item"><a href="#" class="page-link">5</a></li>
-          <li class="page-item"><a href="#" class="page-link">Next</a></li>
+          <li th:if="${currentPage>1}" class="page-item"><a th:href="@{'/productlist/' + ${currentPage-1}}" class="page-link">Previous</a></li>
+          <li th:unless="${currentPage>1}" class="page-item disabled"><a class="page-link">Previous</a></li>
+
+          <div th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <li th:if="${i != currentPage}" class="page-item" > <!-- if page is not current page, then do not have active icon-->
+              <a th:href="@{/productlist/}+${i}" class="page-link" th:text="${i}">1</a>
+            </li>
+            <li th:unless="${i != currentPage}" class="page-item active" >
+              <a class="page-link" th:text="${i}">1</a> <!-- if current page, display active and remove href-->
+            </li>
+          </div>
+
+          <li th:if="${currentPage<totalPages}"class="page-item"><a th:href="@{'/productlist/' + ${currentPage+1}}" class="page-link">Next</a></li>
+          <li th:unless="${currentPage<totalPages}"class="page-item disabled"><a class="page-link">Next</a></li>
+
         </ul>
       </div>
     </div>
