@@ -32,13 +32,13 @@ public class CPListResource
         int groupPlanId = 0;
         for (CombinedPurchaseList cpl :
                 cplList) {
-            System.out.println(cpl);
             CombinedPurchaseList dbCPL = cplService.findCPLById(cpl.getId());
             dbCPL.setPurchasedStatus(cpl.isPurchasedStatus());
             cplService.updateCPL(dbCPL);
         }
         return cplList;
     }
+
     @PostMapping("save/all")
     public Boolean saveAll(@RequestBody List<CombinedPurchaseList> list) {
         if (list.size() > 0)

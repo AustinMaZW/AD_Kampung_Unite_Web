@@ -13,8 +13,8 @@ public interface CPListService {
     boolean saveAll(List<CombinedPurchaseList> list);
 
     CombinedPurchaseList findCPLById(int id);
-    //??
+
     void updateCPL(CombinedPurchaseList combinedPurchaseList);
-    //??
+
     void updateList(List<CombinedPurchaseList> cplList);
 }
