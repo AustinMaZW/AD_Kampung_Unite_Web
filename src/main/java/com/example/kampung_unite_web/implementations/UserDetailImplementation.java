@@ -98,4 +98,9 @@ public class UserDetailImplementation implements UserDetailService {
         return udprepo.findAll(paging);
     }
 
+    @Override
+    public List<UserDetail> searchProductByName(String name) {
+        return udrepo.searchUsersByName(name);
+    }
+
 }

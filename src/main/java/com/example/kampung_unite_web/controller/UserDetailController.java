@@ -3,6 +3,8 @@ package com.example.kampung_unite_web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.service.UserDetailService;
 
@@ -13,12 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
 
 @Controller
 @RequestMapping("/userdetail")
 public class UserDetailController {
     private static final String USER_LIST = "userlist";
-    private static final String UPDATE_USER_FORM = "update_user";
+    private static final String UPDATE_USER_FORM = "useredit";
     @Autowired
     private UserDetailService us;
 
@@ -50,7 +54,7 @@ public class UserDetailController {
         return USER_LIST;
     }
 
-    @RequestMapping("/edit/{userId}")
+    @RequestMapping(path = "/edit/{userId}", method = RequestMethod.GET)
     public String editUser(@PathVariable("userId") int id, Model model) {
         UserDetail user = us.findUserById(id);
         model.addAttribute("user", user);
@@ -58,10 +62,28 @@ public class UserDetailController {
         return UPDATE_USER_FORM;
     }
 
+    @RequestMapping(path = "/edit/{productId}", method = RequestMethod.POST)
+    public String processEdit(@Valid UserDetail ud, BindingResult result) {
+        if (result.hasErrors()) {
+            return UPDATE_USER_FORM;
+        } else {
+            us.updateUser(ud);
+        }
+        return "redirect:/userdetail/list";
+    }
+
     @RequestMapping("/delete/{userId}")
     public String deleteUser(@PathVariable("userId") int id, Model model) {
         UserDetail user = us.findUserById(id);
         us.deleteUserById(user.getId());
         return "redirect:/userdetail/list";
+    }
+
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public String searchProduct(@RequestParam("name") String name, Model model) {
+        List<UserDetail> users = us.searchProductByName(name);
+        model.addAttribute("userlist", users);
+
+        return USER_LIST;
     }
 }
