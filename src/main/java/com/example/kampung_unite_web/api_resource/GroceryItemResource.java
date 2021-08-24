@@ -4,8 +4,8 @@ import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,6 +30,19 @@ public class GroceryItemResource {
     @GetMapping(value = "hitcher/{hitcherDetailId}")
     public List<GroceryItem> getGroceryItemsByHitcherDetailId(@PathVariable("hitcherDetailId") int hitcherDetailId){
         return gItemService.findGroceryItemsByGroceryList_HitcherDetail_Id(hitcherDetailId);
+    }
+    @RequestMapping(value="groupplan/hitcheritems", method= RequestMethod.GET)
+    @ResponseBody
+    public List<List<GroceryItem>> findGroceryItemsByHitchRequests(@RequestParam(value="array") List<Integer> hitchRequestIds)
+    {
+        return gItemService.findGroceryItemsByHitchRequests(hitchRequestIds);
+    }
+
+    @RequestMapping(value="groupplan/hitcheritems/testing/{hitchRequestId}", method= RequestMethod.GET)
+    @ResponseBody
+    public List<GroceryItem> findGroceryItemsByHitchRequest(@PathVariable int hitchRequestId)
+    {
+        return gItemService.findGroceryItemsByHitchRequest(hitchRequestId);
     }
 
     @RequestMapping(path="/save", method = RequestMethod.GET)
