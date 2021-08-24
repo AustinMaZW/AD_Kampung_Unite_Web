@@ -20,6 +20,4 @@ public interface ProductService {
 
     public Page<Product> getAllProductsByPage(int pageNo);
 
-    public List<Product> searchProductByName(String name);
-
 }
