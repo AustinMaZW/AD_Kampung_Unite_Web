@@ -1,6 +1,5 @@
 package com.example.kampung_unite_web.repo;
 
-import com.example.kampung_unite_web.model.GroceryList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.kampung_unite_web.model.GroceryItem;
@@ -12,4 +11,6 @@ public interface GroceryItemRepository extends JpaRepository<GroceryItem, Intege
     public List<GroceryItem> findGroceryItemsByGroceryListId(int id);
 
     List<GroceryItem> findGroceryItemsByGroceryList_HitcherDetail_Id(int id);
+
+    public List<GroceryItem> findByGroceryListIdIn(List<Integer> ids);
 }

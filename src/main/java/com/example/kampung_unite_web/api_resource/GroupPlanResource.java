@@ -2,7 +2,7 @@ package com.example.kampung_unite_web.api_resource;
 
 import java.util.List;
 
-import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +40,12 @@ public class GroupPlanResource {
 	@GetMapping(value = "/quit/{groceryListId}")
 	public Boolean quitGroupPlan(@PathVariable("groceryListId") int id) {
 		return gls.quitGroceryPlan(id);
+	}
+
+	@GetMapping("/update/status/{id}/{status}")
+	public void updateStatus(@PathVariable("id") int id, @PathVariable("status") GroupPlanStatus status) {
+		GroupPlan plan = gls.findById(id);
+		plan.setGroupPlanStatus(status);
+		gls.save(plan);
 	}
 }

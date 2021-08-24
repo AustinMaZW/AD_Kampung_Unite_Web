@@ -19,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
@@ -91,8 +94,14 @@ public class ManageGroceriesDataTest {
         item2.setQuantity(3);
         item2.setGroceryList(groceryList);
 
+        GroceryItem item3 = new GroceryItem();
+        item3.setProduct(product.get(2));
+        item3.setQuantity(1);
+        item3.setGroceryList(groceryList);
+
         groceryItemRepository.save(item1);
         groceryItemRepository.save(item2);
-
+        groceryItemRepository.save(item3);
     }
 }
+

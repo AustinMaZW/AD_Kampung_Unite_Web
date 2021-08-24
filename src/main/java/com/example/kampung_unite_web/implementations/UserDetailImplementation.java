@@ -1,6 +1,6 @@
 package com.example.kampung_unite_web.implementations;
 
-import com.example.kampung_unite_web.Interfaces.UserDetailService;
+import com.example.kampung_unite_web.service.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.repo.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,11 @@ public class UserDetailImplementation implements UserDetailService {
 
     @Override
     public UserDetail findUserById(int id) {
-        return udrepo.findById(id).get();
+        UserDetail ud = null;
+        if(udrepo.findById(id).isPresent()){
+            ud = udrepo.findById(id).get();
+        }
+        return ud;
     }
 
     @Override
@@ -25,8 +29,21 @@ public class UserDetailImplementation implements UserDetailService {
     }
 
     @Override
-    public void createUser(UserDetail userDetail) {
-        udrepo.save(userDetail);
+    public boolean createUser(UserDetail userDetail) {
+        String newUsername =  userDetail.getUsername();
+        boolean isValidNewUsername = false;
+        int usernameExisted = 0;
+        List<UserDetail> listUsers = udrepo.findAll();
+        for(UserDetail user : listUsers){
+            if(user.getUsername().matches(newUsername)){
+                usernameExisted ++;
+            }
+        }
+        if(usernameExisted == 0){
+            isValidNewUsername = true;
+            udrepo.save(userDetail);
+        }
+        return isValidNewUsername;
     }
 
     @Override
