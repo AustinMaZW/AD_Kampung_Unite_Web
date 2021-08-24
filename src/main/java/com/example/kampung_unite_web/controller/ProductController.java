@@ -4,12 +4,16 @@ import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.repo.ProductRepository;
 import com.example.kampung_unite_web.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,12 +25,32 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @GetMapping
+
+    @GetMapping()
     public String listProducts (Model model){
-        List<Product> plist = productService.findAll();
-        model.addAttribute("plist", plist);
-        return PRODUCT_CATALOGUE;
+        return listProductsByPage(1, model);    //default is page 1 (index 0)
     }
+
+    @GetMapping(value = "/{pageNo}")
+    public String listProductsByPage (@PathVariable Integer pageNo,
+                                Model model){
+
+        Page<Product> pageResult = productService.getAllProductsByPage(pageNo-1);   //-1 here because it's 0 base index in repo
+        long totalItems = pageResult.getTotalElements();    //get total number of products in database
+        int totalPages = pageResult.getTotalPages();        //get total pages
+        int currentNumItems = pageResult.getNumberOfElements();
+
+        List<Product> plist = new ArrayList<>();
+        if(pageResult.hasContent()){
+            plist = pageResult.getContent();
+        }
+
+        model.addAttribute("plist", plist);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentNumItems", currentNumItems);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("page", true);
 
     @GetMapping(value="/new")
     public String viewCreateForm(Model model){

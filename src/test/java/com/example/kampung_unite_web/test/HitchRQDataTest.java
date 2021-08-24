@@ -234,4 +234,13 @@ public class HitchRQDataTest {
         hrqrepo.save(new HitchRequest(pickTimeChosen, false, false,
                 RequestStatus.PENDING, groupplan, glrepo.findGroceryListById(251).getHitcherDetail()));
     }
+
+    @Test()
+    @Order(10)
+    public void CreateMoreProduct() {
+
+        for(int i=0; i<=80; i++){
+            prepo.save(new Product("Product #" + i));
+        }
+    }
 }
