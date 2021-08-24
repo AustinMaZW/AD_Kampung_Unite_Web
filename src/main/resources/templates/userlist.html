@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="/css/tablelist.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+
+<body>
+    <header th:insert="layout.html :: header"></header>
+
+    <div class="container">
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form form th:action="@{/productlist/search}" method="get" class="card card-sm">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <div class="col">
+                            <input name="name" class="form-control form-control-lg form-control-borderless"
+                                type="search" placeholder="Search by product name">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h2>Manage User Detail</b></h2>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <a th:href="@{/productlist/new}" class="btn btn-success"><i
+                                    class="material-icons">&#xE147;</i> <span>Add
+                                    New User</span></a>
+                        </div>
+                        <!--          <div class="col-sm-6">-->
+                        <!--            <form th:action="@{/productlist/search}" method="get" class="form-horizontal" id="search-product-form">-->
+                        <!--              <div class="form-group">-->
+                        <!--                <div class="control-group" id="nameGroup">-->
+                        <!--                  <div class="col-sm-10">-->
+                        <!--                    <input class="form-control" placeholder="Search by name" name="name" size="20" maxlength="50" />-->
+                        <!--                  </div>-->
+                        <!--                </div>-->
+                        <!--              </div>-->
+                        <!--            </form>-->
+                        <!--          </div>-->
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phont Number</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user:${userlist}">
+                            <td th:text="${user.username}">Username</td>
+                            <td th:text="${user.password}">Password</td>
+                            <td th:text="${user.firstName}">First Name</td>
+                            <td th:text="${user.lastName}">Last Name</td>
+                            <td th:text="${user.phoneNumber}">Phont Number</td>
+                            <td th:text="${user.role}">Role</td>
+                            <td>
+                                <a th:href="@{/userdetail/edit/}+${user.id}" class="edit"><i class="material-icons"
+                                        data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                <a th:if="${user.grocerylists.size() == 0}" th:href="@{/userdetail/delete/}+${user.id}"
+                                    class="delete"
+                                    onclick="return confirm('Are you sure you want to delete this item?');">
+                                    <i class="material-icons" title="Delete">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${page==true}" class="clearfix">
+                    <div class="hint-text">Showing <b th:text="${currentNumItems}">10</b> out of <b
+                            th:text="${totalItems}">25</b>
+                        entries</div>
+                    <ul class="pagination">
+                        <li th:if="${currentPage>1}" class="page-item"><a th:href="@{'/userdetail/' + ${currentPage-1}}"
+                                class="page-link">Previous</a></li>
+                        <li th:unless="${currentPage>1}" class="page-item disabled"><a class="page-link">Previous</a>
+                        </li>
+
+                        <div th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            <li th:if="${i != currentPage}" class="page-item">
+                                <!-- if page is not current page, then do not have active icon-->
+                                <a th:href="@{/userdetail/}+${i}" class="page-link" th:text="${i}">1</a>
+                            </li>
+                            <li th:unless="${i != currentPage}" class="page-item active">
+                                <a class="page-link" th:text="${i}">1</a>
+                                <!-- if current page, display active and remove href-->
+                            </li>
+                        </div>
+
+                        <li th:if="${currentPage<totalPages}" class="page-item"><a
+                                th:href="@{'/productlist/' + ${currentPage+1}}" class="page-link">Next</a></li>
+                        <li th:unless="${currentPage<totalPages}" class="page-item disabled"><a
+                                class="page-link">Next</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

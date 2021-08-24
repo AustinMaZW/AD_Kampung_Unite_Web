@@ -35,8 +35,6 @@ public class LoginController {
             ul.setUsername(u.getUsername());
             ul.setPassword(u.getPassword());
             session.setAttribute("userSession", u);
-            System.out.println(u.getUsername());
-            model.addAttribute("userName_second", u.getFirstName());
             return "index";
         } else {
             UserLogin ul = new UserLogin();

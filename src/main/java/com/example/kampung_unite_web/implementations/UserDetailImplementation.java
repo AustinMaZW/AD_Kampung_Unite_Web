@@ -3,9 +3,14 @@ package com.example.kampung_unite_web.implementations;
 import com.example.kampung_unite_web.service.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.model.UserLogin;
+import com.example.kampung_unite_web.repo.UserDetailPagingRepository;
 import com.example.kampung_unite_web.repo.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -14,6 +19,9 @@ public class UserDetailImplementation implements UserDetailService {
 
     @Autowired
     UserDetailRepository udrepo;
+
+    @Autowired
+    UserDetailPagingRepository udprepo;
 
     @Override
     public UserDetail findUserById(int id) {
@@ -81,6 +89,13 @@ public class UserDetailImplementation implements UserDetailService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Page<UserDetail> getAllUserByPage(int pageNo) {
+        Pageable paging = PageRequest.of(pageNo, 10, Sort.by("id").ascending()); // set default num of items to 10 here
+                                                                                 // and sort by id
+        return udprepo.findAll(paging);
     }
 
 }
