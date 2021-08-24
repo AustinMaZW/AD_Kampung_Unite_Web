@@ -26,4 +26,5 @@ public class GroceryListServiceImpl implements GroceryListService{
     public List<GroceryList> findGroceryListsByUserDetailId(int userDetailId) {
         return glrepo.findGroceryListsByUserDetailId(userDetailId);
     }
+
 }
