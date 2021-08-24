@@ -15,9 +15,10 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
 @Entity
 public class CombinedPurchaseList {
 	@Id
@@ -27,6 +28,16 @@ public class CombinedPurchaseList {
 	private double productSubtotal;
 	private double productDiscount;
 	private double productUnitPrice;
+	private boolean purchasedStatus;
+
+	public boolean isPurchasedStatus() {
+		return purchasedStatus;
+	}
+
+	public void setPurchasedStatus(boolean purchasedStatus) {
+		this.purchasedStatus = purchasedStatus;
+	}
+
 
 	@ManyToOne
 	@JsonIgnoreProperties("combinedPurchaseList")
@@ -47,4 +58,22 @@ public class CombinedPurchaseList {
 		this.product = product;
 	}
 
+	public CombinedPurchaseList(int id, int quantity, boolean purchasedStatus) {
+		this.id = id;
+		this.quantity = quantity;
+		this.purchasedStatus = purchasedStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "CombinedPurchaseList{" +
+				"id=" + id +
+				", quantity=" + quantity +
+				", productSubtotal=" + productSubtotal +
+				", productUnitPrice=" + productUnitPrice +
+				", purchasedStatus=" + purchasedStatus +
+				", groupPlan=" + groupPlan +
+				", product=" + product +
+				'}';
+	}
 }

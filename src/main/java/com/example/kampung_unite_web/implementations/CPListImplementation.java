@@ -35,4 +35,23 @@ public class CPListImplementation implements CPListService
         else
             return false;
     }
+
+    @Override
+    public CombinedPurchaseList findCPLById(int id) {
+        CombinedPurchaseList dbcpl = null;
+        if (cplrepo.findById(id).isPresent()){
+            dbcpl = cplrepo.findById(id).get();
+        }
+        return dbcpl;
+    }
+    //??
+    @Override
+    public void updateCPL(CombinedPurchaseList combinedPurchaseList) {
+        cplrepo.save(combinedPurchaseList);
+    }
+    //??
+    @Override
+    public void updateList(List<CombinedPurchaseList> cplList) {
+        cplrepo.saveAll(cplList);
+    }
 }

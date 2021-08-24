@@ -21,9 +21,21 @@ public class CPListResource
     }
 
 
-    @GetMapping("getlist/{id}")
+    @GetMapping("getlist/_id={id}")
     public List<CombinedPurchaseList> getShoppingList(@PathVariable("id") int id){
         List<CombinedPurchaseList> cplList= cplService.findShoppingListByGroupPlanId(id);
+        return cplList;
+    }
+
+    @PostMapping("update")
+    public List<CombinedPurchaseList> updateShoppingList(@RequestBody List<CombinedPurchaseList> cplList){
+        int groupPlanId = 0;
+        for (CombinedPurchaseList cpl :
+                cplList) {
+            CombinedPurchaseList dbCPL = cplService.findCPLById(cpl.getId());
+            dbCPL.setPurchasedStatus(cpl.isPurchasedStatus());
+            cplService.updateCPL(dbCPL);
+        }
         return cplList;
     }
 
