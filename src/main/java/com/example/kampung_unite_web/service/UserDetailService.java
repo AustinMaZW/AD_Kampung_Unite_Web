@@ -28,4 +28,6 @@ public interface UserDetailService {
     public boolean authenticateUser(UserLogin ud);
 
     public Page<UserDetail> getAllUserByPage(int pageNo);
+
+    public List<UserDetail> searchProductByName(String name);
 }

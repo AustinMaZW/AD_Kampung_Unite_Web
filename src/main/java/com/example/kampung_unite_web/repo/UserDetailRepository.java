@@ -14,4 +14,7 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Integer>
     @Query("select u from UserDetail u where u.username = :username and u.password = :password")
     public UserDetail findUserByusernameAndPassword(@Param("username") String username,
             @Param("password") String password);
+
+    @Query("SELECT u from UserDetail u WHERE u.firstName LIKE %:name% or u.lastName LIKE %:name%")
+    public List<UserDetail> searchUsersByName(@Param("name") String name);
 }
