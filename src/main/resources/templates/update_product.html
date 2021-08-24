@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="ISO-8859-1">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="/tableedit.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/tableedit.css">
 
   <title>Open Course for Enrolment</title>
 </head>
-<body>
-<header th:insert="layout.html :: header"></header>
 
-<div class="testbox">
-  <form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
-    <h2>Update Product Info</h2>
-    <div class="item">
-    <input
-            th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
-    </div>
-    <div class="item">
-      <input
-              th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />
-    </div>
-    <div class="item">
-      <input
-              th:replace="~{fragments/inputField :: input ('Category', 'category', 'text')}" />
-    </div>
-    <div class="item">
-      <input
-              th:replace="~{fragments/inputField :: input ('Image URL', 'imgURL', 'text')}" />
-    </div>
-      <input id="id" name="id" type="hidden"  th:value="*{id}"/>
-    <div class="btn-block">
-        <button
-                class="btn btn-default" type="submit" th:text="${text}">Add Product</button>
-    </div>
-</form>
-</div>
+<body>
+  <header th:insert="layout.html :: header"></header>
+
+  <div class="testbox">
+    <form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
+      <h2>Update Product Info</h2>
+      <div class="item">
+        <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+      </div>
+      <div class="item">
+        <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />
+      </div>
+      <div class="item">
+        <input th:replace="~{fragments/inputField :: input ('Category', 'category', 'text')}" />
+      </div>
+      <div class="item">
+        <input th:replace="~{fragments/inputField :: input ('Image URL', 'imgURL', 'text')}" />
+      </div>
+      <input id="id" name="id" type="hidden" th:value="*{id}" />
+      <div class="btn-block">
+        <button class="btn btn-default" type="submit" th:text="${text}">Add Product</button>
+      </div>
+    </form>
+  </div>
 
 
 </body>
+
 </html>
