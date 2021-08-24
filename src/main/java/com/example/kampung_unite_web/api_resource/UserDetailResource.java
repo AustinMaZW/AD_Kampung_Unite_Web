@@ -25,7 +25,7 @@ public class UserDetailResource {
     @RequestMapping("find/{id}")
     public UserDetail findUserById(@PathVariable("id") int id) {
         UserDetail ud = udService.findUserById(id);
-        System.out.println(ud);
+//        System.out.println(ud);
         return ud;
     }
 

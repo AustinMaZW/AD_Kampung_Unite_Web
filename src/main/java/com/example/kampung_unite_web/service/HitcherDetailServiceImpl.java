@@ -28,4 +28,13 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 			return hdrepo.save(hd);
 		}
 	}
+
+	@Override
+	public void removeDetail(int id) {
+		HitcherDetail hd = hdrepo.findById(id).get();
+		GroceryList gl = glrepo.findListByHitcherDetailId(hd.getId());
+		gl.setHitcherDetail(null);
+		glrepo.save(gl);
+		hdrepo.deleteById(id);
+	}
 }

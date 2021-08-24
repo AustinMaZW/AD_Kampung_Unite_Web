@@ -47,4 +47,10 @@ public class HitcherDetailResource {
 		}
 	}
 
+	@RequestMapping(path = "/removedetail", method = RequestMethod.GET)
+	public int removeHitcherDetail(@RequestParam("hdid") int id) {
+		hds.removeDetail(id);
+		return id;
+	}
+
 }

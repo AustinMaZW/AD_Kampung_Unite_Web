@@ -39,4 +39,10 @@ public class CPListResource
         }
         return cplList;
     }
+    @PostMapping("save/all")
+    public Boolean saveAll(@RequestBody List<CombinedPurchaseList> list) {
+        if (list.size() > 0)
+            return cplService.saveAll(list);
+        return true;
+    }
 }

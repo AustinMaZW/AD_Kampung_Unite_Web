@@ -1,9 +1,18 @@
 package com.example.kampung_unite_web.api_resource;
 
+import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.service.GroceryItemService;
 import com.example.kampung_unite_web.service.GroceryListService;
+import com.example.kampung_unite_web.service.HitchRequestService;
+import com.example.kampung_unite_web.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
 import java.util.List;
 
 @RestController
@@ -11,6 +20,9 @@ import java.util.List;
 public class GroceryListResource {
     @Autowired
     GroceryListService groceryListService;
+
+    @Autowired
+    UserDetailService userDetailService;
 
     @GetMapping("/{userDetailId}")
     public List<GroceryList> findGroceryListsByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
@@ -28,12 +40,15 @@ public class GroceryListResource {
     // }
 
     @PostMapping("new")
-    public GroceryList createGroceryList(@RequestBody GroceryList groceryList) {
-        if (groceryList != null) {
+    public GroceryList createGroceryListByUserDetailId(@RequestBody GroceryList groceryList, @PathVariable("userDetailId") int userDetailId) {
+        if(groceryList != null) {
+            groceryList.setUserDetail(userDetailService.findUserById(userDetailId));
             groceryListService.createGroceryList(groceryList);
+            System.out.println("new grocery list created for user " + userDetailService.findUserById(userDetailId).getFirstName());
         } else {
             System.out.println("grocery list is null");
         }
         return groceryList;
     }
 }
+

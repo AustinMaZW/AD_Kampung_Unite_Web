@@ -3,10 +3,12 @@ package com.example.kampung_unite_web.api_resource;
 import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,4 +21,6 @@ public class ProductResource {
     public List<Product> getProductList() {
         return productRepository.findAll();
     }
+
+
 }

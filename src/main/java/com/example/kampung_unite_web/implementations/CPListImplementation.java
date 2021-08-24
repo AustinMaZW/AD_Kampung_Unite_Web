@@ -6,6 +6,7 @@ import com.example.kampung_unite_web.repo.CPLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,6 +27,16 @@ public class CPListImplementation implements CPListService
     }
 
     @Override
+    @Transactional
+    public boolean saveAll(List<CombinedPurchaseList> list) {
+        int size = cplrepo.saveAll(list).size();
+        if (size == list.size())
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public CombinedPurchaseList findCPLById(int id) {
         CombinedPurchaseList dbcpl = null;
         if (cplrepo.findById(id).isPresent()){
@@ -33,12 +44,12 @@ public class CPListImplementation implements CPListService
         }
         return dbcpl;
     }
-
+    //??
     @Override
     public void updateCPL(CombinedPurchaseList combinedPurchaseList) {
         cplrepo.save(combinedPurchaseList);
     }
-
+    //??
     @Override
     public void updateList(List<CombinedPurchaseList> cplList) {
         cplrepo.saveAll(cplList);
