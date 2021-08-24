@@ -34,7 +34,7 @@ public class CPListResource
                 cplList) {
             System.out.println(cpl);
             CombinedPurchaseList dbCPL = cplService.findCPLById(cpl.getId());
-            dbCPL.setPurchased(cpl.isPurchased());
+            dbCPL.setPurchasedStatus(cpl.isPurchasedStatus());
             cplService.updateCPL(dbCPL);
         }
         return cplList;
