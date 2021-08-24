@@ -101,7 +101,7 @@ public class ManageGroceriesDataTest {
 
         groceryItemRepository.save(item1);
         groceryItemRepository.save(item2);
-        groceryItemRepository.save(item3);
+//        groceryItemRepository.save(item3);
     }
 }
 
