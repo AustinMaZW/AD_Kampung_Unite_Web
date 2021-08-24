@@ -49,4 +49,9 @@ public class GroceryItemResource {
             return gItemService.saveAll(list);
         return true;
     }
+
+    @RequestMapping(path="/update", method = RequestMethod.GET)
+    public int updateGroceryItemInGroceryList (@RequestParam("groceryListId") int groceryItemId, @RequestParam("quantity") int quantity) {
+        return gItemService.updateGroceryItemInGroceryList(groceryItemId,quantity);
+    }
 }

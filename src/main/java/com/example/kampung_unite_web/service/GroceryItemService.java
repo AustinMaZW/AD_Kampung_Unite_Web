@@ -19,4 +19,6 @@ public interface GroceryItemService {
     public Boolean saveAll(List<GroceryItem> list);
 
     public int addGroceryItemToGroceryList (int productId, int quantity, int groceryListId);
+
+    public int updateGroceryItemInGroceryList (int groceryItemId, int quantity);
 }

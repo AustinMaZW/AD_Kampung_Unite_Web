@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GroceryItemServiceImpl implements GroceryItemService{
+public class GroceryItemServiceImpl implements GroceryItemService {
     @Autowired
     GroceryItemRepository gItemRepo;
     @Autowired
@@ -25,7 +25,7 @@ public class GroceryItemServiceImpl implements GroceryItemService{
     ProductRepository pRepo;
 
     @Override
-    public List<GroceryItem> findGroceryItemsByGroceryListId(int groceryListId){
+    public List<GroceryItem> findGroceryItemsByGroceryListId(int groceryListId) {
         return gItemRepo.findGroceryItemsByGroceryListId(groceryListId);
     }
 
@@ -39,7 +39,7 @@ public class GroceryItemServiceImpl implements GroceryItemService{
         List<GroceryList> groceryLists = gListRepo.findGroceryListsByGroupPlanGL_Id(groupId);
         GroceryList buyerGroceryList = groceryLists
                 .stream()
-                .filter(x->x.getRole().equals(HitchBuyRole.BUYER))
+                .filter(x -> x.getRole().equals(HitchBuyRole.BUYER))
                 .findAny().get();
         List<GroceryItem> groceryItems = gItemRepo.findGroceryItemsByGroceryListId(buyerGroceryList.getId());
 
@@ -50,7 +50,7 @@ public class GroceryItemServiceImpl implements GroceryItemService{
     public List<GroceryItem> findAcceptedGroceryItemsByGroupPlanId(int groupId, GLStatus status) {
         List<GroceryList> groceryLists = gListRepo.findGroceryListsByGroupPlanGLIdAndStatus(groupId, status);
         List<Integer> glistIds = new ArrayList<>();
-        groceryLists.stream().forEach(x->glistIds.add(x.getId()));
+        groceryLists.stream().forEach(x -> glistIds.add(x.getId()));
 
         return gItemRepo.findByGroceryListIdIn(glistIds);
     }
@@ -64,16 +64,31 @@ public class GroceryItemServiceImpl implements GroceryItemService{
         else
             return false;
     }
+
     @Override
-    public int addGroceryItemToGroceryList (int productId, int quantity, int groceryListId) {
+    @Transactional
+    public int addGroceryItemToGroceryList(int productId, int quantity, int groceryListId) {
         Product product = pRepo.getById(productId);
         GroceryList groceryList = gListRepo.findGroceryListById(groceryListId);
-        if(product != null && groceryList != null) {
+        if (product != null && groceryList != null) {
             GroceryItem groceryItem = new GroceryItem(quantity, 0, product, groceryList);
             gItemRepo.save(groceryItem);
             return groceryItem.getId();
-        }
-        else return -1;
+        } else return -1;
     }
 
+    @Override
+    @Transactional
+    public int updateGroceryItemInGroceryList(int groceryItemId, int quantity) {
+        GroceryItem groceryItem = gItemRepo.getById(groceryItemId);
+        // remove grocery item if quantity is 0
+        if (quantity == 0) {
+            gItemRepo.delete(groceryItem);
+            return -1;
+        } else {
+            groceryItem.setQuantity(quantity);
+            gItemRepo.save(groceryItem);
+            return groceryItemId;
+        }
+    }
 }
