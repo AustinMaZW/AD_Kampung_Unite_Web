@@ -35,7 +35,7 @@ public class LoginController {
             ul.setUsername(u.getUsername());
             ul.setPassword(u.getPassword());
             session.setAttribute("userSession", u);
-            return "index";
+            return "redirect:/";
         } else {
             UserLogin ul = new UserLogin();
             model.addAttribute("user", ul);
@@ -48,8 +48,8 @@ public class LoginController {
         if (session.getAttribute("userSession") != null) {
             session.invalidate();
             stutas.setComplete();
-            return "index.html";
+            return "redirect:/";
         }
-        return "index";
+        return "redirect:/";
     }
 }
