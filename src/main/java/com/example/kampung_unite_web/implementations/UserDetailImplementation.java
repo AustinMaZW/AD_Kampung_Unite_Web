@@ -2,6 +2,7 @@ package com.example.kampung_unite_web.implementations;
 
 import com.example.kampung_unite_web.service.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
+import com.example.kampung_unite_web.model.UserLogin;
 import com.example.kampung_unite_web.repo.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class UserDetailImplementation implements UserDetailService {
     @Override
     public UserDetail findUserById(int id) {
         UserDetail ud = null;
-        if(udrepo.findById(id).isPresent()){
+        if (udrepo.findById(id).isPresent()) {
             ud = udrepo.findById(id).get();
         }
         return ud;
@@ -30,16 +31,16 @@ public class UserDetailImplementation implements UserDetailService {
 
     @Override
     public boolean createUser(UserDetail userDetail) {
-        String newUsername =  userDetail.getUsername();
+        String newUsername = userDetail.getUsername();
         boolean isValidNewUsername = false;
         int usernameExisted = 0;
         List<UserDetail> listUsers = udrepo.findAll();
-        for(UserDetail user : listUsers){
-            if(user.getUsername().matches(newUsername)){
-                usernameExisted ++;
+        for (UserDetail user : listUsers) {
+            if (user.getUsername().matches(newUsername)) {
+                usernameExisted++;
             }
         }
-        if(usernameExisted == 0){
+        if (usernameExisted == 0) {
             isValidNewUsername = true;
             udrepo.save(userDetail);
         }
@@ -65,6 +66,21 @@ public class UserDetailImplementation implements UserDetailService {
     @Override
     public void updateUser(UserDetail userDetail) {
         udrepo.save(userDetail);
+    }
+
+    @Override
+    public UserDetail findUserByUsernameAndPassword(String username, String password) {
+        UserDetail usr = udrepo.findUserByusernameAndPassword(username, password);
+        return usr;
+    }
+
+    @Override
+    public boolean authenticateUser(UserLogin ud) {
+        UserDetail usr = udrepo.findUserByusernameAndPassword(ud.getUsername(), ud.getPassword());
+        if (ud.getUsername().equals(usr.getUsername()) && ud.getPassword().equals(usr.getPassword())) {
+            return true;
+        }
+        return false;
     }
 
 }
