@@ -3,6 +3,7 @@ package com.example.kampung_unite_web.repo;
 import java.util.List;
 
 import com.example.kampung_unite_web.model.enums.GLStatus;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +21,6 @@ public interface GroceryListRepository extends JpaRepository<GroceryList, Intege
 	public GroceryList findListByHitcherDetailId(@Param("hitcherDetailId") int id);
 
     public List<GroceryList> findGroceryListsByGroupPlanGLIdAndStatus(int id, GLStatus status);
+
+    public List<GroceryList> findGroceryListsByUserDetailIdAndRole(int id, HitchBuyRole role);
 }

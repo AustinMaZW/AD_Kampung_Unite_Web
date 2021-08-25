@@ -6,6 +6,7 @@ import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.model.enums.GLStatus;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
 import com.example.kampung_unite_web.repo.GroceryItemRepository;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
 import com.example.kampung_unite_web.repo.ProductRepository;
@@ -80,7 +81,7 @@ public class ManageGroceriesDataTest {
         List<UserDetail> user = urepo.findAll();
 
         // create grocery list
-        GroceryList groceryList = new GroceryList("August Groceries", GLStatus.PENDING, user.get(0), null, null, null);
+        GroceryList groceryList = new GroceryList("Hitcher Groceries", GLStatus.PENDING, user.get(0), null, null, HitchBuyRole.HITCHER);
         groceryListRepository.save(groceryList);
 
         // create grocery items and assign to grocery list
@@ -102,6 +103,10 @@ public class ManageGroceriesDataTest {
         groceryItemRepository.save(item1);
         groceryItemRepository.save(item2);
 //        groceryItemRepository.save(item3);
+
+        // create grocery list
+        GroceryList buyerList = new GroceryList("Buyer Groceries", GLStatus.PENDING, user.get(0), null, null, HitchBuyRole.BUYER);
+        groceryListRepository.save(buyerList);
     }
 }
 

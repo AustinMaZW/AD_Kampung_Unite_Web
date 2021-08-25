@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,10 +58,14 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 
 	@Override
 	public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId) {
-		int hitcherDetailId = hdRepo.findHitcherDetailByGroceryListId(groceryListId).getId();
-		List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetailId);
-		rqList.stream().forEach(x -> System.out.println(x.getId()));
-		return rqList;
+		HitcherDetail hitcherDetail = hdRepo.findHitcherDetailByGroceryListId(groceryListId);
+		if(hitcherDetail != null) {
+			List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetail.getId());
+			rqList.stream().forEach(x -> System.out.println(x.getId()));
+			return rqList;
+
+		}
+		return new ArrayList<>();
 	}
 
 	@Override
