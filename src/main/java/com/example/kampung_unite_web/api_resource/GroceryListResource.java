@@ -16,7 +16,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 
 @RestController
-@RequestMapping("grocerylists")
+@RequestMapping("/grocerylists")
 public class GroceryListResource {
     @Autowired
     GroceryListService groceryListService;
@@ -39,16 +39,17 @@ public class GroceryListResource {
     // return new ResponseEntity(statusResponseEntity, HttpStatus.CREATED);
     // }
 
-    @PostMapping("new")
-    public GroceryList createGroceryListByUserDetailId(@RequestBody GroceryList groceryList, @PathVariable("userDetailId") int userDetailId) {
-        if(groceryList != null) {
+    @PostMapping("/new")
+    public GroceryList createGroceryListByUserDetailId(@RequestBody GroceryList groceryList,
+            @PathVariable("userDetailId") int userDetailId) {
+        if (groceryList != null) {
             groceryList.setUserDetail(userDetailService.findUserById(userDetailId));
             groceryListService.createGroceryList(groceryList);
-            System.out.println("new grocery list created for user " + userDetailService.findUserById(userDetailId).getFirstName());
+            System.out.println(
+                    "new grocery list created for user " + userDetailService.findUserById(userDetailId).getFirstName());
         } else {
             System.out.println("grocery list is null");
         }
         return groceryList;
     }
 }
-
