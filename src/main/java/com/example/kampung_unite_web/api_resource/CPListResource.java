@@ -39,6 +39,11 @@ public class CPListResource
         return cplList;
     }
 
+    @GetMapping("groupplan/{id}")
+    public List<CombinedPurchaseList> getShoppingListByGroupPlanId(@PathVariable("id") int id){
+        return cplService.findShoppingListByGroupPlanId(id);
+    }
+
     @PostMapping("save/all")
     public Boolean saveAll(@RequestBody List<CombinedPurchaseList> list) {
         if (list.size() > 0)
