@@ -85,7 +85,8 @@ public class UserDetailImplementation implements UserDetailService {
     @Override
     public boolean authenticateUser(UserLogin ud) {
         UserDetail usr = udrepo.findUserByusernameAndPassword(ud.getUsername(), ud.getPassword());
-        if (ud.getUsername().equals(usr.getUsername()) && ud.getPassword().equals(usr.getPassword())) {
+        if (ud.getUsername().equals(usr.getUsername()) && ud.getPassword().equals(usr.getPassword())
+                && usr.getRole().equals("admin")) {
             return true;
         }
         return false;
