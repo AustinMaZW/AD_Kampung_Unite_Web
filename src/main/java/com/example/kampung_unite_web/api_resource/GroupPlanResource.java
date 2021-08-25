@@ -1,9 +1,11 @@
 package com.example.kampung_unite_web.api_resource;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.kampung_unite_web.model.GroupPlan;
@@ -53,4 +55,15 @@ public class GroupPlanResource {
 	public GroupPlan getGroupPlanById(@PathVariable("id") int id) {
 		return gls.findById(id);
 	}
+
+	@RequestMapping(path="/save", method = RequestMethod.GET)
+	public GroupPlan createGroupPlan(@RequestParam("planName") String planName,
+									 @RequestParam("storeName") String storeName,
+									 @RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
+									 @RequestParam("pickUpAddress") String pickupAddress,
+									 @RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate) {
+		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate);
+		return groupPlan;
+	}
 }
+

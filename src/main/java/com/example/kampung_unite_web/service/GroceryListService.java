@@ -16,4 +16,6 @@ public interface GroceryListService {
 
     public List<GroceryList> findGroceryListsByUserDetailIdAndRole(int id, HitchBuyRole role);
 
+    public GroceryList updateBuyerRoleById(int groceryListId, int groupPlanId);
+
 }

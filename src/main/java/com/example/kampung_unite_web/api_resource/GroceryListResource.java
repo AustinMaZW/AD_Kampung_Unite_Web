@@ -55,5 +55,10 @@ public class GroceryListResource {
         int groceryListId = groceryListService.createGroceryListByUserDetailId(groceryListName, userDetailId);
         return groceryListId;
     }
+
+    @RequestMapping("update/buyerrole")
+    public GroceryList updateBuyerRoleById(@RequestParam("groceryListId") int groceryListId, @RequestParam("groupPlanId") int groupPlanId) {
+        return groceryListService.updateBuyerRoleById(groceryListId, groupPlanId);
+    }
 }
 

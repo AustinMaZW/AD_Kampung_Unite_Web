@@ -1,14 +1,13 @@
 package com.example.kampung_unite_web.service;
 
-import com.example.kampung_unite_web.model.GroceryList;
-import com.example.kampung_unite_web.model.UserDetail;
+import com.example.kampung_unite_web.model.*;
 import com.example.kampung_unite_web.model.enums.GLStatus;
 import com.example.kampung_unite_web.model.enums.HitchBuyRole;
-import com.example.kampung_unite_web.repo.GroceryListRepository;
-import com.example.kampung_unite_web.repo.UserDetailRepository;
+import com.example.kampung_unite_web.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +17,12 @@ public class GroceryListServiceImpl implements GroceryListService{
     GroceryListRepository glrepo;
     @Autowired
     UserDetailRepository udrepo;
+    @Autowired
+    GroupPlanRepository gprepo;
+    @Autowired
+    CPLRepository cplrepo;
+    @Autowired
+    GroceryItemRepository girepo;
 
     @Override
     public int createGroceryListByUserDetailId(String name, int userDetailId) {
@@ -48,5 +53,29 @@ public class GroceryListServiceImpl implements GroceryListService{
         return glrepo.findGroceryListsByUserDetailIdAndRole(userDetailId, role);
     }
 
+    @Override
+    public GroceryList updateBuyerRoleById(int groceryListId, int groupPlanId) {
+        GroceryList groceryList = glrepo.findGroceryListById(groceryListId);
+        GroupPlan groupPlan = gprepo.findGroupPlanById(groupPlanId);
+        List<GroceryItem> groceryItems = girepo.findGroceryItemsByGroceryListId(groceryListId);
 
+        for (GroceryItem item:groceryItems) {
+            CombinedPurchaseList combinedPurchaseList = new CombinedPurchaseList();
+            combinedPurchaseList.setGroupPlan(groupPlan);
+            combinedPurchaseList.setProduct(item.getProduct());
+            combinedPurchaseList.setQuantity(item.getQuantity());
+            cplrepo.save(combinedPurchaseList);
+
+        }
+
+        groceryList.setRole(HitchBuyRole.BUYER);
+        groceryList.setGroupPlanGL(groupPlan);
+
+        List<GroceryList> groceryLists = new ArrayList<>();
+        groceryLists.add(groceryList);
+        groupPlan.setGroceryLists(groceryLists);
+        glrepo.save(groceryList);
+        gprepo.save(groupPlan);
+        return groceryList;
+    }
 }

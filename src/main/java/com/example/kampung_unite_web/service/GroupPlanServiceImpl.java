@@ -1,10 +1,13 @@
 package com.example.kampung_unite_web.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.example.kampung_unite_web.model.*;
+import com.example.kampung_unite_web.model.enums.GLStatus;
+import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import com.example.kampung_unite_web.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,5 +111,18 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 	@Override
 	public void save(GroupPlan plan) {
 		gprepo.save(plan);
+	}
+
+	@Override
+	public GroupPlan createGroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress, LocalDate pickupDate) {
+		GroupPlan groupPlan = new GroupPlan();
+		groupPlan.setPlanName(planName);
+		groupPlan.setStoreName(storeName);
+		groupPlan.setShoppingDate(shoppingDate);
+		groupPlan.setPickupAddress(pickupAddress);
+		groupPlan.setPickupDate(pickupDate);
+		groupPlan.setGroupPlanStatus(GroupPlanStatus.AVAILABLE);
+		glrepo.save(groupPlan);
+		return groupPlan;
 	}
 }
