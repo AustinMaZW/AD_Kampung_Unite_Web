@@ -17,4 +17,6 @@ public interface CPListService {
     void updateCPL(CombinedPurchaseList combinedPurchaseList);
 
     void updateList(List<CombinedPurchaseList> cplList);
+
+    List<CombinedPurchaseList> findShoppingListByGroupPlanIdAndPurchasedStatus(int groupPlanId, boolean purchasedStatus);
 }
