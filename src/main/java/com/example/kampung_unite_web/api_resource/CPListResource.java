@@ -39,9 +39,9 @@ public class CPListResource
         return cplList;
     }
 
-    @GetMapping("groupplan/{id}")
-    public List<CombinedPurchaseList> getShoppingListByGroupPlanId(@PathVariable("id") int id){
-        return cplService.findShoppingListByGroupPlanId(id);
+    @GetMapping("groupplan/{id}/{status}")
+    public List<CombinedPurchaseList> getShoppingListByGroupPlanIdAndPurchasedStatus(@PathVariable("id") int groupPlanId, @PathVariable("status") boolean purchasedStatus){
+        return cplService.findShoppingListByGroupPlanIdAndPurchasedStatus(groupPlanId, purchasedStatus);
     }
 
     @PostMapping("save/all")

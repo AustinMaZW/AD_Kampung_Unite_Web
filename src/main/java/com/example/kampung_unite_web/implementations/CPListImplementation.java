@@ -54,4 +54,9 @@ public class CPListImplementation implements CPListService
     public void updateList(List<CombinedPurchaseList> cplList) {
         cplrepo.saveAll(cplList);
     }
+
+    @Override
+    public List<CombinedPurchaseList> findShoppingListByGroupPlanIdAndPurchasedStatus(int groupPlanId, boolean purchasedStatus) {
+        return cplrepo.findCombinedPurchaseListsByGroupPlanIdAndPurchasedStatus(groupPlanId, purchasedStatus);
+    }
 }
