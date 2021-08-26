@@ -3,6 +3,7 @@ package com.example.kampung_unite_web.api_resource;
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import com.example.kampung_unite_web.service.GroceryListService;
 import com.example.kampung_unite_web.service.HitchRequestService;
