@@ -3,6 +3,7 @@ package com.example.kampung_unite_web.api_resource;
 import com.example.kampung_unite_web.model.GroceryItem;
 import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
 import com.example.kampung_unite_web.service.GroceryItemService;
 import com.example.kampung_unite_web.service.GroceryListService;
 import com.example.kampung_unite_web.service.HitchRequestService;
@@ -16,7 +17,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/grocerylists")
+@RequestMapping("grocerylists")
 public class GroceryListResource {
     @Autowired
     GroceryListService groceryListService;
@@ -24,9 +25,19 @@ public class GroceryListResource {
     @Autowired
     UserDetailService userDetailService;
 
+//    @GetMapping("/{userDetailId}")
+//    public List<GroceryList> findGroceryListsByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
+//        return groceryListService.findGroceryListsByUserDetailId(userDetailId);
+//    }
+
     @GetMapping("/{userDetailId}")
-    public List<GroceryList> findGroceryListsByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
-        return groceryListService.findGroceryListsByUserDetailId(userDetailId);
+    public List<GroceryList> findGroceryListsByUserDetailIdAndRole(@PathVariable("userDetailId") int userDetailId) {
+        return groceryListService.findGroceryListsByUserDetailIdAndRole(userDetailId, HitchBuyRole.HITCHER);
+    }
+
+    @GetMapping("/glistid/{groceryListId}")
+    public GroceryList findGroceryListByGroceryListId(@PathVariable("groceryListId") int groceryListId) {
+        return groceryListService.findGroceryListByGroceryListId(groceryListId);
     }
 
     // @PutMapping
@@ -39,17 +50,15 @@ public class GroceryListResource {
     // return new ResponseEntity(statusResponseEntity, HttpStatus.CREATED);
     // }
 
-    @PostMapping("/new")
-    public GroceryList createGroceryListByUserDetailId(@RequestBody GroceryList groceryList,
-            @PathVariable("userDetailId") int userDetailId) {
-        if (groceryList != null) {
-            groceryList.setUserDetail(userDetailService.findUserById(userDetailId));
-            groceryListService.createGroceryList(groceryList);
-            System.out.println(
-                    "new grocery list created for user " + userDetailService.findUserById(userDetailId).getFirstName());
-        } else {
-            System.out.println("grocery list is null");
-        }
-        return groceryList;
+    @RequestMapping("new")
+    public int createGroceryListByUserDetailId(@RequestParam("groceryListName") String groceryListName, @RequestParam("userDetailId") int userDetailId) {
+        int groceryListId = groceryListService.createGroceryListByUserDetailId(groceryListName, userDetailId);
+        return groceryListId;
+    }
+
+    @RequestMapping("update/buyerrole")
+    public GroceryList updateBuyerRoleById(@RequestParam("groceryListId") int groceryListId, @RequestParam("groupPlanId") int groupPlanId) {
+        return groceryListService.updateBuyerRoleById(groceryListId, groupPlanId);
     }
 }
+
