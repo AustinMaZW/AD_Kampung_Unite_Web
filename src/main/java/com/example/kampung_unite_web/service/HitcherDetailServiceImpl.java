@@ -45,8 +45,9 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 				lis.setHitcherDetail(hd);
 				glrepo.save(lis);
 				hd.setGroceryList(lis);
+				return hdrepo.save(hd);
 			}
-			return hdrepo.save(hd);
+
 		}
 	}
 
