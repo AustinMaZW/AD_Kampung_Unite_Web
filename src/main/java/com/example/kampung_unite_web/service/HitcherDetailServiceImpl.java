@@ -34,9 +34,19 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 			return null;
 		} else {
 			GroceryList lis = glrepo.findById(planId).get();
-			lis.setHitcherDetail(hd);
-			glrepo.save(lis);
-			hd.setGroceryList(lis);
+			if (lis.getHitcherDetail().getPrefPickupLocation() != null
+					&& lis.getHitcherDetail().getPrefPickupLocation().equals("")) {
+				HitcherDetail oldHd = hdrepo.findById(lis.getHitcherDetail().getId()).get();
+				oldHd.setPrefPickupLocation(hd.getPrefPickupLocation());
+				oldHd.setPrefPickupTimeFrom(hd.getPrefPickupTimeFrom());
+				lis.setHitcherDetail(oldHd);
+				glrepo.save(lis);
+				return hdrepo.save(oldHd);
+			} else {
+				lis.setHitcherDetail(hd);
+				glrepo.save(lis);
+				hd.setGroceryList(lis);
+			}
 			return hdrepo.save(hd);
 		}
 	}
