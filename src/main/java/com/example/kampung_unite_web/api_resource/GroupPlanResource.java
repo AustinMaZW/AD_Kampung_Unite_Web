@@ -2,12 +2,14 @@ package com.example.kampung_unite_web.api_resource;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.example.kampung_unite_web.model.enums.GroupPlanStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.kampung_unite_web.model.AvailableTime;
 import com.example.kampung_unite_web.model.GroupPlan;
 import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.service.GroupPlanService;
@@ -23,6 +25,7 @@ public class GroupPlanResource {
 	public List<GroupPlan> findGroupPlansByUserDetailId(@PathVariable("userDetailId") int userDetailId) {
 		return gls.findGroupPlansByUserDetailId(userDetailId);
 	}
+
 	@RequestMapping(path = "/listplans", method = RequestMethod.POST)
 	public List<GroupPlan> findPlans(@RequestBody List<Integer> planIds) {
 		List<GroupPlan> plans = gls.findGroupPlansByListIds(planIds);
@@ -56,14 +59,26 @@ public class GroupPlanResource {
 		return gls.findById(id);
 	}
 
-	@RequestMapping(path="/save", method = RequestMethod.GET)
+	@RequestMapping(path = "/save", method = RequestMethod.GET)
 	public GroupPlan createGroupPlan(@RequestParam("planName") String planName,
-									 @RequestParam("storeName") String storeName,
-									 @RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
-									 @RequestParam("pickUpAddress") String pickupAddress,
-									 @RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate) {
+			@RequestParam("storeName") String storeName,
+			@RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
+			@RequestParam("pickUpAddress") String pickupAddress,
+			@RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate) {
 		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate);
 		return groupPlan;
 	}
-}
 
+	@RequestMapping(path = "/availableTime/{planId}", method = RequestMethod.POST)
+	public List<String> findPickSlots(@PathVariable int planId) {
+
+		return gls.findSlotsByplan(planId);
+
+	}
+
+	@RequestMapping(path = "/availableTimes", method = RequestMethod.POST)
+	public Map<Integer, List<String>> findSlots(@RequestBody List<Integer> planIds) {
+
+		return gls.findSlotsByPlanIds(planIds);
+	}
+}
