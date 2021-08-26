@@ -16,6 +16,9 @@ public interface HitcherRequestRepository extends JpaRepository<HitchRequest, In
 	@Query("select h from HitchRequest h where h.groupPlan.id = :planId And h.hitcherDetail.id = :detailId")
 	public HitchRequest findHitchRequestsByPlanAndDetail(@Param("planId") int planId, @Param("detailId") int detailId);
 
+	@Query("select h from HitchRequest h where h.hitcherDetail.id = :detailId")
+	public List<HitchRequest> findRequestsByDetailId(@Param("detailId") int detailId);
+
 	public HitchRequest findHitchRequestByHitcherDetailIdAndRequestStatus(int id, RequestStatus requestStatus);
 
 	@Query("select h from HitchRequest h where h.groupPlan.id = :planId")

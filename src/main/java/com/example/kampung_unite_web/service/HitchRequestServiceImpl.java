@@ -59,11 +59,9 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 	@Override
 	public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId) {
 		HitcherDetail hitcherDetail = hdRepo.findHitcherDetailByGroceryListId(groceryListId);
-		if(hitcherDetail != null) {
+		if (hitcherDetail != null) {
 			List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetail.getId());
-			rqList.stream().forEach(x -> System.out.println(x.getId()));
 			return rqList;
-
 		}
 		return new ArrayList<>();
 	}
@@ -86,37 +84,41 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 
 	@Transactional
 	@Override
-	public Boolean acceptHitchRq(int hitchRqId){
+	public Boolean acceptHitchRq(int hitchRqId) {
 		HitchRequest hitchRequest = hrqRepo.findHitchRequestsById(hitchRqId);
-		//validation against accepted status. If alr accepted, then should not continue to modify anything
-		if(hitchRequest!=null && hitchRequest.getRequestStatus()!=RequestStatus.ACCEPTED){
+		// validation against accepted status. If alr accepted, then should not continue
+		// to modify anything
+		if (hitchRequest != null && hitchRequest.getRequestStatus() != RequestStatus.ACCEPTED) {
 			hitchRequest.setRequestStatus(RequestStatus.ACCEPTED);
-			hrqRepo.save(hitchRequest);			//save hrq
+			hrqRepo.save(hitchRequest); // save hrq
 
 			GroupPlan groupPlan = hitchRequest.getGroupPlan();
 			GroceryList groceryList = hitchRequest.getHitcherDetail().getGroceryList();
 
 			groceryList.setStatus(GLStatus.ACCEPTED);
-			groceryListRepository.save(groceryList);		//set the groupplan to groceryList and save
+			groceryListRepository.save(groceryList); // set the groupplan to groceryList and save
 
 			List<GroceryItem> groceryItems = groceryList.getGroceryItems();
 			List<CombinedPurchaseList> cplList = groupPlan.getCombinedPurchaseList();
 
-			for (GroceryItem hitcherItem: groceryItems) {
+			for (GroceryItem hitcherItem : groceryItems) {
 				boolean cplItemAlreadyExist = false;
-				for (CombinedPurchaseList cplItem: cplList) {
-					if (cplItem.getProduct().getId() == hitcherItem.getProduct().getId()){	//loop to find if cpl's product eqls hitcher's item
+				for (CombinedPurchaseList cplItem : cplList) {
+					if (cplItem.getProduct().getId() == hitcherItem.getProduct().getId()) { // loop to find if cpl's
+																							// product eqls hitcher's
+																							// item
 						cplItemAlreadyExist = true;
 						int qty = cplItem.getQuantity() + hitcherItem.getQuantity();
 						cplItem.setQuantity(qty);
-						cplRepository.save(cplItem);		//set the new qty and save
+						cplRepository.save(cplItem); // set the new qty and save
 					}
 				}
-				if(!cplItemAlreadyExist){
+				if (!cplItemAlreadyExist) {
 					int qty = hitcherItem.getQuantity();
 					CombinedPurchaseList newCPLItem = new CombinedPurchaseList(qty, 0, 0, 0, groupPlan,
 							hitcherItem.getProduct());
-					cplRepository.save(newCPLItem);		//if no match in cpl, it means this is a new item only from hitcher, save to new row
+					cplRepository.save(newCPLItem); // if no match in cpl, it means this is a new item only from
+													// hitcher, save to new row
 				}
 
 			}
@@ -124,6 +126,7 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 		}
 		return false;
 	}
+
 	@Override
 	@Transactional
 	public HitchRequest updateHitchRQ(HitchRequest hitchRequest) {
@@ -136,5 +139,4 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 		List<HitchRequest> hitchRequests = hrqRepo.findHitchRequestsByGroupPlanId(id);
 		return hitchRequests;
 	}
-
 }

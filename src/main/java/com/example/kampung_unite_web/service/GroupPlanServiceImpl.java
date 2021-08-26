@@ -1,8 +1,11 @@
 package com.example.kampung_unite_web.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.example.kampung_unite_web.model.*;
@@ -12,8 +15,6 @@ import com.example.kampung_unite_web.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.kampung_unite_web.model.GroupPlan;
-import com.example.kampung_unite_web.model.Product;
 import com.example.kampung_unite_web.repo.GroupPlanRepository;
 import com.example.kampung_unite_web.repo.ProductRepository;
 import javax.transaction.Transactional;
@@ -35,6 +36,9 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 	CPLRepository cplRepo;
 	@Autowired
 	GroceryItemRepository groceryItemRepo;
+
+	@Autowired
+	AvailableTimeRepository arepo;
 
 	@Override
 	public List<GroupPlan> findGroupPlansByListIds(List<Integer> ids) {
@@ -59,7 +63,15 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 		GroceryList groceryList = groceryListRepo.findGroceryListById(id);
 		if (groceryList != null) {
 			List<HitchRequest> hitchRequests = hrqRepo
-					.findHitchRequestsByHitcherDetailId(groceryList.getHitcherDetail().getId());	//because i am sending grocerylist to server, need to find the hitchrq associated with groupplan... alternatively could pass hitchrq
+					.findHitchRequestsByHitcherDetailId(groceryList.getHitcherDetail().getId()); // because i am sending
+																									// grocerylist to
+																									// server, need to
+																									// find the hitchrq
+																									// associated with
+																									// groupplan...
+																									// alternatively
+																									// could pass
+																									// hitchrq
 			if (hitchRequests != null) {
 				hitchRequests.stream().forEach(x -> {
 					if (x.getGroupPlan().getId() == groceryList.getGroupPlanGL().getId()) {
@@ -68,7 +80,10 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 				});
 			}
 			List<CombinedPurchaseList> combinedPurchaseList = cplRepo
-					.findCombinedPurchaseListsByGroupPlanId(groceryList.getGroupPlanGL().getId());	//get list of cpl so we can remove items from hitcher's list
+					.findCombinedPurchaseListsByGroupPlanId(groceryList.getGroupPlanGL().getId()); // get list of cpl so
+																									// we can remove
+																									// items from
+																									// hitcher's list
 			if (combinedPurchaseList != null) {
 				List<GroceryItem> groceryItems = groceryItemRepo.findGroceryItemsByGroceryListId(groceryList.getId());
 				groceryItems.stream().forEach(x -> {
@@ -96,9 +111,8 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 	@Override
 	public List<GroupPlan> findGroupPlansByUserDetailId(int userDetailId) {
 		List<GroupPlan> groupPlans = gprepo.findAll();
-		List<GroupPlan> mgroupPlans = groupPlans
-				.stream()
-				.filter(x-> x.getGroceryLists().stream().anyMatch(y-> y.getUserDetail().getId()==userDetailId))
+		List<GroupPlan> mgroupPlans = groupPlans.stream()
+				.filter(x -> x.getGroceryLists().stream().anyMatch(y -> y.getUserDetail().getId() == userDetailId))
 				.collect(Collectors.toList());
 		return mgroupPlans;
 	}
@@ -114,7 +128,8 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 	}
 
 	@Override
-	public GroupPlan createGroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress, LocalDate pickupDate) {
+	public GroupPlan createGroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress,
+			LocalDate pickupDate) {
 		GroupPlan groupPlan = new GroupPlan();
 		groupPlan.setPlanName(planName);
 		groupPlan.setStoreName(storeName);
@@ -124,5 +139,23 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 		groupPlan.setGroupPlanStatus(GroupPlanStatus.AVAILABLE);
 		glrepo.save(groupPlan);
 		return groupPlan;
+	}
+
+	@Override
+	public List<String> findSlotsByplan(int planId) {
+		List<AvailableTime> slots = arepo.findSlotsByPlanId(planId);
+		DateTimeFormatter df = DateTimeFormatter.ISO_TIME;
+		List<String> strSlots = slots.stream().map(x -> df.format(x.getPickupSlots())).collect(Collectors.toList());
+		return strSlots;
+	}
+
+	@Override
+	public Map<Integer, List<String>> findSlotsByPlanIds(List<Integer> planIds) {
+		Map<Integer, List<String>> slots = new HashMap<>();
+		if (planIds != null && planIds.size() > 0) {
+			planIds.stream().forEach(x -> slots.put(x, findSlotsByplan(x)));
+			return slots;
+		}
+		return null;
 	}
 }

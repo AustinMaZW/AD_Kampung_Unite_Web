@@ -3,10 +3,14 @@ package com.example.kampung_unite_web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.HitchRequest;
 import com.example.kampung_unite_web.model.HitcherDetail;
 import com.example.kampung_unite_web.repo.GroceryListRepository;
 import com.example.kampung_unite_web.repo.HitcherDetailRepository;
+import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 
 @Service
 public class HitcherDetailServiceImpl implements HitcherDetailService {
@@ -15,6 +19,9 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 	private HitcherDetailRepository hdrepo;
 	@Autowired
 	private GroceryListRepository glrepo;
+
+	@Autowired
+	private HitcherRequestRepository hrrepo;
 
 	@Override
 	public HitcherDetail createHitcherDetail(HitcherDetail hd) {
@@ -55,8 +62,18 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 	public void removeDetail(int id) {
 		HitcherDetail hd = hdrepo.findById(id).get();
 		GroceryList gl = glrepo.findListByHitcherDetailId(hd.getId());
-		gl.setHitcherDetail(null);
-		glrepo.save(gl);
-		hdrepo.deleteById(id);
+		List<HitchRequest> requests = hrrepo.findRequestsByDetailId(id);
+		if (gl != null) {
+			System.out.println("Not null");
+			if (requests.size() == 0) {
+				gl.setHitcherDetail(null);
+				glrepo.save(gl);
+			}
+		}
+
+		if (requests.size() == 0) {
+			System.out.println("delete");
+			hdrepo.deleteById(id);
+		}
 	}
 }
