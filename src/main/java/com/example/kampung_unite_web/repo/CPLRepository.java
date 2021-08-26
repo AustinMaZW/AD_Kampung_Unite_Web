@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CPLRepository extends JpaRepository<CombinedPurchaseList, Integer> {
     public List<CombinedPurchaseList> findCombinedPurchaseListsByGroupPlanId(int id);
+
+    public List<CombinedPurchaseList> findCombinedPurchaseListsByGroupPlanIdAndPurchasedStatus(int id, boolean purchasedStatus);
 }

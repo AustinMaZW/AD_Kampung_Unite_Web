@@ -39,6 +39,11 @@ public class CPListResource
         return cplList;
     }
 
+    @GetMapping("groupplan/{id}/{status}")
+    public List<CombinedPurchaseList> getShoppingListByGroupPlanIdAndPurchasedStatus(@PathVariable("id") int groupPlanId, @PathVariable("status") boolean purchasedStatus){
+        return cplService.findShoppingListByGroupPlanIdAndPurchasedStatus(groupPlanId, purchasedStatus);
+    }
+
     @PostMapping("save/all")
     public Boolean saveAll(@RequestBody List<CombinedPurchaseList> list) {
         if (list.size() > 0)

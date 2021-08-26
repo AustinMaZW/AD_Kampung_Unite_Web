@@ -29,6 +29,18 @@ public class HitcherDetailServiceImpl implements HitcherDetailService {
 		}
 	}
 
+	public HitcherDetail createHitcherDetailWithList(HitcherDetail hd, int planId) {
+		if (hd == null && planId != 0) {
+			return null;
+		} else {
+			GroceryList lis = glrepo.findById(planId).get();
+			lis.setHitcherDetail(hd);
+			glrepo.save(lis);
+			hd.setGroceryList(lis);
+			return hdrepo.save(hd);
+		}
+	}
+
 	@Override
 	public void removeDetail(int id) {
 		HitcherDetail hd = hdrepo.findById(id).get();

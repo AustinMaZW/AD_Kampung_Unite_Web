@@ -35,13 +35,13 @@ public class HitcherDetailResource {
 	@RequestMapping(path = "/savehd", method = RequestMethod.GET)
 	public int savehd(@RequestParam("pickUpdate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickUpdate,
 			@RequestParam("pickUptime") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime pickUptime,
-			@RequestParam("address") String address) {
+			@RequestParam("address") String address, @RequestParam("listId") int planId) {
 		if (pickUpdate == null || pickUptime == null || address == null) {
 			return -1;
 		} else {
 			LocalDateTime pickUp = LocalDateTime.of(pickUpdate, pickUptime);
 			HitcherDetail fhd = new HitcherDetail(pickUp, address);
-			int id = hds.createHitcherDetail(fhd).getId();
+			int id = hds.createHitcherDetailWithList(fhd, planId).getId();
 			System.out.println(id);
 			return id;
 		}
