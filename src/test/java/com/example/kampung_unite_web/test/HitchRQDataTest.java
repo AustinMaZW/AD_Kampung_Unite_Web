@@ -243,4 +243,10 @@ public class HitchRQDataTest {
             prepo.save(new Product("Product #" + i));
         }
     }
+
+    @Test()
+    @Order(11)
+    public void CreateAdmin(){
+        urepo.save(new UserDetail("admin", "admin", "James", "Bond", "admin", "123", "123"));
+    }
 }
