@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.api_resource;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -61,11 +62,14 @@ public class GroupPlanResource {
 
 	@RequestMapping(path = "/save", method = RequestMethod.GET)
 	public GroupPlan createGroupPlan(@RequestParam("planName") String planName,
-			@RequestParam("storeName") String storeName,
-			@RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
-			@RequestParam("pickUpAddress") String pickupAddress,
-			@RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate) {
-		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate);
+									 @RequestParam("storeName") String storeName,
+									 @RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
+									 @RequestParam("pickUpAddress") String pickupAddress,
+									 @RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate,
+									 @RequestParam("time1") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time1,
+									 @RequestParam("time2") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time2,
+									 @RequestParam("time3") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time3) {
+		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate, time1, time2, time3);
 		return groupPlan;
 	}
 

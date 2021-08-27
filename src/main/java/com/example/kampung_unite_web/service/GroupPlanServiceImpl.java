@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,7 +130,7 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 
 	@Override
 	public GroupPlan createGroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress,
-			LocalDate pickupDate) {
+									 LocalDate pickupDate, LocalTime time1, LocalTime time2, LocalTime time3) {
 		GroupPlan groupPlan = new GroupPlan();
 		groupPlan.setPlanName(planName);
 		groupPlan.setStoreName(storeName);
@@ -138,6 +139,16 @@ public class GroupPlanServiceImpl implements GroupPlanService {
 		groupPlan.setPickupDate(pickupDate);
 		groupPlan.setGroupPlanStatus(GroupPlanStatus.AVAILABLE);
 		glrepo.save(groupPlan);
+
+		LocalTime[] times = {time1,time2,time3};
+		for (LocalTime time:times) {
+			if(time != null) {
+				AvailableTime availableTime = new AvailableTime();
+				availableTime.setGroupPlanAT(groupPlan);
+				availableTime.setPickupSlots(time);
+				arepo.save(availableTime);
+			}
+		}
 		return groupPlan;
 	}
 

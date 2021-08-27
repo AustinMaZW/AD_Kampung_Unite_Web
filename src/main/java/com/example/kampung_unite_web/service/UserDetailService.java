@@ -29,5 +29,7 @@ public interface UserDetailService {
 
     public Page<UserDetail> getAllUserByPage(int pageNo);
 
-    public List<UserDetail> searchProductByName(String name);
+    public Page<UserDetail> getUsersByPage(int pageNo, String name);
+
+    public List<UserDetail> searchUsersByName(String name);
 }
