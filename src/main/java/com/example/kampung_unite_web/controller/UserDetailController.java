@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.service.UserDetailService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -44,13 +43,19 @@ public class UserDetailController {
         if (pageResult.hasContent()) {
             uList = pageResult.getContent();
         }
-
         model.addAttribute("userlist", uList);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentNumItems", currentNumItems);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("page", true);
+        return USER_LIST;
+    }
+
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public String searchProduct(@RequestParam("name") String name, Model model) {
+        List<UserDetail> users = us.searchUsersByName(name);
+        model.addAttribute("userlist", users);
         return USER_LIST;
     }
 
@@ -79,11 +84,22 @@ public class UserDetailController {
         return "redirect:/userdetail/list";
     }
 
-    @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public String searchProduct(@RequestParam("name") String name, Model model) {
-        List<UserDetail> users = us.searchProductByName(name);
-        model.addAttribute("userlist", users);
+    @RequestMapping(path = "/new", method = RequestMethod.GET)
+    public String createNewUser(Model model) {
+        UserDetail ud = new UserDetail();
+        model.addAttribute("user", ud);
+        model.addAttribute("text", "Add User");
+        return UPDATE_USER_FORM;
 
-        return USER_LIST;
+    }
+
+    @RequestMapping(path = "/new", method = RequestMethod.POST)
+    public String processCreate(@Valid UserDetail ud, BindingResult result) {
+        if (result.hasErrors()) {
+            return UPDATE_USER_FORM;
+        } else {
+            us.createUser(ud);
+        }
+        return "redirect:/userdetail/list";
     }
 }

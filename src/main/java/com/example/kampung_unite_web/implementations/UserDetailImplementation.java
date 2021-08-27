@@ -100,8 +100,15 @@ public class UserDetailImplementation implements UserDetailService {
     }
 
     @Override
-    public List<UserDetail> searchProductByName(String name) {
+    public List<UserDetail> searchUsersByName(String name) {
         return udrepo.searchUsersByName(name);
+    }
+
+    @Override
+    public Page<UserDetail> getUsersByPage(int pageNo, String name) {
+        Pageable paging = PageRequest.of(pageNo, 10, Sort.by("id").ascending());
+        Page<UserDetail> pds = udprepo.searchUsersByNamePage(name, paging);
+        return pds;
     }
 
 }
