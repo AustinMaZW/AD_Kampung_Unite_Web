@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public interface GroupPlanService {
 	public void save(GroupPlan plan);
 
 	public GroupPlan createGroupPlan(String planName, String storeName, LocalDate shoppingDate, String pickupAddress,
-			LocalDate pickupDate);
+									 LocalDate pickupDate, LocalTime time1, LocalTime time2, LocalTime time3);
 
 	public List<String> findSlotsByplan(int planId);
 
