@@ -70,8 +70,13 @@ public class ManageGroceriesDataTest {
     @Test()
     @Order(1)
     public void CreateUser() {
-        UserDetail userDetail = new UserDetail("YZ", "123", "YaZhen", "Chua", "Hitcher", "123", "123");
-        urepo.save(userDetail);
+        UserDetail[] usrs = { new UserDetail("austin", "123", "Ziwang", "Ma", null, "123", "123"),
+                new UserDetail("YZ", "123", "YaZhen", "Chua", null, "123", "123"),
+                new UserDetail("LJ", "123", "YeeJean", "Lim", null, "123", "123"),
+                new UserDetail("NG", "123", "CheZaw", "NguMay", null, "123", "123"),
+                new UserDetail("CK", "123", "ChorKian", "Tang", null, "123", "123"),
+                new UserDetail("Yue", "123", "PengCheng", "Yue", null, "123", "123")};
+        Arrays.stream(usrs).forEach(x -> urepo.save(x));
     }
 
     @Test
