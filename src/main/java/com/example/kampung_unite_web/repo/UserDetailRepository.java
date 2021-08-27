@@ -1,6 +1,7 @@
 package com.example.kampung_unite_web.repo;
 
 import com.example.kampung_unite_web.model.UserDetail;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +18,5 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Integer>
 
     @Query("SELECT u from UserDetail u WHERE u.firstName LIKE %:name% or u.lastName LIKE %:name%")
     public List<UserDetail> searchUsersByName(@Param("name") String name);
+
 }
