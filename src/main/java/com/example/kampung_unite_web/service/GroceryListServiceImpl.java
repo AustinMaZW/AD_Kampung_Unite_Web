@@ -31,6 +31,7 @@ public class GroceryListServiceImpl implements GroceryListService{
             GroceryList groceryList = new GroceryList();
             groceryList.setUserDetail(userDetail);
             groceryList.setName(name);
+            groceryList.setStatus(GLStatus.PENDING);
             groceryList.setRole(HitchBuyRole.HITCHER);
             glrepo.save(groceryList);
             return groceryList.getId();
