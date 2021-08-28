@@ -62,8 +62,8 @@ public class ManageGroceriesDataTest {
         product2.setName("Happy Family 2IN1 Kopi O With Sugar Mixture Bag");
         product2.setCategory("Beverages");
         product2.setDescription("8 x 20 g");
-        product2.setImgURL(
-                "https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/yjwEFEKNPFnYIXrfN4s6wnfTAsdz5t.0.jpg");
+//        product2.setImgURL(
+//                "https://ssecomm.s3-ap-southeast-1.amazonaws.com/products/md/yjwEFEKNPFnYIXrfN4s6wnfTAsdz5t.0.jpg");
         productRepository.save(product2);
     }
 

@@ -71,6 +71,7 @@ public class GroceryListServiceImpl implements GroceryListService{
 
         groceryList.setRole(HitchBuyRole.BUYER);
         groceryList.setGroupPlanGL(groupPlan);
+        groceryList.setStatus(GLStatus.ACCEPTED);
 
         List<GroceryList> groceryLists = new ArrayList<>();
         groceryLists.add(groceryList);
