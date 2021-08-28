@@ -60,7 +60,11 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 	public List<HitchRequest> findHitchRQByGroceryListId(int groceryListId) {
 		HitcherDetail hitcherDetail = hdRepo.findHitcherDetailByGroceryListId(groceryListId);
 		if (hitcherDetail != null) {
-			List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetail.getId());
+			List<HitchRequest> rqList = hrqRepo.findHitchRequestsByHitcherDetailId(hitcherDetail.getId())
+					.stream()
+					.filter(x-> x.getRequestStatus()!=RequestStatus.REJECTED)			//only send back request list that aren't rejected
+					.collect(Collectors.toList());
+
 			return rqList;
 		}
 		return new ArrayList<>();
