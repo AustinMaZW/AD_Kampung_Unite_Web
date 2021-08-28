@@ -100,6 +100,7 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 			GroceryList groceryList = hitchRequest.getHitcherDetail().getGroceryList();
 
 			groceryList.setStatus(GLStatus.ACCEPTED);
+			groceryList.setGroupPlanGL(groupPlan);
 			groceryListRepository.save(groceryList); // set the groupplan to groceryList and save
 
 			List<GroceryItem> groceryItems = groceryList.getGroceryItems();

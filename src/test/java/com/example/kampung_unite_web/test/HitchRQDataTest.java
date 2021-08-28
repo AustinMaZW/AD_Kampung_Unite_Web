@@ -220,7 +220,7 @@ public class HitchRQDataTest {
                 new HitcherDetail(pickTimeChosen, address), HitchBuyRole.BUYER));
         glrepo.save(new GroceryList(String.format("buy buy buy"), GLStatus.ACCEPTED, usrs.get(1), groupplan,
                 new HitcherDetail(pickTimeChosen, address), HitchBuyRole.HITCHER));
-        glrepo.save(new GroceryList(String.format("party time"), GLStatus.PENDING, usrs.get(2), groupplan,
+        glrepo.save(new GroceryList(String.format("party time"), GLStatus.PENDING, usrs.get(2), null,
                 new HitcherDetail(pickTimeChosen, address), HitchBuyRole.HITCHER));
 
         // fill dummy grocery list with items
