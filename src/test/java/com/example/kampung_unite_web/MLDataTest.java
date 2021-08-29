@@ -96,26 +96,6 @@ public class MLDataTest {
 			grepo.save(new GroupPlan(String.format("plan_%s", i), String.format("Many_Shits_%s", i), shipping[i],
 					address[i], pickUp[i], GroupPlanStatus.AVAILABLE));
 		}
-		// GroupPlan[] groupPlans = {
-		// new GroupPlan("Many_Shits_1", shipping[0], "220 Prince Edward Road,
-		// Singapore, Singapore", pickUp[0],
-		// GroupPlanStatus.AVAILABLE),
-		// new GroupPlan("Many_Shits_2", shipping[1], "2024 BUKIT BATOK STREET,
-		// Singapore, Singapore", pickUp[1],
-		// GroupPlanStatus.AVAILABLE),
-		// new GroupPlan("Many_Shits_3", shipping[2], "3016 BEDOK NORTH AVENUE,
-		// Singapore, Singapore", pickUp[2],
-		// GroupPlanStatus.AVAILABLE),
-		// new GroupPlan("Many_Shits_4", shipping[3], "6 Cairnhill Rise, Singapore,
-		// Singapore", pickUp[3],
-		// GroupPlanStatus.AVAILABLE),
-		// new GroupPlan("Many_Shits_5", shipping[4], "950 Old Choa Chu Kang Road,
-		// Singapore, Singapore",
-		// pickUp[4], GroupPlanStatus.AVAILABLE),
-		// new GroupPlan("Many_Shits_6", shipping[5], "Industrial Park Lorong 8 Toa
-		// Payoh , Singapore, Singapore",
-		// pickUp[5], GroupPlanStatus.AVAILABLE) };
-		// Arrays.stream(groupPlans).forEach(x -> grepo.save(x));
 	}
 
 	@Test()
