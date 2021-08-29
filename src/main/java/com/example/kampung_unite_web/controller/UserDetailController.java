@@ -63,7 +63,7 @@ public class UserDetailController {
     public String editUser(@PathVariable("userId") int id, Model model) {
         UserDetail user = us.findUserById(id);
         model.addAttribute("user", user);
-        model.addAttribute("text", "Edit User");
+        model.addAttribute("text", "Update User");
         return UPDATE_USER_FORM;
     }
 

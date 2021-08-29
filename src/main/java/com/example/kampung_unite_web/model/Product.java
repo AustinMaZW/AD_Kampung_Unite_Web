@@ -36,4 +36,9 @@ public class Product {
 		this.name = name;
 	}
 
+	public Product(String name, String imgURL){
+		this.name = name;
+		this.imgURL = imgURL;
+	}
+
 }
