@@ -252,7 +252,7 @@ public class HitchRQDataTest {
     public void CreateMoreProduct() {
 
         for (int i = 0; i <= 80; i++) {
-            prepo.save(new Product("Product #" + i));
+            prepo.save(new Product("Product #" + i, ""));
         }
     }
 

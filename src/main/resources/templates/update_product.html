@@ -20,7 +20,7 @@
     <form th:object="${product}" class="form-horizontal" id="add-product-form" method="post">
       <h2>Update Product Info</h2>
       <div class="item">
-        <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text-required')}"/>
       </div>
       <div class="item">
         <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />

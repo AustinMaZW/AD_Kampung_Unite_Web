@@ -77,7 +77,7 @@ public class ProductController {
     public String viewEditForm (@PathVariable("productId") int productId, Model model){
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
-        model.addAttribute("text", "Edit Product");
+        model.addAttribute("text", "Update Product");
         return UPDATE_PRODUCT_FORM;
     }
 

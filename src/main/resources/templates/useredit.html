@@ -20,19 +20,19 @@
         <form th:object="${user}" class="form-horizontal" id="add-product-form" method="post">
             <h2>Update User Info</h2>
             <div class="item">
-                <input th:replace="~{fragments/inputField :: input ('Username', 'username', 'text')}" />
+                <input th:replace="~{fragments/inputField :: input ('Username', 'username', 'text-required')}" />
             </div>
             <div class="item">
-                <input th:replace="~{fragments/inputField :: input ('Password', 'password', 'text')}" />
+                <input th:replace="~{fragments/inputField :: input ('Password', 'password', 'password')}" />
             </div>
             <div class="item">
                 <input th:replace="~{fragments/inputField :: input ('Role', 'role', 'text')}" />
             </div>
             <div class="item">
-                <input th:replace="~{fragments/inputField :: input ('FirstName', 'firstName', 'text')}" />
+                <input th:replace="~{fragments/inputField :: input ('FirstName', 'firstName', 'text-required')}" />
             </div>
             <div class="item">
-                <input th:replace="~{fragments/inputField :: input ('LastName', 'lastName', 'text')}" />
+                <input th:replace="~{fragments/inputField :: input ('LastName', 'lastName', 'text-required')}" />
             </div>
             <div class="item">
                 <input th:replace="~{fragments/inputField :: input ('PhoneNumber', 'phoneNumber', 'text')}" />
