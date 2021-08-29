@@ -1,5 +1,12 @@
 package com.example.kampung_unite_web;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -86,23 +93,29 @@ public class MLDataTest {
 				"6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
 				"Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
 		for (int i = 0; i < address.length; i++) {
-			grepo.save(new GroupPlan(String.format("plan_%s", i),String.format("Many_Shits_%s", i), shipping[i], address[i], pickUp[i],
-					GroupPlanStatus.AVAILABLE));
+			grepo.save(new GroupPlan(String.format("plan_%s", i), String.format("Many_Shits_%s", i), shipping[i],
+					address[i], pickUp[i], GroupPlanStatus.AVAILABLE));
 		}
-//		GroupPlan[] groupPlans = {
-//				new GroupPlan("Many_Shits_1", shipping[0], "220 Prince Edward Road, Singapore, Singapore", pickUp[0],
-//						GroupPlanStatus.AVAILABLE),
-//				new GroupPlan("Many_Shits_2", shipping[1], "2024 BUKIT BATOK STREET, Singapore, Singapore", pickUp[1],
-//						GroupPlanStatus.AVAILABLE),
-//				new GroupPlan("Many_Shits_3", shipping[2], "3016 BEDOK NORTH AVENUE, Singapore, Singapore", pickUp[2],
-//						GroupPlanStatus.AVAILABLE),
-//				new GroupPlan("Many_Shits_4", shipping[3], "6 Cairnhill Rise, Singapore, Singapore", pickUp[3],
-//						GroupPlanStatus.AVAILABLE),
-//				new GroupPlan("Many_Shits_5", shipping[4], "950 Old Choa Chu Kang Road, Singapore, Singapore",
-//						pickUp[4], GroupPlanStatus.AVAILABLE),
-//				new GroupPlan("Many_Shits_6", shipping[5], "Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore",
-//						pickUp[5], GroupPlanStatus.AVAILABLE) };
-//		Arrays.stream(groupPlans).forEach(x -> grepo.save(x));
+		// GroupPlan[] groupPlans = {
+		// new GroupPlan("Many_Shits_1", shipping[0], "220 Prince Edward Road,
+		// Singapore, Singapore", pickUp[0],
+		// GroupPlanStatus.AVAILABLE),
+		// new GroupPlan("Many_Shits_2", shipping[1], "2024 BUKIT BATOK STREET,
+		// Singapore, Singapore", pickUp[1],
+		// GroupPlanStatus.AVAILABLE),
+		// new GroupPlan("Many_Shits_3", shipping[2], "3016 BEDOK NORTH AVENUE,
+		// Singapore, Singapore", pickUp[2],
+		// GroupPlanStatus.AVAILABLE),
+		// new GroupPlan("Many_Shits_4", shipping[3], "6 Cairnhill Rise, Singapore,
+		// Singapore", pickUp[3],
+		// GroupPlanStatus.AVAILABLE),
+		// new GroupPlan("Many_Shits_5", shipping[4], "950 Old Choa Chu Kang Road,
+		// Singapore, Singapore",
+		// pickUp[4], GroupPlanStatus.AVAILABLE),
+		// new GroupPlan("Many_Shits_6", shipping[5], "Industrial Park Lorong 8 Toa
+		// Payoh , Singapore, Singapore",
+		// pickUp[5], GroupPlanStatus.AVAILABLE) };
+		// Arrays.stream(groupPlans).forEach(x -> grepo.save(x));
 	}
 
 	@Test()
@@ -135,9 +148,10 @@ public class MLDataTest {
 		List<HitcherDetail> hitcherDetails = hrepo.findAll();
 
 		for (int i = 0; i < hitcherDetails.size(); i++) {
-			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, buyers.get(i % 2), plans.get(i), null, HitchBuyRole.BUYER));
-			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, Hitchers.get(i), plans.get(i), hitcherDetails.get(i),
-					HitchBuyRole.HITCHER));
+			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, buyers.get(i % 2), plans.get(i),
+					null, HitchBuyRole.BUYER));
+			glrepo.save(new GroceryList(String.format("plan_%s", i), GLStatus.ACCEPTED, Hitchers.get(i), plans.get(i),
+					hitcherDetails.get(i), HitchBuyRole.HITCHER));
 		}
 	}
 
@@ -170,5 +184,26 @@ public class MLDataTest {
 			}
 		}
 
+	}
+
+	@Test
+	@Order(7)
+	public void createJeanProducts() throws IOException {
+		try {
+			File file = new File(
+					"E:\\Code\\AD\\Application\\SpringBoot\\AD_Kampung_Unite_Web\\src\\main\\resources\\data\\data.txt");
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			List<Product> products = new ArrayList<>();
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] a = line.split(",,,");
+				products.add(new Product(a[0], a[1], a[2], a[3]));
+			}
+			fr.close(); // closes the stream and release the resources
+			prepo.saveAll(products);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
