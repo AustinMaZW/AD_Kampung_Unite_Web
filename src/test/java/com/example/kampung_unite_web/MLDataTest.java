@@ -84,16 +84,16 @@ public class MLDataTest {
 	@Order(2)
 	public void CreateGroupPlan() {
 		// street, city, county, state, country, or postalcode
-		LocalDate[] pickUp = { LocalDate.of(2021, 10, 1), LocalDate.of(2021, 10, 10), LocalDate.of(2021, 10, 21),
-				LocalDate.of(2021, 10, 15), LocalDate.of(2021, 10, 8), LocalDate.of(2021, 10, 25) };
-		LocalDate[] shipping = { LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 10), LocalDate.of(2021, 9, 21),
-				LocalDate.of(2021, 9, 15), LocalDate.of(2021, 9, 8), LocalDate.of(2021, 9, 25) };
-		String[] address = { "220 Prince Edward Road, Singapore, Singapore",
-				"2024 BUKIT BATOK STREET, Singapore, Singapore", "3016 BEDOK NORTH AVENUE, Singapore, Singapore",
-				"6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
-				"Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
+		LocalDate[] pickUp = { LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 3),
+				LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4) };
+		LocalDate[] shipping = { LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 2), LocalDate.of(2021, 9, 3),
+				LocalDate.of(2021, 9, 2), LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 2) };
+		String[] address = { "Pickering St, Singapore, Singapore",
+				"Mosque St, Singapore, Singapore", "Pagoda St, Singapore, Singapore",
+				"Telok Ayer St, Singapore, Singapore", "Maxwell rd, Singapore, Singapore",
+				"Hougang St 51, Singapore, Singapore" };
 		for (int i = 0; i < address.length; i++) {
-			grepo.save(new GroupPlan(String.format("plan_%s", i), String.format("Many_Shits_%s", i), shipping[i],
+			grepo.save(new GroupPlan(String.format("Buyer Test Plan ", i), String.format("Many_Stuff_%s", i), shipping[i],
 					address[i], pickUp[i], GroupPlanStatus.AVAILABLE));
 		}
 	}

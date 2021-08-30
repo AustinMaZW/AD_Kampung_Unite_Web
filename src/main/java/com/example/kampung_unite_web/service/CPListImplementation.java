@@ -1,4 +1,4 @@
-package com.example.kampung_unite_web.implementations;
+package com.example.kampung_unite_web.service;
 
 import com.example.kampung_unite_web.service.CPListService;
 import com.example.kampung_unite_web.model.CombinedPurchaseList;
