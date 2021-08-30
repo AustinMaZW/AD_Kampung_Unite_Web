@@ -84,38 +84,19 @@ public class HitchRQDataTest {
     @Order(2)
     public void CreateGroupPlan() {
         // street, city, county, state, country, or postalcode
-        LocalDate[] pickUp = { LocalDate.of(2021, 10, 1), LocalDate.of(2021, 10, 10), LocalDate.of(2021, 10, 21),
-                LocalDate.of(2021, 10, 15), LocalDate.of(2021, 10, 8), LocalDate.of(2021, 10, 25) };
-        LocalDate[] shipping = { LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 10), LocalDate.of(2021, 9, 21),
-                LocalDate.of(2021, 9, 15), LocalDate.of(2021, 9, 8), LocalDate.of(2021, 9, 25) };
-        String[] address = { "220 Prince Edward Road, Singapore, Singapore",
-                "2024 BUKIT BATOK STREET, Singapore, Singapore", "3016 BEDOK NORTH AVENUE, Singapore, Singapore",
-                "6 Cairnhill Rise, Singapore, Singapore", "Choa Chu Kang Road, Singapore, Singapore",
-                "Industrial Park Lorong 8 Toa Payoh , Singapore, Singapore" };
+        LocalDate[] pickUp = { LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 3),
+                LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4) };
+        LocalDate[] shipping = { LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 2), LocalDate.of(2021, 9, 3),
+                LocalDate.of(2021, 9, 2), LocalDate.of(2021, 9, 1), LocalDate.of(2021, 9, 2) };
+        String[] address = { "Cross St, Singapore, Singapore",
+                "Mosque St, Singapore, Singapore", "Club St, Singapore, Singapore",
+                "Telok Ayer St, Singapore, Singapore", "Amoy St, Singapore, Singapore",
+                "Hougang St 51, Singapore, Singapore" };
         for (int i = 0; i < address.length; i++) {
-            grepo.save(new GroupPlan(String.format("plan_%s", i), String.format("Great Store_%s", i), shipping[i],
+            grepo.save(new GroupPlan(String.format("Buyer Test Plan %s", i), String.format("Great Store %s", i), shipping[i],
                     address[i], pickUp[i], GroupPlanStatus.AVAILABLE));
         }
-        // GroupPlan[] groupPlans = {
-        // new GroupPlan("Many_Shits_1", shipping[0], "220 Prince Edward Road,
-        // Singapore, Singapore", pickUp[0],
-        // GroupPlanStatus.AVAILABLE),
-        // new GroupPlan("Many_Shits_2", shipping[1], "2024 BUKIT BATOK STREET,
-        // Singapore, Singapore", pickUp[1],
-        // GroupPlanStatus.AVAILABLE),
-        // new GroupPlan("Many_Shits_3", shipping[2], "3016 BEDOK NORTH AVENUE,
-        // Singapore, Singapore", pickUp[2],
-        // GroupPlanStatus.AVAILABLE),
-        // new GroupPlan("Many_Shits_4", shipping[3], "6 Cairnhill Rise, Singapore,
-        // Singapore", pickUp[3],
-        // GroupPlanStatus.AVAILABLE),
-        // new GroupPlan("Many_Shits_5", shipping[4], "950 Old Choa Chu Kang Road,
-        // Singapore, Singapore",
-        // pickUp[4], GroupPlanStatus.AVAILABLE),
-        // new GroupPlan("Many_Shits_6", shipping[5], "Industrial Park Lorong 8 Toa
-        // Payoh , Singapore, Singapore",
-        // pickUp[5], GroupPlanStatus.AVAILABLE) };
-        // Arrays.stream(groupPlans).forEach(x -> grepo.save(x));
+
     }
 
     @Test()

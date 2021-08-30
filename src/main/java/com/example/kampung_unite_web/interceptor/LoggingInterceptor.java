@@ -19,7 +19,6 @@ public class LoggingInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws IOException {
-        LOGGER.info("preHandle");
         // 登录检查逻辑
         HttpSession session = request.getSession();
         Object loginUser = session.getAttribute("userSession");
