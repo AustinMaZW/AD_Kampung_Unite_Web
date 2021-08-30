@@ -170,8 +170,9 @@ public class MLDataTest {
 	@Order(7)
 	public void createJeanProducts() throws IOException {
 		try {
+			//below path is Austin's path, replace with your absolute path for data.txt
 			File file = new File(
-					"E:\\Code\\AD\\Application\\SpringBoot\\AD_Kampung_Unite_Web\\src\\main\\resources\\data\\data.txt");
+					"C:\\NUS ISS\\AD Project\\Kampung_Unite_Web\\src\\main\\resources\\data\\data.txt");
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
 			List<Product> products = new ArrayList<>();

@@ -56,7 +56,7 @@ public class HitchRQDataTest {
                 new UserDetail("NG", "123", "CheZaw", "NguMay", "User", "123", "123"),
                 new UserDetail("CK", "123", "ChorKian", "Tang", "User", "123", "123"),
                 new UserDetail("Yue", "123", "PengCheng", "Yue", "admin", "123", "123"),
-                new UserDetail("Tin", "123", "Ngu", "Tin", "User", "123", "123"),
+                new UserDetail("Esther", "123", "Esther", "Tan", "User", "123", "123"),
                 new UserDetail("Cher", "123", "CherWah", "Tan", "User", "123", "123") };
         Arrays.stream(usrs).forEach(x -> urepo.save(x));
     }
@@ -64,9 +64,19 @@ public class HitchRQDataTest {
     @Test()
     @Order(1)
     public void CreateProduct() {
-        Product[] products = { new Product("apple"), new Product("banana"), new Product("Soy sauce"),
-                new Product("coke cola"), new Product("pepsi"), new Product("KFC"), new Product("sheet"),
-                new Product("ice cream"), new Product("mango") };
+        Product[] products = {
+                new Product("China Fuji Apple 3/pack", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/10896998_L1.jpg?q=60"),
+                new Product("Aloha Banana 700g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13102605_L1.jpg?q=60"),
+                new Product("Tiger Soy Sauce 250ml", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/78263_L1.jpg?q=60"),
+                new Product("Coca Cola 12x320ml", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13179229_L1_20210507.jpg?q=60"),
+                new Product("Ben Jerry Netflix Chill'd", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13173655_L1_20210625.jpg?q=60"),
+                new Product("Minced Pork 500g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/90018584_L1.jpg?q=60"),
+                new Product("Chinese Spinach 250g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/10355403_L1_20210603.jpg?q=60"),
+                new Product("Pagoda Salt 500g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/51558_L1_20210504.jpg?q=60"),
+                new Product("Marigold Yogurt 2x130g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13025578_L1.jpg?q=60"),
+                new Product("Meiji Milk 940ml", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13188250_L1_20201120.jpg?q=60"),
+                new Product("Lay's classic 184g", "https://media.nedigital.sg/fairprice/fpol/media/images/product/L/13198181_L1_20210421.jpg?q=60"),
+        };
         Arrays.stream(products).forEach(x -> prepo.save(x));
     }
 
@@ -212,7 +222,7 @@ public class HitchRQDataTest {
         String address = "220 Prince Edward Road, Singapore, Singapore";
         grepo.save(new GroupPlan("SUPER SPECIAL Plan", String.format("secret store"), shopping, address, pickUp,
                 GroupPlanStatus.AVAILABLE));
-        GroupPlan groupplan = grepo.findGroupPlanById(246); // hard coded the id here
+        GroupPlan groupplan = grepo.findGroupPlanById(284); // hard coded the id here
 
         // create dummy grocery list
         List<UserDetail> usrs = urepo.findAll();
@@ -226,11 +236,11 @@ public class HitchRQDataTest {
         // fill dummy grocery list with items
         List<Product> products = prepo.findAll();
         for (int i = 0; i < products.size(); i++) {
-            GroceryItem g1 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(247));
+            GroceryItem g1 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(285));
             girepo.save(g1);
-            GroceryItem g2 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(249));
+            GroceryItem g2 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(287));
             girepo.save(g2);
-            GroceryItem g3 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(251));
+            GroceryItem g3 = new GroceryItem(8, 2, products.get(i), glrepo.findGroceryListById(289));
             girepo.save(g3);
         }
 
@@ -241,19 +251,19 @@ public class HitchRQDataTest {
 
         // fill dummy hrq, put hitcherdetail as null here but shouldn't matter
         hrqrepo.save(new HitchRequest(pickTimeChosen, false, false, RequestStatus.ACCEPTED, groupplan,
-                glrepo.findGroceryListById(249).getHitcherDetail()));
+                glrepo.findGroceryListById(287).getHitcherDetail()));
 
         hrqrepo.save(new HitchRequest(pickTimeChosen, false, false, RequestStatus.PENDING, groupplan,
-                glrepo.findGroceryListById(251).getHitcherDetail()));
+                glrepo.findGroceryListById(289).getHitcherDetail()));
     }
 
     @Test()
     @Order(10)
     public void CreateMoreProduct() {
 
-        for (int i = 0; i <= 80; i++) {
-            prepo.save(new Product("Product #" + i, ""));
-        }
+//        for (int i = 0; i <= 80; i++) {
+//            prepo.save(new Product("Product #" + i, ""));
+//        }
     }
 
     @Test()

@@ -81,7 +81,7 @@
                             <td>
                                 <a th:href="@{/userdetail/edit/}+${user.id}" class="edit"><i class="material-icons"
                                         data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a th:if="${user.grocerylists.size() == 0}" th:href="@{/userdetail/delete/}+${user.id}"
+                                <a th:if="${user.grocerylists.size() == 0} and ${user.role!='admin'}" th:href="@{/userdetail/delete/}+${user.id}"
                                     class="delete"
                                     onclick="return confirm('Are you sure you want to delete this item?');">
                                     <i class="material-icons" title="Delete">&#xE872;</i></a>
@@ -95,27 +95,47 @@
                             th:text="${totalItems}">25</b>
                         entries</div>
                     <ul class="pagination">
+                        <!--            logic for first page-->
+                        <li th:if="${currentPage>1}" class="page-item"><a th:href="@{'/userdetail/' + ${1}}"
+                                                                          class="page-link">First</a></li>
+                        <li th:unless="${currentPage>1}" class="page-item disabled"><a class="page-link">First</a></li>
+                        <!--            logic for previous page-->
                         <li th:if="${currentPage>1}" class="page-item"><a th:href="@{'/userdetail/' + ${currentPage-1}}"
-                                class="page-link">Previous</a></li>
-                        <li th:unless="${currentPage>1}" class="page-item disabled"><a class="page-link">Previous</a>
-                        </li>
+                                                                          class="page-link">Previous</a></li>
+                        <li th:unless="${currentPage>1}" class="page-item disabled"><a class="page-link">Previous</a></li>
 
-                        <div th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <!--            logic for if total is <10, can show all pages -->
+                        <div th:if="${totalPages <10}" th:each="i: ${#numbers.sequence(1, totalPages)}">
                             <li th:if="${i != currentPage}" class="page-item">
                                 <!-- if page is not current page, then do not have active icon-->
                                 <a th:href="@{/userdetail/}+${i}" class="page-link" th:text="${i}">1</a>
                             </li>
                             <li th:unless="${i != currentPage}" class="page-item active">
-                                <a class="page-link" th:text="${i}">1</a>
-                                <!-- if current page, display active and remove href-->
+                                <a class="page-link" th:text="${i}">1</a> <!-- if current page, display active and remove href-->
+                            </li>
+                        </div>
+                        <!--            logic for totalpages>10, only show +/-5 pages-->
+                        <div th:if="${totalPages >10}" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                            <li th:if="${i != currentPage} and ${i> currentPage -5} and ${i< currentPage +5}" class="page-item">
+                                <!-- if page is not current page, then do not have active icon-->
+                                <a th:href="@{/userdetail/}+${i}" class="page-link" th:text="${i}">1</a>
+                            <li th:unless="${i != currentPage}" class="page-item active">
+                                <a class="page-link" th:text="${i}">1</a> <!-- if current page, display active and remove href-->
                             </li>
                         </div>
 
-                        <li th:if="${currentPage < totalPages}" class="page-item"><a
-                                th:href="@{'/userdetail/' + ${currentPage+1}}" class="page-link">Next</a></li>
-                        <li th:unless="${currentPage<totalPages}" class="page-item disabled"><a
-                                class="page-link">Next</a></li>
+                        <!--            logic for to add '...' if cannot see last page-->
+                        <li th:if="${currentPage <= totalPages - 5}" class="page-item">
+                            <a class="page-link">...</a>
 
+                            <!--            logic for next page-->
+                        <li th:if="${currentPage<totalPages}" class="page-item"><a th:href="@{'/userdetail/' + ${currentPage+1}}"
+                                                                                   class="page-link">Next</a></li>
+                        <li th:unless="${currentPage<totalPages}" class="page-item disabled"><a class="page-link">Next</a></li>
+                        <!--            logic for last Page-->
+                        <li th:if="${currentPage<totalPages}" class="page-item"><a th:href="@{'/userdetail/' + ${totalPages}}"
+                                                                                   class="page-link">Last</a></li>
+                        <li th:unless="${currentPage<totalPages}" class="page-item disabled"><a class="page-link">Last</a></li>
                     </ul>
                 </div>
             </div>
