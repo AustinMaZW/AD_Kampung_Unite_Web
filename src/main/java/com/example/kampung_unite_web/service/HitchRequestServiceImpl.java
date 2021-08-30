@@ -93,11 +93,20 @@ public class HitchRequestServiceImpl implements HitchRequestService {
 		// validation against accepted status. If alr accepted, then should not continue
 		// to modify anything
 		if (hitchRequest != null && hitchRequest.getRequestStatus() != RequestStatus.ACCEPTED) {
+			GroupPlan groupPlan = hitchRequest.getGroupPlan();
+			GroceryList groceryList = hitchRequest.getHitcherDetail().getGroceryList();
+
+			List<HitchRequest> allHitchRqs = groceryList.getHitcherDetail().getHitchRequests();
+			allHitchRqs.stream().forEach(x->{			//cancel all other hitchRq by same user since he is accepted into this one
+				if (x.getId()!=hitchRqId){
+					cancelHitchRq(x.getId());
+				}
+			});
+
 			hitchRequest.setRequestStatus(RequestStatus.ACCEPTED);
 			hrqRepo.save(hitchRequest); // save hrq
 
-			GroupPlan groupPlan = hitchRequest.getGroupPlan();
-			GroceryList groceryList = hitchRequest.getHitcherDetail().getGroceryList();
+
 
 			groceryList.setStatus(GLStatus.ACCEPTED);
 			groceryList.setGroupPlanGL(groupPlan);
