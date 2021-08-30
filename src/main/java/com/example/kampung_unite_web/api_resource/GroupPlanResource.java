@@ -99,7 +99,10 @@ public class GroupPlanResource {
 			HitcherDetail hd = gList.getHitcherDetail();
 			System.out.println(hd.getPrefPickupLocation());
 			return hd;
+		} else {
+			HitcherDetail hd = new HitcherDetail();
+			hd.setPrefPickupLocation("not available");
+			return hd;
 		}
-		return null;
 	}
 }
