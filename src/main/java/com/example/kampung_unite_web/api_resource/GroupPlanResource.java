@@ -11,14 +11,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.kampung_unite_web.model.AvailableTime;
+import com.example.kampung_unite_web.model.GroceryList;
 import com.example.kampung_unite_web.model.GroupPlan;
+import com.example.kampung_unite_web.model.HitcherDetail;
 import com.example.kampung_unite_web.model.Product;
+import com.example.kampung_unite_web.service.GroceryListService;
 import com.example.kampung_unite_web.service.GroupPlanService;
 
 @RestController
 @RequestMapping("/groupplan")
 public class GroupPlanResource {
-
+	@Autowired
+	private GroceryListService gs;
 	@Autowired
 	private GroupPlanService gls;
 
@@ -62,14 +66,15 @@ public class GroupPlanResource {
 
 	@RequestMapping(path = "/save", method = RequestMethod.GET)
 	public GroupPlan createGroupPlan(@RequestParam("planName") String planName,
-									 @RequestParam("storeName") String storeName,
-									 @RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
-									 @RequestParam("pickUpAddress") String pickupAddress,
-									 @RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate,
-									 @RequestParam("time1") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time1,
-									 @RequestParam("time2") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time2,
-									 @RequestParam("time3") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time3) {
-		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate, time1, time2, time3);
+			@RequestParam("storeName") String storeName,
+			@RequestParam("shoppingDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate shoppingDate,
+			@RequestParam("pickUpAddress") String pickupAddress,
+			@RequestParam("pickUpDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate pickupDate,
+			@RequestParam("time1") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time1,
+			@RequestParam("time2") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time2,
+			@RequestParam("time3") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time3) {
+		GroupPlan groupPlan = gls.createGroupPlan(planName, storeName, shoppingDate, pickupAddress, pickupDate, time1,
+				time2, time3);
 		return groupPlan;
 	}
 
@@ -84,5 +89,17 @@ public class GroupPlanResource {
 	public Map<Integer, List<String>> findSlots(@RequestBody List<Integer> planIds) {
 
 		return gls.findSlotsByPlanIds(planIds);
+	}
+
+	@RequestMapping(path = "/findHd/{listId}", method = RequestMethod.GET)
+	public HitcherDetail findHitcherDetailByList(@PathVariable("listId") int listId) {
+		GroceryList gList = gs.findGroceryListByGroceryListId(listId);
+		if (gList.getHitcherDetail() != null && gList.getHitcherDetail().getPrefPickupLocation() != null
+				&& gList.getHitcherDetail().getPrefPickupLocation().length() > 0) {
+			HitcherDetail hd = gList.getHitcherDetail();
+			System.out.println(hd.getPrefPickupLocation());
+			return hd;
+		}
+		return null;
 	}
 }
