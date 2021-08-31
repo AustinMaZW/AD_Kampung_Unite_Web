@@ -32,4 +32,6 @@ public interface UserDetailService {
     public Page<UserDetail> getUsersByPage(int pageNo, String name);
 
     public List<UserDetail> searchUsersByName(String name);
+
+    public UserDetail findBuyerDetail(int hitchRqId);
 }

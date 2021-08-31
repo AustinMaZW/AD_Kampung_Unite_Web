@@ -1,5 +1,9 @@
 package com.example.kampung_unite_web.service;
 
+import com.example.kampung_unite_web.model.GroceryList;
+import com.example.kampung_unite_web.model.HitchRequest;
+import com.example.kampung_unite_web.model.enums.HitchBuyRole;
+import com.example.kampung_unite_web.repo.HitcherRequestRepository;
 import com.example.kampung_unite_web.service.UserDetailService;
 import com.example.kampung_unite_web.model.UserDetail;
 import com.example.kampung_unite_web.model.UserLogin;
@@ -22,6 +26,9 @@ public class UserDetailImplementation implements UserDetailService {
 
     @Autowired
     UserDetailPagingRepository udprepo;
+
+    @Autowired
+    HitcherRequestRepository hrqrepo;
 
     @Override
     public UserDetail findUserById(int id) {
@@ -111,4 +118,19 @@ public class UserDetailImplementation implements UserDetailService {
         return pds;
     }
 
+    @Override
+    public UserDetail findBuyerDetail(int hitchRqId){
+        HitchRequest hitchRequest = hrqrepo.findHitchRequestsById(hitchRqId);
+        if(hitchRequest!=null){
+            List<GroceryList> groceryLists = hitchRequest.getGroupPlan().getGroceryLists();
+            UserDetail buyerDetail = new UserDetail();
+            for (GroceryList gl: groceryLists) {
+                if(gl.getRole()== HitchBuyRole.BUYER){
+                    buyerDetail = gl.getUserDetail();
+                }
+            }
+            return buyerDetail;
+        }
+        return null;
+    }
 }
