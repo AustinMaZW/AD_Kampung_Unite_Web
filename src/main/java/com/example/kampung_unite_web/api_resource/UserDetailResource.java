@@ -186,4 +186,8 @@ public class UserDetailResource {
         return userDetail;
     }
 
+    @GetMapping("hitchrq/{hitchRqId}")
+    public UserDetail findBuyerDetail(@PathVariable("hitchRqId") int hitchRqId){
+        return udService.findBuyerDetail(hitchRqId);
+    }
 }
